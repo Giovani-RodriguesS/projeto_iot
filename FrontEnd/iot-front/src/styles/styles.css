@@ -18,7 +18,7 @@
 }
 
 .div-cards {
-    @apply flex justify-around mr-5 ml-5 p-3 bg-stone-100 h-1/4 rounded-lg
+    @apply flex justify-around mr-5 ml-5 p-3 bg-white h-1/4 rounded-lg
 }
 
 .card {
@@ -31,4 +31,12 @@
 
 .up-transition {
     @apply transform hover:-translate-y-1 transition duration-500 ease-in-out
+}
+
+.userCard {
+    @apply bg-slate-200 rounded-lg p-6 mt-3
+}
+
+.header {
+    @apply w-full h-full bg-gray-600 p-4 rounded-t-lg text-white font-mono font-semibold text-xl 
 }

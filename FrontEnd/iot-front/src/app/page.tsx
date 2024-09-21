@@ -1,7 +1,7 @@
 'use client'
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
-import Main from "@/components/Main"
+import Main from "@/components/main/Main"
 
 export default function Home() {
     return (
@@ -9,7 +9,7 @@ export default function Home() {
             <Sidebar/>
             <div className="flex-1 mr-5 mt-10">
                 <Header title="Home" user="Giovani"/>
-                <Main/>
+                <Main home={true}/>
             </div>
         </div>
     );

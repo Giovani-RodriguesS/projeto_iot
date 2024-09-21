@@ -1,7 +1,7 @@
 'use client'
 
 import Header from "@/components/Header";
-import Main from "@/components/Main";
+import Main from "@/components/main/Main";
 import Sidebar from "@/components/Sidebar";
 
 
@@ -11,6 +11,7 @@ export default function User() {
             <Sidebar/>
             <div className="flex-1 mr-5 mt-10">
                 <Header title="Usuários"/>
+                <Main user={true}/>
             </div>
         </div>
     );
