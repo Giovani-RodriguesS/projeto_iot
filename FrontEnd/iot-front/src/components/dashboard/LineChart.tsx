@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { Chart } from 'primereact/chart'
-import { text } from "stream/consumers";
 
 export default function LineChart () {
 
@@ -70,7 +69,7 @@ export default function LineChart () {
     }, []);
 
     return (
-        <div className="mr-4 ml-4 rounded-lg bg-gray-900">
+        <div className="mr-4 ml-4 h-full rounded-lg bg-gray-900" >
             <Chart type="line" data={chartData} options={chartOptions}/>
         </div>
         )

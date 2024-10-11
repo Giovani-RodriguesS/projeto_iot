@@ -1,7 +1,7 @@
 'use client'
 
-import LineChart from "../dashboard/LineChart";
-import Table from "../dashboard/Table";
+import LineChart from "../../../dashboard/LineChart";
+import Table from "../../../dashboard/Table";
 
 export default function Data() {
     return (

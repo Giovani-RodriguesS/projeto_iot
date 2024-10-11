@@ -1,7 +1,7 @@
 'use client'
-import Cards from "./Cards";
-import Data from "./Data";
-import User from "./User";
+import Cards from "./components/home/Cards";
+import Data from "./components/home/Data";
+import User from "./components/users/User";
 
 
 interface MainProps {

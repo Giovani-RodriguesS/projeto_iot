@@ -34,9 +34,13 @@
 }
 
 .userCard {
-    @apply bg-slate-200 rounded-lg p-6 mt-3
+    @apply bg-slate-200 rounded-lg p-6 mt-3 
 }
 
 .header {
     @apply w-full h-full bg-gray-600 p-4 rounded-t-lg text-white font-mono font-semibold text-xl 
+}
+
+.div-user-content {
+    @apply flex flex-col-reverse h-full p-6 bg-zinc-500 rounded-xl bg-opacity-25
 }

@@ -26,6 +26,11 @@ export default function Navbar() {
                 <i className={`pi ${pathName === `/reports` ? `pi-flag-fill` : `pi-flag`} mr-2`}></i>
                 Reports
             </Link>
+            <Link href={'/'} className='navlink'>
+                <i className='pi pi-sign-out mr-2'></i>
+                Sair
+            </Link>
+        
         </nav>
     );
 }
