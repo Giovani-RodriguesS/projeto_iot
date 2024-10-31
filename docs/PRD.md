@@ -2,23 +2,23 @@
 
 # *Introdução & objetivo*
 
-Nosso sistema coleta dados em tempo real da sua linha de produção automotiva, garantindo armazenamento seguro e consultas rápidas. Com alertas inteligentes e automatização, você toma decisões ágeis, reduzindo custos e aumentando a eficiência, tudo com um ótimo custo-benefício para manter sua operação sempre fluindo.
+Nosso sistema coleta dados em tempo real de uma plantação, sendo capaz de nos dizer a quantidade de vezes que a bomba foi acionada, quanto tempo durou esse acionamento e a umidade do solo. Assim, podemos ter um controle maior sobre o sistema de irrigação inteligente, permitindo obter *insights* importantes.
+
 
 # *Por que* implementar isto?
 
-Implementar nosso sistema melhora o controle, reduz desperdícios e aumenta a eficiência da sua linha de produção. Com alertas inteligentes e automação, você antecipa problemas e mantém tudo em movimento, tudo isso com um excelente custo-benefício. É a solução perfeita para elevar a competitividade e a performance da sua operação.
+Implementar nosso sistema melhora a visibilidade no processo de irrigação inteligente, possibilitando visualizar quais dias houve mais acionamento, quanto tempo durou a irrigação além de favorecer o armazenameto de dados para análises futuras.
 
 ---
 
 # ***Público alvo***
 
-Nosso produto foi desenvolvido para atender as exigências de gestores,  gerentes e engenheiros seja dos setores da Qualidade, como também de Operações.
+Nosso produto foi desenvolvido para atender as exigências de agricultores e fazendeiros.
 
 | Perfil de usuário | Descrição, necessidades e interesses. |
 | --- | --- |
-| Gerentes | Acompanhamento da produção em tempo real, tempo de ciclo, gastos com defeitos e consumo    q   '   |
-| Gestores | Acompanhamento de tempo de ciclo, percentual de defeitos e disperdicios de cada setor |
-| Engenheiros | Acompanhamento de consumo energético e tempo de ciclo |
+| Agricultores | Acompanhamento de dados referentes a irrigação e análise de qualidade da umidade no solo |
+| Fazendeiros | Acompanhamento de dados referentes a irrigação e obtenção de possíveis *insights* |
 
 # *Personas*
 
