@@ -7,8 +7,10 @@ classDiagram
         <<abstract>>
         + id: int
         + nome: string
+        + data_instalacao: datetime
     }
     class Usuario {
+        + id: int
         + nome: string
         + senha: string
         + cargo: string
@@ -17,12 +19,10 @@ classDiagram
 
     class Sensor {
         + unidade: string
-        + data_instalacao: datatime
     }
     class Bomba {
         + tipo string
-        + vazao/min: float
-        + data_instalacao datatime
+        + vazao: float
         + localizacao string
     }
     class Leitura {
@@ -45,6 +45,5 @@ classDiagram
     Leitura <|-- LeituraSensor
     Leitura <|-- LeituraBomba
 
-    LeituraBomba --> Bomba : associa
-    LeituraSensor --> Sensor : associa
+    Dispositivo --> Leitura : associa
 ```
