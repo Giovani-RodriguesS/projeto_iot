@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using BackEnd.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<BackEndContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("BackEndContext") ?? throw new InvalidOperationException("Connection string 'BackEndContext' not found.")));
 
 // Add services to the container.
 
