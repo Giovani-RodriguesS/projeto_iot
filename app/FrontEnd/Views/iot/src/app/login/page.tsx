@@ -1,59 +1,66 @@
-import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import React from "react";
-import Image from "next/image";
+import "@/style/styles.css";
 
 export default function Profile() {
     return (
+        <main className="flex justify-center items-center h-screen bg-slate-800">
+            <div className="relative flex w-full max-w-5xl h-3/4 bg-slate-800 rounded-lg shadow-lg overflow-hidden">
 
-        <main className="flex-1 flex justify-center items-center h-screen bg-gradient-to-b from-slate-700 to-black">
+                {/* Imagem de Fundo (lado esquerdo) */}
+                <div className="w-1/2 relative">
+                    <img
+                        src="images/login/irrigation.jpg"
+                        alt="Imagem de fundo"
+                        className="w-full h-full object-cover opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-l from-black via-transparent"></div>
+                </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-xl">
-                <h2 className="text-2xl  font-extrabold mb-6 text-center text-black">Welcome to Sistem!</h2>
-                <h3 className="text-sm mb-6 text-center font-serif">Enter your details to access.</h3>
-                <form>
-                    <div className="mb-4">
-                        <label htmlFor="username" className="formLabel">Username</label>
-                        <div className="flex items-center border border-gray-300 rounded-md px-3 py-2">
-                            <i className="pi pi-user text-black-400"></i>
-                            <input type="text" id="username" name="username" required className="formInput" placeholder="Enter your username" />
+                {/* Seção do Formulário (lado direito) */}
+                <div className="w-1/2 p-8 bg-slate-900 bg-opacity-75 flex flex-col justify-center rounded-lg">
+                    <h2 className="text-3xl font-extrabold mb-6 text-white text-center">Bem-Vindo!</h2>
+                    <form>
+                        <div className="mb-4">
+                            <label htmlFor="email" className="text-gray-400">Email</label>
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                required
+                                className="w-full p-3 mt-2 bg-slate-800 text-white rounded-md"
+                                placeholder="Digite seu email"
+                            />
                         </div>
-                    </div>
 
-
-                    <div className="mb-6">
-                        <label htmlFor="senha" className="formLabel">Password</label>
-                        <div className="flex items-center border border-gray-300 rounded-md px-3 py-2">
-                            <i className="pi pi-lock text-black-400"></i>
-
-                        <input type="password" id="password" name="senha" required className="formInput" placeholder="**********" />
+                        <div className="mb-4">
+                            <label htmlFor="password" className="text-gray-400">Senha</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="senha"
+                                required
+                                className="w-full p-3 mt-2 bg-slate-800 text-white rounded-md"
+                                placeholder="********"
+                            />
                         </div>
-                    </div>
 
-                    <div className="text-center">
-                        <a href="http://localhost:3000/" className="btnSave">Login</a>
-                    </div>
+                        <div className="text-right mt-4">
+                            <a href="#" className="text-white hover:underline">Esqueci minha senha</a>
+                        </div>
 
-                    <div className="text-center mt-4">
-                        <a href="/#" className="text-black-500 hover:underline">Forgot My Password</a>
-                    </div>
+                        <div className="text-center mt-10">
+                            <button type="submit" className="w-full p-3 rounded-md bg-gradient-to-r from-blue-500 to-blue-300 text-white font-semibold">
+                                Entrar
+                            </button>
+                        </div>
 
-
-                </form>
+                        <div className="text-center mt-6">
+                            <a href="#" className="text-white hover:underline">Ainda não tenho uma conta</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-
         </main>
     );
 }
-
-
-
-
-
-
-// Tela de login:
-//Componentes:
-//Campos de entrada para nome de usuario e senha.
-//Botão de Login.
-//Link para "Esqueci minha senha".
-
