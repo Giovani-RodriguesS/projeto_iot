@@ -1,16 +1,16 @@
-import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import React from "react";
-import LineChart from "@/components/dashboard/LineChart"; // Certifique-se de ajustar o caminho do LineChart
+import LineChart from "@/components/dashboard/LineChart";
 import DashDataFrame from "@/components/dashboard/DataTable";
+import Navbar from "@/components/Navbar";
 
 
 export default function Home() {
   return (
     <div className="flex">
-      <Sidebar />
-      <div className="flex-1 bg-slate-800">
-        <Header title="Página Inicial" username="Letícia Anhaia" />
+      <div className="flex-1 bg-black">
+        <Header title= "Irrigação Smart" username="Usuário"/>
+        <Navbar />
         <main>
           <div className="flex gap-7 justify-center mt-7 ml-5 mr-5">
             <div className="p-4 bg-red-500 rounded-lg w-60 flex flex-col items-center justify-center">
