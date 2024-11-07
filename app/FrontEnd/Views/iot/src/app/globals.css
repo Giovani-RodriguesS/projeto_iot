@@ -25,3 +25,20 @@ body {
     text-wrap: balance;
   }
 }
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem {
+  margin-right: 4rem; 
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem:last-child {
+  margin-right: 0;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight {
+  color: #a6e1ff; 
+  border-radius: 0.5rem;
+}
+
+.custom-tabmenu .p-menuitem-link .pi {
+  margin-right: 1rem;
+}
