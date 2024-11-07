@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import React from "react";
-import LineChart from "@/components/dashboard/LineChart";
-import DashDataFrame from "@/components/dashboard/DataTable";
+import LineChart from "@/app/dashboard/LineChart";
+import DashDataFrame from "@/app/dashboard/DataTable";
 import Navbar from "@/components/Navbar";
 
 
