@@ -9,6 +9,10 @@ export default function NavBar() {
     const router = useRouter();
 
     const items: MenuItem[] = [
+        { label: 'Home',
+          icon: 'pi pi-home', 
+          command: () => router.push('/home')
+        },
         { label: 'Dashboard',
           icon: 'pi pi-chart-bar', 
           command: () => router.push('/dashboard')
@@ -27,10 +31,17 @@ export default function NavBar() {
       }
     ];
 
+  function setActiveIndex(index: number): void {
+    throw new Error('Function not implemented.');
+  }
+
     return (
-      <div className="flex justify-center w-screen bg-transparent text-5xl">
+      <div className="flex justify-center w-screen bg-transparent text-5xl ">
         <div className="flex flex-col items-center justify-center">
-          <TabMenu model={items} className="w-full bg-transparent rounded-lg text-white custom-tabmenu mt-3" />
+          <TabMenu 
+            model={items}
+            className="w-full bg-transparent rounded-lg text-white custom-tabmenu mt-4"
+            />
         </div>
       </div>
     );
