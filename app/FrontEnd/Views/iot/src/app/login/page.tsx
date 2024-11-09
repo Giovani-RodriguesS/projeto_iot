@@ -1,8 +1,19 @@
-import Header from "@/components/Header";
-import React from "react";
+'use client'
+
+import React, { useState } from "react";
 import "@/style/styles.css";
+import { useRouter } from 'next/navigation';
 
 export default function Profile() {
+    const [password, setPassword] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const router = useRouter();
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Impede o comportamento padrão de envio do formulário
+        router.push('http://localhost:3000/home'); // Redireciona para a página desejada
+    };
+
     return (
         <main className="flex justify-center items-center h-screen bg-slate-800">
             <div className="relative flex w-full max-w-5xl h-3/4 bg-slate-800 rounded-lg shadow-lg overflow-hidden">
@@ -20,7 +31,9 @@ export default function Profile() {
                 {/* Seção do Formulário (lado direito) */}
                 <div className="w-1/2 p-8 bg-slate-900 bg-opacity-75 flex flex-col justify-center rounded-lg">
                     <h2 className="text-3xl font-extrabold mb-6 text-white text-center">Bem-Vindo!</h2>
-                    <form>
+                    
+                    {/* Adicione a função handleSubmit no evento onSubmit do formulário */}
+                    <form onSubmit={handleSubmit}> 
                         <div className="mb-4">
                             <label htmlFor="email" className="text-gray-400">Email</label>
                             <input
@@ -33,16 +46,26 @@ export default function Profile() {
                             />
                         </div>
 
-                        <div className="mb-4">
-                            <label htmlFor="password" className="text-gray-400">Senha</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="senha"
-                                required
-                                className="w-full p-3 mt-2 bg-slate-800 text-white rounded-md"
-                                placeholder="********"
-                            />
+                       {/* Campo Senha */}
+                       <div className="mb-4">
+                            <label htmlFor="password" className="text-gray-400 block mb-2">Senha</label>
+                            <div className="relative w-full">
+                                <input
+                                    type={passwordVisible ? "text" : "password"} // Alterna entre texto e senha
+                                    id="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full p-3 bg-slate-800 text-white rounded-md pr-10"
+                                    placeholder="Digite sua senha"
+                                />
+                                {/* Ícone de Olho no final do campo */}
+                                <span
+                                    onClick={() => setPasswordVisible(!passwordVisible)}
+                                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white cursor-pointer"
+                                >
+                                    <i className={`pi ${passwordVisible ? 'pi-eye-slash' : 'pi-eye'}`} />
+                                </span>
+                            </div>
                         </div>
 
                         <div className="text-right mt-4">
@@ -56,7 +79,7 @@ export default function Profile() {
                         </div>
 
                         <div className="text-center mt-6">
-                            <a href="#" className="text-white hover:underline">Ainda não tenho uma conta</a>
+                            <a href="http://localhost:3000/register" className="text-white hover:underline">Ainda não tenho uma conta</a>
                         </div>
                     </form>
                 </div>
