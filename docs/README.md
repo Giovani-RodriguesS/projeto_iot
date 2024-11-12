@@ -1,33 +1,34 @@
 
-# DIAGRAMA DE CLASSES
+# Diagrama de Classes
+
 
 ```mermaid
 classDiagram
     class Dispositivo {
         <<abstract>>
-        + id: int
-        + nome: string
+        + Id: int
+        + Nome: string
+        + Data_instalacao: datetime
     }
     class Usuario {
-        + nome: string
-        + senha: string
-        + cargo: string
+        + Id: int
+        + Nome: string
+        + Senha: string
+        + Cargo: string
     }
 
 
     class Sensor {
-        + unidade: string
-        + data_instalacao: datatime
+        + Umidade: float
     }
     class Bomba {
-        + tipo string
-        + vazao/min: float
-        + data_instalacao datatime
-        + localizacao string
+        + Tipo string
+        + Vazao: float
+        + Localizacao string
     }
     class Leitura {
         <<abstract>>
-        + id: int
+        + Id: int
         + Tempo: timestamp
     }
     class LeituraBomba {
@@ -45,6 +46,28 @@ classDiagram
     Leitura <|-- LeituraSensor
     Leitura <|-- LeituraBomba
 
-    LeituraBomba --> Bomba : associa
-    LeituraSensor --> Sensor : associa
+    Dispositivo --> Leitura : associa
+```
+
+# Diagrama de Sequência
+
+```mermaid
+sequenceDiagram
+    participant Front-End
+    participant Back-End
+    participant Banco
+    participant Esp32
+
+    Front-End->>Back-End: Solicita Informações
+    Back-End->>Banco: Consulta base de dados
+    Banco-->>Back-End: Retorna dados ao Backend
+    Back-End-->>Front-End: Devolve dados solicitados
+    
+    Front-End->>Back-End: Envia dados
+    Back-End->>Banco: Grava dados recebidos
+    Back-End-->>Front-End: Envia confirmação
+
+    Esp32->>Back-End: Envia dados dos sensores
+    Back-End->>Banco: Grava dados recebidos
+    
 ```
