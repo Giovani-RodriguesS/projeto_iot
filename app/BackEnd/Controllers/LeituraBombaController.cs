@@ -27,81 +27,31 @@ namespace BackEnd.Controllers
             return await _context.LeituraBomba.ToListAsync();
         }
 
-        // GET: api/LeituraBomba/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<LeituraBomba>> GetLeituraBomba(int id)
-        {
-            var leituraBomba = await _context.LeituraBomba.FindAsync(id);
-
-            if (leituraBomba == null)
-            {
-                return NotFound();
-            }
-
-            return leituraBomba;
-        }
-
-        // PUT: api/LeituraBomba/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLeituraBomba(int id, LeituraBomba leituraBomba)
-        {
-            if (id != leituraBomba.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(leituraBomba).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LeituraBombaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/LeituraBomba
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LeituraBomba>> PostLeituraBomba(LeituraBomba leituraBomba)
+        public async Task<ActionResult<LeituraBombaDTO>> PostLeituraBomba(LeituraBombaDTO leituraBombaDTO)
         {
+            var leituraBomba = new LeituraBomba
+            {
+                Tempo = leituraBombaDTO.Tempo,
+                BombaAtivada = leituraBombaDTO.BombaAtivada,
+
+            };
+            
             _context.LeituraBomba.Add(leituraBomba);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLeituraBomba", new { id = leituraBomba.Id }, leituraBomba);
+            return CreatedAtAction("GetLeituraBomba", new { id = leituraBomba.Id }, leituraBombaToDTO( leituraBomba));
         }
 
-        // DELETE: api/LeituraBomba/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLeituraBomba(int id)
+
+        private static LeituraBombaDTO leituraBombaToDTO (LeituraBomba leituraBomba) => 
+        new LeituraBombaDTO
         {
-            var leituraBomba = await _context.LeituraBomba.FindAsync(id);
-            if (leituraBomba == null)
-            {
-                return NotFound();
-            }
-
-            _context.LeituraBomba.Remove(leituraBomba);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool LeituraBombaExists(int id)
-        {
-            return _context.LeituraBomba.Any(e => e.Id == id);
-        }
+            Tempo = leituraBomba.Tempo,
+            BombaAtivada = leituraBomba.BombaAtivada
+        };
     }
 }

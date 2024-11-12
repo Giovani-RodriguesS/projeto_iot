@@ -27,51 +27,6 @@ namespace BackEnd.Controllers
             return await _context.LeituraSensor.ToListAsync();
         }
 
-        // GET: api/LeituraSensor/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<LeituraSensor>> GetLeituraSensor(int id)
-        {
-            var leituraSensor = await _context.LeituraSensor.FindAsync(id);
-
-            if (leituraSensor == null)
-            {
-                return NotFound();
-            }
-
-            return leituraSensor;
-        }
-
-        // PUT: api/LeituraSensor/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLeituraSensor(int id, LeituraSensor leituraSensor)
-        {
-            if (id != leituraSensor.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(leituraSensor).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LeituraSensorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/LeituraSensorx
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -83,25 +38,5 @@ namespace BackEnd.Controllers
             return CreatedAtAction("GetLeituraSensor", new { id = leituraSensor.Id }, leituraSensor);
         }
 
-        // DELETE: api/LeituraSensor/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLeituraSensor(int id)
-        {
-            var leituraSensor = await _context.LeituraSensor.FindAsync(id);
-            if (leituraSensor == null)
-            {
-                return NotFound();
-            }
-
-            _context.LeituraSensor.Remove(leituraSensor);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool LeituraSensorExists(int id)
-        {
-            return _context.LeituraSensor.Any(e => e.Id == id);
-        }
     }
 }
