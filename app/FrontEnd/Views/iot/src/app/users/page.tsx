@@ -1,14 +1,14 @@
-import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import React from "react";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
 
 export default function Users() {
   return (
     <div className="flex h-screen">
-      <Sidebar />
       <div className="flex-1 bg-slate-800 h-full">
         <Header title="Usuários" username="Letícia Anhaia" />
+        <Navbar />
         <main className="w-full max-w-7xl mx-auto px-5 py-7">
           <div className="flex flex-wrap justify-center gap-5 mt-2">
 

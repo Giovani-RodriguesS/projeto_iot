@@ -25,6 +25,7 @@ classDiagram
         + Tipo string
         + Vazao: float
         + Localizacao string
+
     }
     class Leitura {
         <<abstract>>

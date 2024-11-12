@@ -1,32 +1,48 @@
-'use client'
-import React from "react";
-import Link from "next/link";
-import '../style/styles.css'
-import { usePathname } from "next/navigation";
-import Image from "next/image";
+'use client';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { TabMenu } from 'primereact/tabmenu';
+import { MenuItem } from 'primereact/menuitem';
+import '../app/globals.css';
 
-export default function Navbar() {
+export default function NavBar() {
+    const router = useRouter();
 
-  const pathname = usePathname();
-  return (
+    const items: MenuItem[] = [
+        { label: 'Home',
+          icon: 'pi pi-home', 
+          command: () => router.push('/home')
+        },
+        { label: 'Dashboard',
+          icon: 'pi pi-chart-bar', 
+          command: () => router.push('/dashboard')
+        },
+        { label: 'Usuários', 
+          icon: 'pi pi-user', 
+          command: () => router.push('/users')
+        },
+        { label: 'Dispositivos',
+          icon: 'pi pi-microchip',
+          command: () => router.push('devices')
+        },
+        { label: 'Relatório',
+          icon: 'pi pi-clipboard',
+        command: () => router.push('reports')
+      }
+    ];
 
-      <nav className="navbar">
-        <div className="navbar-top">
-          <Link href="/" className={`navlink ${pathname === '/' ? 'active' :''}`}>
-            <i className="pi pi-home pr-4"></i> Home</Link>
-          <Link href="/users" className={`navlink ${pathname === '/users' ? 'active' :''}`}>
-          <i className="pi pi-user pr-4"></i> Usuários</Link>
-          <Link href="/sensors" className={`navlink ${pathname === 'sensors/' ? 'active' :''}`}>
-          <i className="pi pi-bolt pr-4"></i> Sensores</Link>
-          <Link href="/reports" className={`navlink ${pathname === '/reports' ? 'active' :''}`}>
-          <i className="pi pi-receipt pr-4"></i> Relatórios</Link>
+  function setActiveIndex(index: number): void {
+    throw new Error('Function not implemented.');
+  }
+
+    return (
+      <div className="flex justify-center w-screen bg-transparent text-5xl ">
+        <div className="flex flex-col items-center justify-center">
+          <TabMenu 
+            model={items}
+            className="w-full bg-transparent rounded-lg text-white custom-tabmenu mt-4"
+            />
+        </div>
       </div>
-      <div className="navbar-bottom">
-          <hr />
-          <Link href="/logout" className="navlink">
-              <i className="pi pi-sign-out pr-4"></i>Logout</Link>
-      </div>
-    </nav>
-    
-  );
+    );
 }

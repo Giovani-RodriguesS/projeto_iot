@@ -1,12 +1,12 @@
 import Header from "@/components/Header";
-import React from "react";
-import LineChart from "@/app/dashboard/LineChart";
-import DashDataFrame from "@/app/dashboard/DataTable";
 import Navbar from "@/components/Navbar";
+import React from "react";
+import DashDataFrame from "./DataTable";
+import LineChart from "./LineChart";
 
 
-export default function Home() {
-  return (
+export default function Reports() {
+return (
     <div className="flex">
       <div className="flex-1 bg-black">
         <Header title= "Irrigação Smart" username="Usuário"/>

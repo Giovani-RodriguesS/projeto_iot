@@ -25,3 +25,93 @@ body {
     text-wrap: balance;
   }
 }
+
+.custom-tabmenu .p-tabmenu-nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem {
+  transition: color 0.3s ease;
+  margin-right: 4rem;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem:last-child {
+  margin-right: 0;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight {
+  color: #a6e1ff; 
+  border-radius: 2rem;
+  transition: color 0.3s ease, border 0.3s ease;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight {
+  color: #a6e1ff; 
+  border-radius: 2rem;
+}
+
+.custom-tabmenu .p-menuitem-link .pi {
+  margin-right: 1rem;
+}
+
+.custom-tabview .p-tabview-nav{
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  border-bottom: 2px solid #4b5563;
+}
+
+.custom-tabview .p-tabview-nav li {
+  flex: 1;
+  text-align: center;
+}
+
+.custom-tabview .p-tabview-nav li .p-tabview-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.custom-tabview .custom-tabview-custom i, .custom-tabview-demo .custom-tabview-custom span {
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-tabview .tabview-custom span {
+  margin: 0 .5rem;
+}
+
+.custom-tabview .p-button {
+  margin-right: .25rem;
+}
+
+.custom-tabview .p-tabview p {
+  line-height: 1.5;
+  margin: 0;
+}
+
+.custom-tabview .p-tabview {
+  width: 50%;
+  height: 500px;
+  margin-right: 0;
+}
+
+.custom-tabview .p-tabview-panel {
+  overflow-y: auto;
+  height: calc(100% - 50px);
+  padding: 1rem;
+  color: #d1d5db;
+}
+
+.p-highlight .pi {
+  color: #a6e1ff;
+}
+
+.p-unselected .pi {
+  color: #ffffff; 
+}
