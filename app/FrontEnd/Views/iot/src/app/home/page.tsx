@@ -11,7 +11,7 @@ export default function Home() {
       <div className="flex-1 bg-black">
         <Header title= "Irrigação Smart" username="Usuário"/>
         <Navbar />
-        <main className='custom-tabview flex justify-center min-h-screen mt-8'>
+        <main className='custom-tabview flex justify-center h-auto mt-8'>
             <div className="card bg-gray-700 p-6 rounded-lg shadow mt-0 text-3xl w-11/12">
                  <TabView className='margin-left: auto'>
                     <TabPanel header="Sobre o Projeto" leftIcon="pi pi-file-edit">  
