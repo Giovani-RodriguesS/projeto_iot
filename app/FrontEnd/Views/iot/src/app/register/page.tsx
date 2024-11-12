@@ -4,15 +4,34 @@ import React, { useState } from "react";
 import { InputMask } from "primereact/inputmask";
 import 'primeicons/primeicons.css';
 import { useRouter } from 'next/navigation';
+import axios from "axios";
 
 export default function StyledMaskDemo() {
+    const [name, setname] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
     const router = useRouter();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        router.push('http://localhost:3000/home'); // Altere "/nova-pagina" para o caminho desejado
+
+        try {
+            const response = await axios.post('http://localhost:3000/register', {
+                name,
+                email,
+                phone,
+                password,
+            });
+
+            if (response.status === 200) {
+                console.log("Registro bem-sucedido:", response.data);
+                router.push('/register');
+            }
+        } catch (error) {
+            console.error("Erro ao fazer login:", error);
+        }
     };
 
     return (
@@ -53,7 +72,7 @@ export default function StyledMaskDemo() {
 
                         {/* Campo Telefone */}
                         <div>
-                            <label htmlFor="phone" className="text-gray-400 block mb-2">Phone</label>
+                            <label htmlFor="phone" className="text-gray-400 block mb-2">Telefone</label>
                             <InputMask
                                 id="phone"
                                 mask="(99) 99999-9999"
@@ -67,7 +86,7 @@ export default function StyledMaskDemo() {
                             <label htmlFor="password" className="text-gray-400 block mb-2">Senha</label>
                             <div className="relative w-full">
                                 <input
-                                    type={passwordVisible ? "text" : "password"} // Alterna entre texto e senha
+                                    type={passwordVisible ? "text" : "password"}
                                     id="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
