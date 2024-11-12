@@ -1,17 +1,29 @@
 'use client'
-
 import React, { useState } from "react";
 import "@/style/styles.css";
 import { useRouter } from 'next/navigation';
+import api from "@/axiosConfig";
 
 export default function Profile() {
+    const [name, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
     const router = useRouter();
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Impede o comportamento padrão de envio do formulário
-        router.push('http://localhost:3000/home'); // Redireciona para a página desejada
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try{
+            const response = await api.get('http://localhost:3000/login/api',{
+//            name,
+//            password,
+            })
+            if (response.status === 200){
+                router.push('http://localhost:3000/home')
+            }
+        }catch (error) {
+            console.error("Erro ao fazer login:", error);
+        }
     };
 
     return (
