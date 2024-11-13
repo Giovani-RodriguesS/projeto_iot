@@ -856,3 +856,11 @@ D:\Projetos\projeto_iot\app\BackEnd\obj\Debug\net8.0\staticwebassets.pack.json
 D:\Projetos\projeto_iot\app\BackEnd\obj\Debug\net8.0\BackEnd.csproj.Up2Date
 D:\Projetos\projeto_iot\app\BackEnd\obj\Debug\net8.0\BackEnd.genruntimeconfig.cache
 D:\Projetos\projeto_iot\app\BackEnd\obj\Debug\net8.0\ref\BackEnd.dll
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\bin\Debug\net8.0\BackEnd.staticwebassets.endpoints.json
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\bin\Debug\net8.0\System.ClientModel.dll
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\bin\Debug\net8.0\System.Text.Json.dll
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Projetos\Faculdade\2º Semestre\Projeto_IOT\app\BackEnd\obj\Debug\net8.0\staticwebassets\msbuild.BackEnd.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
