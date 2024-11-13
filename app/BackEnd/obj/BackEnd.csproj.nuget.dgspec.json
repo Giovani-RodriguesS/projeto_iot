@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {}
+    "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {}
   },
   "projects": {
-    "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {
+    "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
+        "projectUniqueName": "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
         "projectName": "BackEnd",
-        "projectPath": "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
-        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\projeto_iot\\app\\BackEnd\\obj\\",
+        "projectPath": "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
+        "packagesPath": "C:\\Users\\g_gab\\.nuget\\packages\\",
+        "outputPath": "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\g_gab\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -103,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
