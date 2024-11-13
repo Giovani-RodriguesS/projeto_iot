@@ -30,7 +30,7 @@ namespace BackEnd.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tipo")
@@ -88,7 +88,7 @@ namespace BackEnd.Migrations
                     b.Property<DateTime>("Data_instalacao")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
                     b.Property<float>("Umidade")
@@ -121,8 +121,9 @@ namespace BackEnd.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Telefone")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
