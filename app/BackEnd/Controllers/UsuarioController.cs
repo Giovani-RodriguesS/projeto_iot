@@ -75,13 +75,30 @@ namespace BackEnd.Controllers
         // POST: api/Usuario
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        public async Task<ActionResult<UsuarioDTO>> PostUsuario(UsuarioDTO usuarioDtO)
         {
+            var usuario = new Usuario
+            {
+                Nome = usuarioDtO.Nome,
+                Email = usuarioDtO.Email,
+                Telefone = usuarioDtO.Telefone,
+                Senha = usuarioDtO.Senha,
+                Cargo = usuarioDtO.Cargo
+            };
+
             _context.Usuario.Add(usuario);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
+            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, UsuarioToDTO(usuario));
         }
+
+        private static UsuarioDTO UsuarioToDTO(Usuario usuario) => new UsuarioDTO
+        {
+            Nome = usuario.Nome,
+            Email = usuario.Email,
+            Telefone = usuario.Telefone,
+            Cargo = usuario.Cargo
+        };
 
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]

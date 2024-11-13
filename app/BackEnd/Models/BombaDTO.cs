@@ -1,4 +1,4 @@
-public class Bomba
+public class BombaDTO
 {
     public string? Name { get; set; }
     public string Tipo { get; set; }

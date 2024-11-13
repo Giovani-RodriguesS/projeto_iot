@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(BackEndContext))]
-    [Migration("20241107004205_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241113042424_AddNewColumns")]
+    partial class AddNewColumns
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace BackEnd.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tipo")
@@ -93,7 +92,6 @@ namespace BackEnd.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<float>("Umidade")
@@ -114,6 +112,10 @@ namespace BackEnd.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -121,6 +123,9 @@ namespace BackEnd.Migrations
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Telefone")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

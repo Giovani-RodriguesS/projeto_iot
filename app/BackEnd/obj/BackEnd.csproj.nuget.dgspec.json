@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {}
+    "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {}
   },
   "projects": {
-    "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {
+    "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
+        "projectUniqueName": "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
         "projectName": "BackEnd",
-        "projectPath": "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
-        "packagesPath": "C:\\Users\\g_gab\\.nuget\\packages\\",
-        "outputPath": "C:\\Repositórios\\projeto_iot\\app\\BackEnd\\obj\\",
+        "projectPath": "D:\\Projetos\\projeto_iot\\app\\BackEnd\\BackEnd.csproj",
+        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
+        "outputPath": "D:\\Projetos\\projeto_iot\\app\\BackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\g_gab\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -43,6 +43,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.13.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -63,6 +67,10 @@
               "target": "Package",
               "version": "[8.0.10, )"
             },
+            "Microsoft.Identity.Client": {
+              "target": "Package",
+              "version": "[4.66.2, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.6, )"
@@ -70,6 +78,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -91,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
