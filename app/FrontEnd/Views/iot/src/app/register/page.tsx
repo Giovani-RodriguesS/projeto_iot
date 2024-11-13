@@ -10,29 +10,30 @@ export default function StyledMaskDemo() {
     const [nome, setName] = useState('');
     const [email, setEmail] = useState('');
     const [cargo, setCargo] = useState('');
-    const [telefone, setPhone] = useState('');
-    const [senha, setPassword] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [senha, setSenha] = useState('');
     const [senhaVisible, setPasswordVisible] = useState(false);
+    const [responseData, setResponseData] = useState(null);
     const router = useRouter();
+
+    const formattedTelefone = telefone.replace(/\D/g, '');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        const usuarioDto = {
+            nome,
+            email,
+            cargo,
+            telefone,
+            senha
+        };
         try {
-            const response = await axios.post('http://localhost:5257/api/', {
-                nome,
-                email,
-                cargo,
-                telefone,
-                senha,
-            });
-
-            if (response.status === 200) {
-                console.log("Registro bem-sucedido:", response.data);
-                router.push('/register');
-            }
+            const response = await axios.post('http://localhost:5257/api/usuario', usuarioDto);
+            console.log('Usuário criado:', response.data);
+            setResponseData(response.data);
         } catch (error) {
-            console.error("Erro ao fazer login:", error);
+            console.error('Erro:', error);
         }
     };
 
@@ -94,7 +95,7 @@ export default function StyledMaskDemo() {
                         <InputMask
                             id="phone"
                             value={telefone}
-                            onChange={(e) => setPhone(e.value as string)}
+                            onChange={(e) => setTelefone(e.value as string)}
                             mask="(99) 99999-9999"
                             placeholder="(99) 99999-9999"
                             className="w-full p-3 bg-slate-800 text-white rounded-md"
@@ -109,7 +110,7 @@ export default function StyledMaskDemo() {
                                     type={senhaVisible ? "text" : "password"}
                                     id="password"
                                     value={senha}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => setSenha(e.target.value)}
                                     className="w-full p-3 bg-slate-800 text-white rounded-md pr-10"
                                     placeholder="Digite sua senha"
                                 />
