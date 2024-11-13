@@ -5,21 +5,20 @@ import { useRouter } from 'next/navigation';
 import api from "@/axiosConfig";
 
 export default function Profile() {
-    const [name, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [email, setUserEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [senhaVisible, setPasswordVisible] = useState(false);
     const router = useRouter();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try{
             const response = await api.get('http://localhost:3000/login/api',{
-//            name,
-//            password,
-            })
+               params:{email,senha}
+            });
             if (response.status === 200){
-                router.push('http://localhost:3000/home')
+                router.push('/home')
             }
         }catch (error) {
             console.error("Erro ao fazer login:", error);
@@ -52,6 +51,8 @@ export default function Profile() {
                                 type="text"
                                 id="email"
                                 name="email"
+                                value={email}
+                                onChange={(e) => setUserEmail(e.target.value)}
                                 required
                                 className="w-full p-3 mt-2 bg-slate-800 text-white rounded-md"
                                 placeholder="Digite seu email"
@@ -63,19 +64,19 @@ export default function Profile() {
                             <label htmlFor="password" className="text-gray-400 block mb-2">Senha</label>
                             <div className="relative w-full">
                                 <input
-                                    type={passwordVisible ? "text" : "password"} // Alterna entre texto e senha
+                                    type={senhaVisible ? "text" : "password"} // Alterna entre texto e senha
                                     id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={senha}
+                                    onChange={(e) => setSenha(e.target.value)}
                                     className="w-full p-3 bg-slate-800 text-white rounded-md pr-10"
                                     placeholder="Digite sua senha"
                                 />
                                 {/* Ícone de Olho no final do campo */}
                                 <span
-                                    onClick={() => setPasswordVisible(!passwordVisible)}
+                                    onClick={() => setPasswordVisible(!senhaVisible)}
                                     className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white cursor-pointer"
                                 >
-                                    <i className={`pi ${passwordVisible ? 'pi-eye-slash' : 'pi-eye'}`} />
+                                    <i className={`pi ${senhaVisible ? 'pi-eye-slash' : 'pi-eye'}`} />
                                 </span>
                             </div>
                         </div>
