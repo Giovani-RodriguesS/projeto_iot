@@ -10,7 +10,7 @@ export default function Reports() {
         <Header title="Relatórios" username="Letícia Anhaia" />
         <Navbar />
         <main>
-        <h1>Relatórios</h1>
+        <h1>Logout</h1>
       </main>
       </div>
     </div>
