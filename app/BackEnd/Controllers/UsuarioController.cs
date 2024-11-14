@@ -72,6 +72,30 @@ namespace BackEnd.Controllers
             return NoContent();
         }
 
+        // POST: api/Usuario/login
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> LoginUsuario(LoginDTO loginDto)
+        {
+            // Procurando o usuário pelo email
+            var usuario = await _context.Usuario
+                .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+
+            if (usuario == null)
+            {
+                return NotFound("Email incorreto");
+            }
+
+            // Verificando se a senha está correta
+            if (usuario.Senha != loginDto.Senha)
+            {
+                return Unauthorized("Senha incorreta");
+            }
+
+            // Se email e senha estiverem corretos, retorna sucesso
+            return Ok("Login realizado com sucesso");
+        }
+
+
         // POST: api/Usuario
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
