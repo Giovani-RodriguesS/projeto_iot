@@ -19,8 +19,8 @@ export default function Header({ title, username }: HeaderProps) {
                         <Image 
                             src="/images/profiles/user.jpg" width={48} height={0} alt="user profile"
                             className="photo"/>
-                        </div>
-                    }                
+                    </div>
+                }                
             </div>
         </header>
     );
