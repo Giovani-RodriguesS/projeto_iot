@@ -7,24 +7,10 @@ import EditModal from "@/components/EditModal";
 import DeleteModal from "@/components/DeleteModal";
 
 export default function Users() {
- // Define um estado `showEditModal` que controla se o modal de edição está visível ou não.
-// Inicialmente, o valor é `false`, indicando que o modal está oculto.
 const [showEditModal, setShowEditModal] = useState(false);
-
-// Define um estado `showDeleteModal` que controla se o modal de exclusão está visível ou não.
-// Inicialmente, o valor é `false`, indicando que o modal está oculto.
 const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-// Função `handleEdit` para abrir o modal de edição.
-// Ao ser chamada, ela define `showEditModal` como `true`, tornando o modal de edição visível.
 const handleEdit = () => setShowEditModal(true);
-
-// Função `handleDelete` para abrir o modal de exclusão.
-// Ao ser chamada, ela define `showDeleteModal` como `true`, tornando o modal de exclusão visível.
 const handleDelete = () => setShowDeleteModal(true);
-
-// Função `closeModals` que fecha ambos os modais (edição e exclusão).
-// Define `showEditModal` e `showDeleteModal` como `false`, escondendo qualquer modal que esteja aberto.
 const closeModals = () => {
   setShowEditModal(false);
   setShowDeleteModal(false);
