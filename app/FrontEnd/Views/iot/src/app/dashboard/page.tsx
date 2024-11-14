@@ -1,10 +1,8 @@
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import React from "react";
-import DashDataFrame from "./DataTable";
-import LineChart from "./LineChart";
-
-
+import LineChart from "@/app/dashboard/LineChart";
+import PieChart from "@/app/dashboard/PieChart";
 export default function Reports() {
 return (
     <div className="flex">
@@ -49,14 +47,11 @@ return (
           <div className="grid grid-cols-2 gap-4 flex-1 h-4 mt-8">
             <div className="bg-white p-12 rounded-lg ml-4">
               <h2 className="text-white text-xl mb-4">Produção vs. Defeitos</h2>
-            
-              <LineChart /> 
-            
+              <LineChart/>
             </div>
             <div className="bg-white p-5 rounded-lg mr-4">
               <h2 className="text-white text-xl mb-4">Outro Gráfico</h2>
-          
-              <DashDataFrame />
+              <PieChart/>
             </div>
           </div>
         </main>
