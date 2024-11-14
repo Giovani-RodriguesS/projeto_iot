@@ -42,13 +42,11 @@ body {
 }
 
 .custom-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight {
-  color: #a6e1ff; 
   border-radius: 2rem;
   transition: color 0.3s ease, border 0.3s ease;
 }
 
 .custom-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight {
-  color: #a6e1ff; 
   border-radius: 2rem;
 }
 
@@ -106,10 +104,6 @@ body {
   height: calc(100% - 50px);
   padding: 1rem;
   color: #d1d5db;
-}
-
-.p-highlight .pi {
-  color: #a6e1ff;
 }
 
 .p-unselected .pi {
