@@ -9,25 +9,23 @@ export default function DoughnutChartDemo() {
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
         const data = {
-            labels: ['A', 'B', 'C'],
+            labels: ['Presença de Chuva', 'Sem presença de chuva'],
             datasets: [
                 {
-                    data: [300, 50, 100],
+                    data: [13, 11],
                     backgroundColor: [
-                        documentStyle.getPropertyValue('--blue-500'), 
-                        documentStyle.getPropertyValue('--yellow-500'), 
-                        documentStyle.getPropertyValue('--green-500')
+                        documentStyle.getPropertyValue('--blue-500') || '#42A5F5', 
+                        documentStyle.getPropertyValue('--yellow-500') || '#FFEB3B', 
                     ],
                     hoverBackgroundColor: [
-                        documentStyle.getPropertyValue('--blue-400'), 
-                        documentStyle.getPropertyValue('--yellow-400'), 
-                        documentStyle.getPropertyValue('--green-400')
+                        documentStyle.getPropertyValue('--blue-400') || '#64B5F6', 
+                        documentStyle.getPropertyValue('--yellow-400') || '#FFEE58', 
                     ]
                 }
             ]
         };
         const options = {
-            cutout: '60%'
+            cutout: '70%'
         };
 
         setChartData(data);
@@ -36,7 +34,7 @@ export default function DoughnutChartDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <Chart type="doughnut" data={chartData} options={chartOptions} className="w-full md:w-30rem" />
+            <Chart type="doughnut" data={chartData} options={chartOptions} style={{ width: '500px', height: '500px' }} />
         </div>
     )
 }
