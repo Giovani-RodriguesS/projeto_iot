@@ -23,11 +23,12 @@ export default function NavBar() {
         },
         { label: 'Dispositivos',
           icon: 'pi pi-microchip',
-          command: () => router.push('devices')
+          command: () => router.push('/devices')
         },
         { label: 'Relatório',
-          icon: 'pi pi-clipboard',
-        command: () => router.push('reports')
+          //icon: 'pi pi-clipboard',
+          icon: 'pi pi-sign-out',
+        command: () => router.push('/register')
       }
     ];
 
