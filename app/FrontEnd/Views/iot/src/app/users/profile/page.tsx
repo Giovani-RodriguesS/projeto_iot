@@ -1,12 +1,9 @@
-import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import React from "react";
-import Image from "next/image";
 
 export default function Profile() {
     return (
         <div className="flex">
-            <Sidebar />
             <div className="flex-1 flex flex-col">
                 <Header title="Usuários" username="Letícia Anhaia" />
                 <main className="flex-1 flex justify-center items-center bg-slate-800">
