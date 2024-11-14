@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import React from "react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import AddDevice from "./addDevice";
 
 export default function Users() {
   return (
@@ -11,6 +12,7 @@ export default function Users() {
         <Header title="Usuários" username="Letícia Anhaia" />
         <Navbar />
         <main className="w-full max-w-7xl mx-auto px-5 py-7">
+          <AddDevice/>
           <div className="flex flex-wrap justify-center gap-5 mt-2">
 
             {/* div do meu funcionário Luciano */}
