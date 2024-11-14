@@ -11,25 +11,29 @@ export default function LineChart() {
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
         const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
+                    label: '% umidade',
+                    data: [65, 59, 80, 81, 56, 55, 40, 90, 85, 72, 60, 75, 69, 55, 68, 74, 60, 55, 80, 70, 65, 55, 40, 30],
+                    fill: true,
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    tension: 0.4
+                    tension: 0.4,
+                    yAxisID: 'left-y-axis'
                 },
                 {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    label: 'Sensor Chuva',
+                    data: [0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1],
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--pink-500'),
-                    tension: 0.4
+                    tension: 0.1,
+                    yAxisID: 'right-y-axis'
                 }
             ]
         };
+
         const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,
@@ -49,12 +53,24 @@ export default function LineChart() {
                         color: surfaceBorder
                     }
                 },
-                y: {
+                'left-y-axis': { // Configuração do eixo Y à esquerda
+                    type: 'linear',
+                    position: 'left',
                     ticks: {
                         color: textColorSecondary
                     },
                     grid: {
                         color: surfaceBorder
+                    }
+                },
+                'right-y-axis': { // Configuração do eixo Y à direita
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        drawOnChartArea: false // Para evitar sobreposição de grades
                     }
                 }
             }
