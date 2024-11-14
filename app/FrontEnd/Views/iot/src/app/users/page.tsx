@@ -1,9 +1,35 @@
+'use client'
 import Header from "@/components/Header";
-import React from "react";
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import { useState } from "react";
+import Image from "next/image";
+import EditModal from "@/components/EditModal";
+import DeleteModal from "@/components/DeleteModal";
 
 export default function Users() {
+ // Define um estado `showEditModal` que controla se o modal de edição está visível ou não.
+// Inicialmente, o valor é `false`, indicando que o modal está oculto.
+const [showEditModal, setShowEditModal] = useState(false);
+
+// Define um estado `showDeleteModal` que controla se o modal de exclusão está visível ou não.
+// Inicialmente, o valor é `false`, indicando que o modal está oculto.
+const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+// Função `handleEdit` para abrir o modal de edição.
+// Ao ser chamada, ela define `showEditModal` como `true`, tornando o modal de edição visível.
+const handleEdit = () => setShowEditModal(true);
+
+// Função `handleDelete` para abrir o modal de exclusão.
+// Ao ser chamada, ela define `showDeleteModal` como `true`, tornando o modal de exclusão visível.
+const handleDelete = () => setShowDeleteModal(true);
+
+// Função `closeModals` que fecha ambos os modais (edição e exclusão).
+// Define `showEditModal` e `showDeleteModal` como `false`, escondendo qualquer modal que esteja aberto.
+const closeModals = () => {
+  setShowEditModal(false);
+  setShowDeleteModal(false);
+};
+
   return (
     <div className="flex h-screen">
       <div className="flex-1 bg-slate-800 h-full">
@@ -21,13 +47,16 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Tecnologia</div>
               <div className="text-sm text-black">luciano@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div do meu funcionário Roberto */}
@@ -39,13 +68,16 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Produção</div>
               <div className="text-sm text-black">roberto@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div da minha funcionária Bruna */}
@@ -57,15 +89,17 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Engenharia</div>
               <div className="text-sm text-black">bruna@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
-            </div>
 
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
+            </div>
 
             {/* div da minha funcionária Giseli */}
             <div className="p-4 bg-white rounded-xl w-48 flex flex-col items-center">
@@ -76,13 +110,16 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Qualidade</div>
               <div className="text-sm text-black">giseli@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div da minha funcionária Luana */}
@@ -94,13 +131,16 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Manutenção</div>
               <div className="text-sm text-black">luana@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div do meu funcionário Lucas */}
@@ -112,13 +152,16 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Logística</div>
               <div className="text-sm text-black">lucas@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div da minha funcionária Letícia */}
@@ -130,13 +173,16 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Projetos</div>
               <div className="text-sm text-black">leticia@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div do meu funcionário Gabriel */}
@@ -148,13 +194,16 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Design</div>
               <div className="text-sm text-black">gabriel@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div do meu funcionário Rafael */}
@@ -166,13 +215,15 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Produção</div>
               <div className="text-sm text-black">rafael@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
 
             {/* div da minha funcionária Aline */}
@@ -184,13 +235,15 @@ export default function Users() {
               <div className="text-sm text-black font-bold">Vendas</div>
               <div className="text-sm text-black">aline@gmail.com</div>
               <div className="mt-4 flex gap-2">
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
                   Editar
                 </button>
-                <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
                   Remover
                 </button>
               </div>
+              {showEditModal && <EditModal closeModals={closeModals} />}
+              {showDeleteModal && <DeleteModal closeModals={closeModals} />}
             </div>
           </div>
         </main>
