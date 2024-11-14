@@ -25,13 +25,14 @@ export default function StyledMaskDemo() {
             nome,
             email,
             cargo,
-            telefone,
+            telefone: formattedTelefone,
             senha
         };
         try {
             const response = await axios.post('http://localhost:5257/api/usuario', usuarioDto);
             console.log('Usuário criado:', response.data);
             setResponseData(response.data);
+            router.push('http://localhost:3000/home')
         } catch (error) {
             console.error('Erro:', error);
         }
