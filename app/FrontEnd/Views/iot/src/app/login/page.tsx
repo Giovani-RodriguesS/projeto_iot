@@ -3,25 +3,30 @@ import React, { useState } from "react";
 import "@/style/styles.css";
 import { useRouter } from 'next/navigation';
 import api from "@/axiosConfig";
+import axios from "axios";
 
 export default function Profile() {
     const [email, setUserEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [senhaVisible, setPasswordVisible] = useState(false);
+    const [responseData, setResponseData] = useState(null);
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        try{
-            const response = await api.get('http://localhost:3000/login/api',{
-               params:{email,senha}
-            });
-            if (response.status === 200){
-                router.push('/home')
-            }
-        }catch (error) {
-            console.error("Erro ao fazer login:", error);
+        const usuarioDto = {
+            email,
+            senha
+        };
+
+        try {
+            const response = await axios.post('http://localhost:5257/api/usuario', usuarioDto);
+            console.log('Usuário logado:', response.data);
+            setResponseData(response.data);
+            router.push('http://localhost:3000/home')
+        } catch (error) {
+            console.error('Erro:', error);
         }
     };
 
