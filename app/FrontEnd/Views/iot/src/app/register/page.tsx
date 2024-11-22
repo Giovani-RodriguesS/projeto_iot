@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import axios from "axios";
 
 export default function StyledMaskDemo() {
-    const [nome, setName] = useState('');
+    const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [cargo, setCargo] = useState('');
     const [telefone, setTelefone] = useState('');
@@ -32,7 +32,7 @@ export default function StyledMaskDemo() {
             const response = await axios.post('http://localhost:5257/api/usuario', usuarioDto);
             console.log('Usuário criado:', response.data);
             setResponseData(response.data);
-            router.push('http://localhost:3000/home')
+            router.push('http://localhost:3000/login')
         } catch (error) {
             console.error('Erro:', error);
         }
@@ -55,7 +55,7 @@ export default function StyledMaskDemo() {
                                 type="text"
                                 id="nome"
                                 value={nome}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => setNome(e.target.value)}
                                 required
                                 className="w-full p-3 bg-slate-800 text-white rounded-md"
                                 placeholder="Digite seu nome"
