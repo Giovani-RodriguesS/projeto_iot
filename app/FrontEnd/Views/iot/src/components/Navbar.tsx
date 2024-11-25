@@ -25,10 +25,10 @@ export default function NavBar() {
           icon: 'pi pi-microchip',
           command: () => router.push('/devices')
         },
-        { label: 'Logout',
+        { label: 'Relatórios',
           //icon: 'pi pi-clipboard',
-          icon: 'pi pi-sign-out',
-        command: () => router.push('/register')
+          icon: 'pi pi-book',
+        command: () => router.push('/reports')
       }
     ];
 
