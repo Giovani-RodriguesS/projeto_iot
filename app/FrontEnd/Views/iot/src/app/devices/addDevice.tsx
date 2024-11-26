@@ -8,17 +8,21 @@ export default function AddDevice() {
     const [visible, setVisible] = useState<boolean>(false);
 
     return (
-        <div className="card flex justify-center">
+        <div className="card flex justify-start">
             <Sidebar 
                 visible={visible} 
-                onHide={() => setVisible(false)} 
-                style={{ top: '10%' }} 
-                className="w-full md:w-80 h-3/4"
-            >
+                onHide={() => setVisible(false)}
+                style={{ top: '20%' }}
+                className="w-full md:w-80 h-3/4">
                 <h2>Cadastro de Dispositivo</h2>
                 <SidebarDevices/>
             </Sidebar>
-            <Button icon="pi pi-file-plus" onClick={() => setVisible(true)} />
+            <Button 
+                    icon="pi pi-file-plus" 
+                    onClick={() => setVisible(true)} 
+                    className="p-button-rounded p-button-lg ml-1" 
+                    style={{ fontSize: '3rem'}}
+                />
         </div>
     )
 }
