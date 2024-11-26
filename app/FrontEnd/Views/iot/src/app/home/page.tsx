@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen">
       <div className="flex-1 bg-black">
-        <Header title= "Irrigação Smart" username="Usuário"/>
+        <Header title= "Sobre o projeto" username="Usuário"/>
         <Navbar />
         <main className='custom-tabview flex justify-center h-auto mt-8'>
             <div className="card bg-gray-700 p-6 rounded-lg shadow mt-0 text-3xl w-11/12">
