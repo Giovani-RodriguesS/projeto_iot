@@ -1,11 +1,34 @@
 'use client'
 import Header from "@/components/Header";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import AddDevice from "./addDevice";
+import axios from "axios";
 
 export default function Users() {
+  const[nome, setNome] = useState('');
+  const[id, setId] = useState('');
+  const[tipo,setTipo] = useState('');
+  const [responseData, setResponseData] = useState(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const deviceDto = {
+      nome,
+      id,
+      tipo
+    };
+    try {
+        const response = await axios.get('http://localhost:5257/api/device', );
+        console.log('Dispositivo listado:', response.data);
+        setResponseData(response.data);
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+  }
+
   return (
     <div className="flex h-screen">
       <div className="flex-1 bg-slate-800 h-full">
