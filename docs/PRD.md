@@ -32,7 +32,7 @@ Nosso produto foi desenvolvido para atender as exigências de agricultores, faze
 ## **Diagrama de Contexto**
 ```mermaid
 graph TB
-    subgraph Dashboard
+    subgraph Sistema
         L[Tela de Login]
         C[Home]
         A[Dashboard]
@@ -49,16 +49,13 @@ graph TB
         I<-->D
         I<-->R
         I-->O
-        
-    
-      
     end
 ```
 
 1. **Gerar Relatórios:** Capacidade de gerar relatórios contendo dados do sistema. **P1**
-2. **Consultar dados:** Consultar dados por meio de gráficos, tabelas e relatórios, possibilitando mostrar os dados de maneira dinâmica.**P1**
+2. **Consultar dados:** Consultar dados por meio de gráficos em Dashboard e relatórios, possibilitando mostrar os dados de maneira dinâmica.**P1**
 3. **Cadastrar Usuários:** Cadastrar usuários no sistema de maneira eficiente e segura**P2**
-4. **Cadastrar Dispositivos:** Cadastrar dispositivos no sistema como sensores e bombas**P2**
+4. **Cadastrar Dispositivos:** Cadastrar dispositivos no sistema, como sensores e bombas**P2**
 
 **P1** = **Crítico | P1 = Importante | P2 = Bom ter**
 
@@ -68,27 +65,32 @@ graph TB
 graph TB
     subgraph Dashboard
         A[Menu]
-        F[Dashboard]
-        B[Gráficos]
-        C[Tempo de ciclo]
-        D[Quantidade de Peças]
-        E[Consumo de Energia]
-        R[Relatório]
-        I[Filtros]
-        G[Usuário]
+        O[Logout]
         H[Login]
         K[Cadastrar]
-        O[Logout]
+
+        F[Dashboard]
+        R[Relatório]
+        G[Usuário]
+        U[Usuários]
+        D[Dispositivos]
+
+        E[Editar/Exluir]
 
         G-->H
         H-->|Primeiro Acesso|K
         K-->A
-        A-->|Sair|O
         H-->A
-        A<-->F
-        F<-->|Visualizar|B
-        T<-->|Ver dados|I
-        R<-->|Ver dados|I      
+
+        A-->|Sair|O        
+        A<-->|Visualizar Gráficos|F
+        A<-->|Visualizar|U
+        A<-->|Gerar|R
+        A<-->|Visualizar|D
+
+        D-->E
+        U-->E
+
     end
 ```
 ---
@@ -107,16 +109,17 @@ graph TB
 ### 📊 Métricas
 | Medida | Estado atual | Esperado | Resultados |
 | --- | --- | --- | --- |
-| Tempo de resposta | - | 3.5 segundos |  |
+| Tempo de resposta | - | 2.0 segundos |  |
 |  |  |  |  |
 |  |  |  |  |
 
 ---
 
-# *Fora de escopo*
+# *Fora de escopo* 🚫
 
 <aside>
-🚫 Liste todos os itens que estarão fora do escopo deste recurso do produto
+ 
+- Armazenar métricas relacionas ao estado dos dispositivos em tempo real, como calor e desgaste.
 
 </aside>
 
@@ -135,16 +138,15 @@ graph TB
 </aside>
 
 # *Plano de lançamento*
-
-*Crie uma lista de itens que precisão ser atendidos para o lançamento do produto no mercado, por exemplo:*
-
 1. *Regras para lançamento interno:*
+    - [ ]  *Desenvolvimento*
+    - [ ]  *Integração*
     - [ ]  *Validação*
     - [ ]  *Divulgação*
 
 # 💌 *Plano de comunicação*
 
-Quando as comunicações acontecerão? Quem será notificado sobre esse novo recurso? Enviaremos e-mails e notificações no aplicativo?
+Inicialmente, apresentaremos nosso sistema em fase Beta a comunidade do Senai. Logo depois, os anúncios do lançamento serão enviados aos principais interessados que se inscreveram para serem os primeiros a testar e desfrutar do produto.
 
 ## *Links*
 - [Miro](https://miro.com/app/board/uXjVKlCNuX4=/)
