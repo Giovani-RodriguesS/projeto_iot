@@ -7,27 +7,25 @@ Nosso sistema coleta dados em tempo real de uma plantação, sendo capaz de nos 
 
 # *Por que* implementar isto?
 
-Implementar nosso sistema melhora a visibilidade no processo de irrigação inteligente, possibilitando visualizar quais dias houve mais acionamento, quanto tempo durou a irrigação além de favorecer o armazenameto de dados para análises futuras.
+A implementação de nosso sistema melhora a visibilidade do processo de irrigação inteligente, permitindo visualizar quais dias houve maior acionamento, quanto tempo durou a irrigação, além de favorecer o armazenamento de dados para análises futuras. Além disso, a escalabilidade do sistema é uma realidade, pois ele foi desenvolvido para pequenas, médias e grandes plantações, permitindo o cadastro de diversos sensores e bombas.
 
 ---
 
 # ***Público alvo***
 
-Nosso produto foi desenvolvido para atender as exigências de agricultores e fazendeiros.
+Nosso produto foi desenvolvido para atender as exigências de agricultores, fazendeiros e jardineiros.
 
 | Perfil de usuário | Descrição, necessidades e interesses. |
 | --- | --- |
 | Agricultores | Acompanhamento de dados referentes a irrigação e análise de qualidade da umidade no solo |
 | Fazendeiros | Acompanhamento de dados referentes a irrigação e obtenção de possíveis *insights* |
+| Jardineiros | Acompanhamento de quantas vezes foi necessário irrigar determinadas áreas |
 
 # *Personas*
 
-1. **Gerente de Produção - Carla Moreira:**  Carla Moreira, com 20 anos de experiência, busca otimizar a produção automotiva e reduzir custos. Nosso sistema permite monitoramento em tempo real, armazenamento seguro de dados e automação, ajudando-a a antecipar problemas e tomar decisões estratégicas rapidamente.
-
-2. **Gestor de Qualidade - Ricardo Santos**  Ricardo Santos, com 15 anos de experiência, garante que todos os produtos atendam aos padrões de qualidade. O sistema coleta dados em tempo real, oferece alertas para falhas e automatiza verificações, permitindo que Ricardo se concentre em melhorias contínuas.
-
-3. **Engenheira de Produção - Luana Carvalho**  Luana Carvalho, com 8 anos de experiência, foca em automatizar e otimizar a linha de produção. Nosso sistema oferece dados rápidos, facilita a automação e justifica novos investimentos, ajudando Luana a implementar soluções eficientes e inovadoras.
-
+1. **Agricultor - João:**  Agricultor que busca otimizar o uso de água e melhorar a produtividade das lavouras por meio do monitoramento preciso da irrigação e da qualidade da umidade do solo. 
+2. **Fazendeiro - Vitor:**  Fazendeiro de grande porte interessado em *insights* sobre a irrigação para melhorar a eficiência da operação, reduzir custos e escalar o sistema conforme a fazenda cresce.
+3. **Jardineira - Kelly:**  Jardineira urbana que deseja monitorar de maneira simples e eficiente a irrigação de diferentes áreas do jardim, garantindo a saúde das plantas com o mínimo de esforço.
 ---
 
 # *Requisitos Funcionais*
@@ -35,27 +33,32 @@ Nosso produto foi desenvolvido para atender as exigências de agricultores e faz
 ```mermaid
 graph TB
     subgraph Dashboard
-        A[Menu]<-->E[Consumo de Energia]-->R[Relatório]
-        A<-->C[Tempo de ciclo]-->R
-        A<-->D[Quantidade de Peças]-->R
-        A<-->F[Taxa de Defeitos]-->R
-        E--> T[Tabelas]
-        C-->T
-        D-->T
-        F-->T
+        L[Tela de Login]
+        C[Home]
+        A[Dashboard]
+        I[Menu]
+        F[Usuário]
+        D[Dispositivos]
+        R[Relatórios]
+        O[Logout]
+
+        L-->I
+        I<-->C
+        I<-->A
+        I<-->F
+        I<-->D
+        I<-->R
+        I-->O
         
-        L[Tela Inicial]<-->A
-        L-->B[Gráficos]
+    
       
     end
 ```
 
-[Os requisitos funcionais descrevem as funcionalidades e capacidades específicas que o produto deve ter. Eles detalham o que o sistema deve fazer, as interações com os usuários e outras partes do sistema.]
-
-
-1. **Filtrar dados:** Capacidade de filtrar dados por data, crescentemente e decrescentemente. **P1**
+1. **Gerar Relatórios:** Capacidade de gerar relatórios contendo dados do sistema. **P1**
 2. **Consultar dados:** Consultar dados por meio de gráficos, tabelas e relatórios, possibilitando mostrar os dados de maneira dinâmica.**P1**
-3. **Alertas inteligentes:** Disparar alertas ao se perceber que alguma métrica de monitoramento foi ultrapassada. **P2**
+3. **Cadastrar Usuários:** Cadastrar usuários no sistema de maneira eficiente e segura**P2**
+4. **Cadastrar Dispositivos:** Cadastrar dispositivos no sistema como sensores e bombas**P2**
 
 **P1** = **Crítico | P1 = Importante | P2 = Bom ter**
 
@@ -65,32 +68,27 @@ graph TB
 graph TB
     subgraph Dashboard
         A[Menu]
-        B[Gráficos Gerais]
-        J[Gráficos Especificos]
+        F[Dashboard]
+        B[Gráficos]
         C[Tempo de ciclo]
         D[Quantidade de Peças]
         E[Consumo de Energia]
-        F[Taxa de Defeitos]
         R[Relatório]
-        T[Tabelas]
         I[Filtros]
         G[Usuário]
-        
-        G-->L
-        A<-->E-->R
-        A<-->C-->R
-        A<-->D-->R
-        A<-->F-->R
-        E-->T
-        C-->T
-        D-->T
-        F-->T
-        T<-->J
+        H[Login]
+        K[Cadastrar]
+        O[Logout]
+
+        G-->H
+        H-->|Primeiro Acesso|K
+        K-->A
+        A-->|Sair|O
+        H-->A
+        A<-->F
+        F<-->|Visualizar|B
         T<-->|Ver dados|I
-        R<-->|Ver dados|I
-        L[Tela Inicial]<-->A
-        L<-->|Ver dados|B
-      
+        R<-->|Ver dados|I      
     end
 ```
 ---
