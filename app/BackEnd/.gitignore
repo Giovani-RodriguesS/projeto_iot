@@ -20,6 +20,7 @@
 # Ignore project-specific files
 project.lock.json
 project.fragment.lock.json
+*.cache
 
 # Ignore logs
 *.log
