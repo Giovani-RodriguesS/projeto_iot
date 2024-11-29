@@ -1,0 +1,41 @@
+## ASP.NET
+
+# Ignore build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]istPublic/
+[Dd]ebug/ 
+[Dd]ebugPublic/
+
+# Ignore ASP.NET temporary files
+.vs/
+.vscode/
+.idea/
+# User-specific files
+.idea/
+
+# Ignore package files
+*.nupkg
+# Ignore project-specific files
+project.lock.json
+project.fragment.lock.json
+
+# Ignore logs
+*.log
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore directories created by IDEs
+.vscode/
+
+# Ignore ASP.NET Core
+wwwroot/
+
+# Ignore build results for CI/CD
+bin/
+obj/
