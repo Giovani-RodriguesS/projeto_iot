@@ -117,9 +117,12 @@ graph TB
 
 # *Fora de escopo* 🚫
 
-<aside>
- 
-- Armazenar métricas relacionas ao estado dos dispositivos em tempo real, como calor e desgaste.
+Embora o sistema seja projetado para coletar dados em tempo real relacionados à operação da irrigação, não será contemplado neste escopo análise de métricas relacionadas ao estado dos dispositivos, tais como:
+
+- Temperatura dos componentes da bomba
+- Indicadores de desgaste ou eficiência operacional
+- Manutenção preventiva baseada no estado dos dispositivos
+- Cálculo de Gasto de Energia
 
 </aside>
 
