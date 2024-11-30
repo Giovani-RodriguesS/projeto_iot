@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 export default function Reports() {
   return (
     <div className="flex min-h-screen">
-    <div className="flex-1  bg-white dark:bg-gray-900 text-black dark:text-white">
+    <div className="flex-1  bg-white dark:bg-slate-800 text-black dark:text-white">
       <Header title= "Irrigação Smart" username="Usuário"/>
       <Navbar />
       <main>
@@ -38,13 +38,13 @@ export default function Reports() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 flex-1 h-4 mt-8">
-          <div className="bg-white p-12 rounded-lg ml-4">
+          <div className="bg-gray-200 dark:bg-white p-12 rounded-lg ml-4">
             <h2 className="text-black text-xl mb-4 text-center">Monitoramento Sensores</h2>
             <div className="mt-10">
               <LineChart /> 
             </div>
           </div>
-          <div className="bg-white p-12 rounded-lg ml-4 flex flex-col items-center">
+          <div className="bg-gray-200 dark:bg-white p-12 rounded-lg ml-4 flex flex-col items-center">
             <h2 className="text-black text-x1 mb-4">Monitoramento chuva</h2>
             <div className="flex justify-center items-center w-full mt-8">
               <PieChart />

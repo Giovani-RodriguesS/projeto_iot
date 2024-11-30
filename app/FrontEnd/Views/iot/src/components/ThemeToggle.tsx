@@ -1,41 +1,35 @@
-// ThemeToggle.tsx
 'use client';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import 'primeicons/primeicons.css';
 
-import React, { useEffect, useState } from 'react';
-
-const getInitialTheme = () => {
-  if (typeof window !== 'undefined') {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) return savedTheme;
-    if (window.matchMedia) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-  }
-  return 'light';
-};
-
-const ThemeToggle: React.FC = () => {
-  const [theme, setTheme] = useState<string>(getInitialTheme());
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
+export default function ThemeToggle() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
+    const currentTheme = localStorage.getItem('theme') === 'dark';
+    setIsDarkMode(currentTheme);
+    document.documentElement.classList.toggle('dark', currentTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    document.documentElement.classList.toggle('dark', newTheme);
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+
+    // Recarrega a página para aplicar o tema corretamente sem erro de hidratação
+    router.refresh();
+  };
 
   return (
     <button
-      className="p-2 bg-gray-300 dark:bg-gray-600 rounded-md text-black dark:text-white"
       onClick={toggleTheme}
+      className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-xl text-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition"
+      aria-label="Toggle Theme"
     >
-      {theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}
+      <i className={`pi ${isDarkMode ? 'pi-moon' : 'pi-sun'}`}></i>
     </button>
   );
-};
-
-export default ThemeToggle;
+}
