@@ -18,7 +18,6 @@ export default function Users() {
     setShowDeleteModal(false);
   };
 
-  // Função para buscar usuários
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:5257/api/usuario');
