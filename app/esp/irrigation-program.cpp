@@ -6,13 +6,15 @@ const char* ssid = "SEU_SSID";
 const char* password = "SUA_SENHA";   // Substitua pela senha da sua rede
 const char* serverUrl = "http://seu-endpoint.com/api/dados";  // URL do endpoint
 
+int idBomba = 1;   // id cadastrado para bomba
+int idSensor = 1  // id cadastrado para sensor
 int sensorUmidade = 13;  // Define o pino 13 como Pino Analógico do sensor de umidade
 int sensorChuva = 27;    // Define o pino 27 como o sensor de chuva
 int Rele = 4;            // Pino Digital 4 como Relé
 int EstadoSensorChuva = 0;
-int EstadoSensorUmidade = 0;
+float EstadoSensorUmidade = 0.0;
 int ValAnalogIn;  // Valor analógico
-bool bombaAtivada;
+bool bombaAtivada = false;
 
 void setup() {
   Serial.begin(9600);
@@ -37,21 +39,21 @@ void setup() {
 void loop() {
   // Ler o estado do sensor de chuva e umidade
   EstadoSensorChuva = digitalRead(sensorChuva);
-  EstadoSensorUmidade = digitalRead(sensorUmidade);
+  EstadoSensorUmidade = analogRead(sensorUmidade);
 
   // Variável para armazenar os dados que serão enviados
   String jsonPayload;
 
-  if (EstadoSensor == LOW) {  // Supondo que o sensor de chuva retorne HIGH quando detecta chuva
+  if (EstadoSensorChuva == LOW) {  // Supondo que o sensor de chuva retorne HIGH quando detecta chuva
     Serial.println("Está chovendo");
     digitalWrite(Rele, HIGH);  // Desliga o relé para interromper a irrigação
     bombaAtivada = false;
 
     // Preparar os dados para envio
-    jsonPayload = "{\"medida\": EstadoSensorUmidade \"umidade\": null}";
+    jsonPayload = "{\"medida\": EstadoSensorUmidade \"umidade\": EstadoSensorUmidade}";
 
   } else {
-    ValAnalogIn = analogRead(PinoAnalogico);
+    ValAnalogIn = analogRead(sensorUmidade);
     int Porcento = map(ValAnalogIn, 4095, 1400, 0, 100);  // Transforma o valor analógico
     delay(500);
 
@@ -59,7 +61,7 @@ void loop() {
     Serial.print(Porcento);
     Serial.println("%");
 
-    if (Porcento <= 50) {
+    if (Porcento <= 50) {  // adicionar sensibilidade de umidade
       Serial.println("Irrigando Planta");
       digitalWrite(Rele, LOW);  // Aciona o Relé
     } else {
@@ -92,9 +94,3 @@ void loop() {
 
   delay(1000);  // Intervalo para a próxima leitura
 }
-
-
-/*
-- 
-
-*/
