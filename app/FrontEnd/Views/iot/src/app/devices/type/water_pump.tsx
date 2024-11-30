@@ -32,20 +32,6 @@ export default function Water_pump() {
                 </div>
                 <InputText placeholder="Data Instalação" className="w-full p-2 focus:outline-none" style={{color:'black'}}/>
             </div>
-            <Button 
-                label="Cadastrar" 
-                style={{
-                    color: 'white', 
-                    backgroundColor: '#3b82f6', 
-                    padding: '10px 20px',
-                    borderWidth: '2px',
-                    borderRadius: '8px',
-                    fontSize: '1rem',
-                    fontWeight: 'bold',
-                    transition: 'all 0.3s ease'
-                }} 
-                className="hover:bg-gray-200"
-            />
         </div>
     );
 }
