@@ -7,7 +7,7 @@ import AddDevice from "./addDevice";
 
 export default function Users() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen  bg-white dark:bg-gray-900 text-black dark:text-white">
       <div className="flex-1 bg-slate-800 h-full">
         <Header title="Usuários" username="Letícia Anhaia" />
         <Navbar />

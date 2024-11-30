@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 export default function Reports() {
   return (
     <div className="flex min-h-screen">
-    <div className="flex-1 bg-black">
+    <div className="flex-1  bg-white dark:bg-gray-900 text-black dark:text-white">
       <Header title= "Irrigação Smart" username="Usuário"/>
       <Navbar />
       <main>
