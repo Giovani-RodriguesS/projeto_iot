@@ -25,23 +25,22 @@ export default function NavBar() {
           icon: 'pi pi-microchip',
           command: () => router.push('/devices')
         },
+        { label: 'Relatório',
+          icon: 'pi pi-clipboard',
+        command: () => router.push('/reports')
+        },
         { label: 'Logout',
-          //icon: 'pi pi-clipboard',
           icon: 'pi pi-sign-out',
         command: () => router.push('/register')
       }
     ];
-
-  function setActiveIndex(index: number): void {
-    throw new Error('Function not implemented.');
-  }
 
     return (
       <div className="flex justify-center w-screen bg-transparent text-5xl ">
         <div className="flex flex-col items-center justify-center">
           <TabMenu 
             model={items}
-            className="w-full bg-transparent rounded-lg text-white custom-tabmenu mt-4"
+            className="w-full bg- rounded-lg text-white custom-tabmenu mt-4"
             />
         </div>
       </div>

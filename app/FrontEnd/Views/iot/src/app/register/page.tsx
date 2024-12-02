@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from "react";
 import { InputMask } from "primereact/inputmask";
 import 'primeicons/primeicons.css';
