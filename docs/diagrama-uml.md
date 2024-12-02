@@ -11,6 +11,8 @@ classDiagram
     class Usuario {
         + Id: int
         + Nome: string
+        + Email: string
+        + Telefone: string
         + Senha: string
         + Cargo: string
     }
