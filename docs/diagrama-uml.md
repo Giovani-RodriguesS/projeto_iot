@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
     class Dispositivo {
         <<abstract>>
@@ -46,3 +47,4 @@ classDiagram
     Leitura <|-- LeituraBomba
 
     Dispositivo --> Leitura : associa
+```
