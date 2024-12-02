@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
-import {Chart as ChartJS,CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { jsPDF } from "jspdf";
 import { Calendar } from "primereact/calendar";
@@ -76,97 +76,97 @@ export default function Reports() {
   };
 
   // Função para remover tags HTML, se necessário
-const stripHTML = (html: string): string => {
-  const div = document.createElement("div");
-  div.innerHTML = html;
-  return div.textContent || div.innerText || "";
-};
+  const stripHTML = (html: string): string => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+  };
 
-// Função principal para gerar o PDF
-const downloadPDFHandler = async () => {
-  const pdf = new jsPDF(); // Cria uma nova instância do jsPDF
-  const chartCanvas = document.querySelector("canvas") as HTMLCanvasElement;
+  // Função principal para gerar o PDF
+  const downloadPDFHandler = async () => {
+    const pdf = new jsPDF(); // Cria uma nova instância do jsPDF
+    const chartCanvas = document.querySelector("canvas") as HTMLCanvasElement;
 
-  // **Cabeçalho do Relatório**
-  pdf.setFillColor(230, 230, 230); // Cor de fundo cinza claro
-  pdf.rect(0, 0, 210, 30, "F"); // Desenha o fundo do cabeçalho
-  pdf.setTextColor(0, 102, 204); // Cor azul para o título
-  pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(20);
-  pdf.text("Relatório de Análise", 105, 20, { align: "center" }); // Título centralizado
+    // **Cabeçalho do Relatório**
+    pdf.setFillColor(230, 230, 230); // Cor de fundo cinza claro
+    pdf.rect(0, 0, 210, 30, "F"); // Desenha o fundo do cabeçalho
+    pdf.setTextColor(0, 102, 204); // Cor azul para o título
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(20);
+    pdf.text("Relatório de Análise", 105, 20, { align: "center" }); // Título centralizado
 
-  // **Detalhes do Relatório**
-  pdf.setFont("helvetica", "normal");
-  pdf.setTextColor(0, 0, 0); // Texto preto
-  pdf.setFontSize(12);
-
-  const [startDate, endDate] = parameters.dates || [null, null];
-  pdf.text(
-    `Datas: ${startDate ? new Date(startDate).toLocaleDateString() : "N/A"} até ${endDate ? new Date(endDate).toLocaleDateString() : "N/A"}`,
-    10, 40
-  );
-  pdf.text(
-    `Tipo de Relatório: ${parameters.reportTypes.join(", ") || "N/A"}`,
-    10, 50
-  );
-
-  // **Observações (Renderiza diretamente do Editor Rich Text)**
-  pdf.setFont("helvetica", "bold");
-  pdf.text("Observações:", 10, 60);
-  
-  const editorContent = document.querySelector(".ql-editor") as HTMLElement;
-  let nextYPosition = 70;
-
-  if (editorContent) {
-    const canvas = await html2canvas(editorContent, { scale: 1.5, useCORS: true });
-    const imgData = canvas.toDataURL("image/png");
-    const imgWidth = 190; // Largura da imagem no PDF
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    pdf.addImage(imgData, "PNG", 10, nextYPosition, imgWidth, imgHeight);
-    nextYPosition += imgHeight + 10; // Ajusta a posição para a tabela
-  } else {
+    // **Detalhes do Relatório**
     pdf.setFont("helvetica", "normal");
-    pdf.text(stripHTML(parameters.notes || ""), 10, nextYPosition, { maxWidth: 190 });
-    nextYPosition += 20;
-  }
+    pdf.setTextColor(0, 0, 0); // Texto preto
+    pdf.setFontSize(12);
 
-  // **Tabela de Dados**
-  const tableData = [
-    ["Item", "Quantidade", "Custo"],
-    ["Água", "500L", "R$ 200"],
-    ["Eletricidade", "100kWh", "R$ 150"],
-    ["Manutenção", "Mensal", "R$ 300"],
-  ];
+    const [startDate, endDate] = parameters.dates || [null, null];
+    pdf.text(
+      `Datas: ${startDate ? new Date(startDate).toLocaleDateString() : "N/A"} até ${endDate ? new Date(endDate).toLocaleDateString() : "N/A"}`,
+      10, 40
+    );
+    pdf.text(
+      `Tipo de Relatório: ${parameters.reportTypes.join(", ") || "N/A"}`,
+      10, 50
+    );
 
-  pdf.setFont("helvetica", "bold");
-  pdf.text("Tabela de Custos:", 10, nextYPosition);
-  nextYPosition += 10;
+    // **Observações (Renderiza diretamente do Editor Rich Text)**
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Observações:", 10, 60);
 
-  tableData.forEach((row, index) => {
-    const isHeader = index === 0;
-    pdf.setFont(isHeader ? "helvetica" : "helvetica", isHeader ? "bold" : "normal");
-    pdf.setFillColor(230, 240, 240); // Cor diferente para cabeçalho
-    pdf.rect(10, nextYPosition, 190, 8, "F"); // Fundo da linha
-    pdf.text(row.join("            "), 12, nextYPosition + 6); // Exibe o conteúdo da tabela
-    nextYPosition += 8;
-  });
+    const editorContent = document.querySelector(".ql-editor") as HTMLElement;
+    let nextYPosition = 70;
 
-  // **Adicionando o Gráfico**
-  if (chartCanvas) {
-    const chartImage = chartCanvas.toDataURL("image/png");
-    const chartHeight = 90;
-    pdf.addImage(chartImage, "PNG", 10, nextYPosition + 10, 190, chartHeight);
-    nextYPosition += chartHeight + 20; // Adiciona o gráfico sem sobreposição
-  }
+    if (editorContent) {
+      const canvas = await html2canvas(editorContent, { scale: 1.5, useCORS: true });
+      const imgData = canvas.toDataURL("image/png");
+      const imgWidth = 190; // Largura da imagem no PDF
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 10, nextYPosition, imgWidth, imgHeight);
+      nextYPosition += imgHeight + 10; // Ajusta a posição para a tabela
+    } else {
+      pdf.setFont("helvetica", "normal");
+      pdf.text(stripHTML(parameters.notes || ""), 10, nextYPosition, { maxWidth: 190 });
+      nextYPosition += 20;
+    }
 
-  // **Rodapé**
-  pdf.setFontSize(10);
-  pdf.setTextColor(150); // Cor de texto cinza claro
-  pdf.text("Relatório gerado automaticamente pelo sistema",105, 290,{ align: "center" });
+    // **Tabela de Dados**
+    const tableData = [
+      ["Item", "Quantidade", "Custo"],
+      ["Água", "500L", "R$ 200"],
+      ["Eletricidade", "100kWh", "R$ 150"],
+      ["Manutenção", "Mensal", "R$ 300"],
+    ];
 
-  // Salva o PDF gerado
-  pdf.save("relatorio.pdf");
-};
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Tabela de Custos:", 10, nextYPosition);
+    nextYPosition += 10;
+
+    tableData.forEach((row, index) => {
+      const isHeader = index === 0;
+      pdf.setFont(isHeader ? "helvetica" : "helvetica", isHeader ? "bold" : "normal");
+      pdf.setFillColor(230, 240, 240); // Cor diferente para cabeçalho
+      pdf.rect(10, nextYPosition, 190, 8, "F"); // Fundo da linha
+      pdf.text(row.join("            "), 12, nextYPosition + 6); // Exibe o conteúdo da tabela
+      nextYPosition += 8;
+    });
+
+    // **Adicionando o Gráfico**
+    if (chartCanvas) {
+      const chartImage = chartCanvas.toDataURL("image/png");
+      const chartHeight = 90;
+      pdf.addImage(chartImage, "PNG", 10, nextYPosition + 10, 190, chartHeight);
+      nextYPosition += chartHeight + 20; // Adiciona o gráfico sem sobreposição
+    }
+
+    // **Rodapé**
+    pdf.setFontSize(10);
+    pdf.setTextColor(150); // Cor de texto cinza claro
+    pdf.text("Relatório gerado automaticamente pelo sistema", 105, 290, { align: "center" });
+
+    // Salva o PDF gerado
+    pdf.save("relatorio.pdf");
+  };
 
   const handleCheckboxChange = (e: CheckboxChangeEvent) => { // Função chamada ao alterar os tipos de relatório.
     const { checked, value } = e.target; // Obtém o valor e o estado do checkbox.
@@ -178,14 +178,15 @@ const downloadPDFHandler = async () => {
   };
 
   return (
-    <div className="flex h-screen bg-black text-black">
+    <div className="flex h-screen bg-white dark:bg-slate-800 text-black dark:text-white">
       <div className="flex-1">
         <Header title="Relatórios" username="Letícia Anhaia" />
         <Navbar />
         <main className="w-full max-w-8xl px-8 py-10 flex flex-col">
-        <div className="grid grid-cols-2 gap-10 mt-10">
-            {/* Configuração */}
-            <section className="bg-white shadow-lg rounded-lg p-8 w-full">
+          <div className="grid grid-cols-2 gap-10 mt-10">
+
+            {/*Configuração*/}
+            <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-8 w-full">
               <h2 className="text-2xl font-semibold text-black mb-6">
                 Configuração de Relatório
               </h2>
@@ -203,7 +204,7 @@ const downloadPDFHandler = async () => {
                   hideOnRangeSelection
                   showIcon
                   placeholder="Selecione um período"
-                  className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500"
+                  className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 dark:border-gray-600 dark:text-black"
                   panelClassName="custom-calendar-panel"
                 />
               </div>
@@ -215,7 +216,7 @@ const downloadPDFHandler = async () => {
                     onChange={handleCheckboxChange}
                     checked={parameters.reportTypes.includes("Financeiro")}
                   />
-                  <label htmlFor="financeiro" className="ml-2 text-gray-600">
+                  <label htmlFor="financeiro" className="ml-2 text-gray-600 dark:text-gray-400">
                     Financeiro
                   </label>
                   <Checkbox
@@ -224,7 +225,7 @@ const downloadPDFHandler = async () => {
                     onChange={handleCheckboxChange}
                     checked={parameters.reportTypes.includes("Operacional")}
                   />
-                  <label htmlFor="operacional" className="ml-2 text-gray-600">
+                  <label htmlFor="operacional" className="ml-2 text-gray-600 dark:text-gray-400">
                     Operacional
                   </label>
                   <Checkbox
@@ -233,7 +234,7 @@ const downloadPDFHandler = async () => {
                     onChange={handleCheckboxChange}
                     checked={parameters.reportTypes.includes("Vendas")}
                   />
-                  <label htmlFor="vendas" className="ml-2 text-gray-600">
+                  <label htmlFor="vendas" className="ml-2 text-gray-600 dark:text-gray-400">
                     Vendas
                   </label>
                   <Checkbox
@@ -242,13 +243,13 @@ const downloadPDFHandler = async () => {
                     onChange={handleCheckboxChange}
                     checked={parameters.reportTypes.includes("Clientes")}
                   />
-                  <label htmlFor="clientes" className="ml-2 text-gray-600">
+                  <label htmlFor="clientes" className="ml-2 text-gray-600 dark:text-gray-400">
                     Clientes
                   </label>
                 </div>
               </div>
               <div className="mb-6">
-                <label className="block text-lg font-medium text-gray-700 mb-2">
+                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Observações
                 </label>
                 <Editor
@@ -258,6 +259,7 @@ const downloadPDFHandler = async () => {
                   }
                   style={{ height: "200px" }}
                   placeholder="Adicione suas observações..."
+                  className="dark:bg-white dark:text-black" // Cor do texto e fundo do editor
                 />
               </div>
               <button
@@ -267,9 +269,11 @@ const downloadPDFHandler = async () => {
                 Gerar Relatório
               </button>
             </section>
-  
+
+
+
             {/* Gráfico */}
-            <section className="bg-white shadow-lg rounded-lg p-8 w-full">
+            <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-8 w-full">
               {chartData ? (
                 <>
                   <h2 className="text-2xl font-semibold text-gray-800 mb-6">

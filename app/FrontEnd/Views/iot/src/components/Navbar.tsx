@@ -5,6 +5,7 @@ import { TabMenu } from 'primereact/tabmenu';
 import { MenuItem } from 'primereact/menuitem';
 import '../app/globals.css';
 
+
 export default function NavBar() {
     const router = useRouter();
 
@@ -37,13 +38,13 @@ export default function NavBar() {
   }
 
     return (
-      <div className="flex justify-center w-screen bg-transparent text-5xl ">
+      <div className="flex justify-center w-screen bg-transparent text-5xl bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100">
         <div className="flex flex-col items-center justify-center">
           <TabMenu 
             model={items}
-            className="w-full bg-transparent rounded-lg text-white custom-tabmenu mt-4"
+            className="w-full bg-transparent rounded-lg custom-tabmenu mt-4 text-gray-900 dark:text-gray-100"
             />
-        </div>
+        </div> 
       </div>
     );
 }
