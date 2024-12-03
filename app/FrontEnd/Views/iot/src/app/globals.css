@@ -132,3 +132,14 @@ body {
   font-size: 2rem;
   font-weight: bold;
 }
+
+.custom-calendar-panel {
+  background-color: #ffffff !important; /* Fundo branco */
+  color: #000000 !important; /* Texto preto */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra leve */
+}
+
+.custom-calendar-day {
+  color: #1f2937; /* Cor do texto dos números */
+}
