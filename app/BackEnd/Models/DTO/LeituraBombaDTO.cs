@@ -1,5 +1,5 @@
 public class LeituraBombaDTO 
 {
-    public DateTime Tempo { get; set; }
+    public int IdBomba { get; set; }
     public bool BombaAtivada { get; set; }
 }
