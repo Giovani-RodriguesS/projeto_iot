@@ -45,12 +45,16 @@ namespace BackEnd.Controllers
         // PUT: api/Bomba/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBomba(int id, Bomba bomba)
+        public async Task<ActionResult<Bomba>> PutBomba(int id, BombaDTO bombaDTO)
         {
-            if (id != bomba.Id)
+            var bomba = new Bomba
             {
-                return BadRequest();
-            }
+                Nome = bombaDTO.Nome,
+                Tipo = bombaDTO.Tipo,
+                Vazao = bombaDTO.Vazao,
+                NumPino = bombaDTO.NumPino,
+                Localizacao = bombaDTO.Localizacao
+            };
 
             _context.Entry(bomba).State = EntityState.Modified;
 
@@ -70,7 +74,7 @@ namespace BackEnd.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction("GetBomba", new { id = bomba.Id }, bomba);
         }
 
         // POST: api/Bomba
