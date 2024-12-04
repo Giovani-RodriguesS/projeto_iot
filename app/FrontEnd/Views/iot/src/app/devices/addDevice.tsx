@@ -12,14 +12,15 @@ export default function AddDevice() {
             <Sidebar 
                 visible={visible} 
                 onHide={() => setVisible(false)}
-                style={{ top: '10%' }}
-                className="w-full md:w-80 h-4/5 text-center bg-transparent justify-center">
-                <h2 className="sidebar-title mb-2" style={{fontSize:'1.5rem'}}>Cadastro Dispositivo</h2>
+                showCloseIcon={false}
+                className='flex justify-center items-center'
+                style={{ top: '20%', borderRadius: '10px'}}>
+                    <h2 className="sidebar-title bg-slate-600 text-center" style={{fontSize:'1.5rem'}}>Cadastro Dispositivo</h2>
                 <SidebarDevices />
             </Sidebar>
             <Button 
                 icon="pi pi-file-plus" 
-                onClick={() => setVisible(true)} 
+                onClick={() => setVisible(true)}
                 className="p-button-rounded p-button-lg ml-80" 
                 style={{ fontSize: '3rem' }}
             />
