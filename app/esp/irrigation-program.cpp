@@ -3,10 +3,10 @@
 #include <time.h>
 
 // Wi-Fi
-const char* ssid = "moto g(8) power lite 5276";
-const char* password = "1234abcd";
-const char* serverUrlS = "http://192.168.43.222:5257/api/LeituraSensor";
-const char* serverUrlB = "http://192.168.43.222:5257/api/LeituraBomba";
+const char* ssid = "moto g52_1738";
+const char* password = "aaaaaaa8";
+const char* serverUrlS = "https://192.168.74.248/api/LeituraSensor";
+const char* serverUrlB = "https://192.168.74.248/api/LeituraBomba";
 
 // Definição dos pinos
 int sensorUmidade = 13;
@@ -63,9 +63,9 @@ void loop() {
   }
 
   // Criar o JSON dinamicamente
-  String jsonPayloadBO = String("{\"bombaAtivada\":") + (bombaAtivada ? "true" : "false") + ",\"tempo\":\"" + getISO8601Time() + "\"}";
-  String jsonPayloadSU = String("{\"medida\":") + porcentoSU + ",\"tempo\":\"" + getISO8601Time() + "\"}";
-  String jsonPayloadSC = String("{\"medida\":") + porcentoSC + ",\"tempo\":\"" + getISO8601Time() + "\"}";
+String jsonPayloadBO = String("{\"idBomba\":1,\"bombaAtivada\":") + (bombaAtivada ? "true" : "false") + "}";
+String jsonPayloadSU = String("{\"idSensor\":1,\"medida\":") + porcentoSU + "}";
+String jsonPayloadSC = String("{\"idSensor\":2,\"medida\":") + porcentoSC + "}";
 
   // Enviar os dados
   if (WiFi.status() == WL_CONNECTED) {
@@ -77,22 +77,6 @@ void loop() {
   }
 
   delay(5000);  // Intervalo para a próxima leitura
-}
-
-String getISO8601Time() {
-  struct tm timeinfo;
-  if (!getLocalTime(&timeinfo)) {
-    return "Erro: Falha ao obter tempo";
-  }
-
-  char buffer[30];
-  strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%S", &timeinfo);
-  
-  // Adicionar milissegundos manualmente e sufixo UTC 'Z'
-  long ms = millis() % 1000; // Milissegundos desde o início do programa
-  String timeWithMs = String(buffer) + "." + String(ms) + "Z";
-  
-  return timeWithMs;
 }
 
 void enviarHTTPPost(const char* url, String payload) {
