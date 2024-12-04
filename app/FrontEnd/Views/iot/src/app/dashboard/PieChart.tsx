@@ -25,7 +25,8 @@ export default function DoughnutChartDemo() {
             ]
         };
         const options = {
-            cutout: '70%'
+            cutout: '70%',
+            responsive: true
         };
 
         setChartData(data);
@@ -34,7 +35,7 @@ export default function DoughnutChartDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <Chart type="doughnut" data={chartData} options={chartOptions} style={{ width: '500px', height: '500px' }} />
+            <Chart type="doughnut" data={chartData} options={chartOptions} />
         </div>
     )
 }

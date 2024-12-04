@@ -37,7 +37,7 @@ export default function NavBar() {
     ];
 
     return (
-      <div className="flex justify-center w-screen bg-transparent text-5xl bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100">
+      <div className="flex justify-center w-screen bg-transparent text-2xl md:text-3xl bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100">
         <div className="flex flex-col items-center justify-center">
           <TabMenu 
             model={items}
