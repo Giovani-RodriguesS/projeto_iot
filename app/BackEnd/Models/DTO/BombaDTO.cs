@@ -5,5 +5,5 @@ public class BombaDTO
     public float Vazao { get; set; }
     public int NumPino { get; set; }
     public string? Localizacao { get; set; }
-    public DateTime Data_instalacao { get; set; }
+    public DateOnly Data_instalacao { get; set; }
 }

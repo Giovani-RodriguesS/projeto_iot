@@ -44,7 +44,8 @@ namespace BackEnd.Controllers
             // Criar o objeto LeituraSensor com o novo IdSensor
             var leituraSensor = new LeituraSensor
             {
-                Tempo = leituraSensorDTO.Tempo,
+                Data = leituraSensorDTO.Data,
+                Hora = leituraSensorDTO.Hora,
                 Medida = leituraSensorDTO.Medida,
                 IdSensor = novoIdSensor // Definir o novo valor de IdSensor
             };
@@ -60,7 +61,8 @@ namespace BackEnd.Controllers
         // Método para converter LeituraSensor em LeituraSensorDTO
         private static LeituraSensorDTO LeituraSensorToDTO(LeituraSensor leituraSensor) => new LeituraSensorDTO
         {
-            Tempo = leituraSensor.Tempo,
+            Data = leituraSensor.Data,
+            Hora = leituraSensor.Hora,
             Medida = leituraSensor.Medida,
         };
     }
