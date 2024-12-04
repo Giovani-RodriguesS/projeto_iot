@@ -16,6 +16,7 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader()
                           .AllowAnyMethod());
 });
+builder.WebHost.UseKestrel();
 
 // Adiciona serviços ao contêiner
 builder.Services.AddControllers();
