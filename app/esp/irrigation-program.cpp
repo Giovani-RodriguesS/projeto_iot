@@ -1,32 +1,33 @@
-#include <WiFi.h>      
-#include <HTTPClient.h>   
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <time.h>
 
 // Wi-Fi
-const char* ssid = "SEU_SSID";        
-const char* password = "SUA_SENHA";   // Substitua pela senha da sua rede
-const char* serverUrl = "http://seu-endpoint.com/api/dados";  // URL do endpoint
+const char* ssid = "moto g(8) power lite 5276";
+const char* password = "1234abcd";
+const char* serverUrlS = "http://192.168.43.222:5257/api/LeituraSensor";
+const char* serverUrlB = "http://192.168.43.222:5257/api/LeituraBomba";
 
-int idBomba = 1;   // id cadastrado para bomba
-int idSensor = 1  // id cadastrado para sensor
-int sensorUmidade = 13;  // Define o pino 13 como Pino Analógico do sensor de umidade
-int sensorChuva = 27;    // Define o pino 27 como o sensor de chuva
-int Rele = 4;            // Pino Digital 4 como Relé
-int EstadoSensorChuva = 0;
-float EstadoSensorUmidade = 0.0;
-int ValAnalogIn;  // Valor analógico
+// Definição dos pinos
+int sensorUmidade = 13;
+int sensorChuva = 27;
+int rele = 4;
+
+// Variáveis
+int estadoSensorChuva = 0;
+int estadoSensorUmidade = 0;
 bool bombaAtivada = false;
 
 void setup() {
   Serial.begin(9600);
 
-  pinMode(Rele, OUTPUT);        // Declara o Relé como Saída Digital
-  pinMode(sensorChuva, INPUT);  // Declara o sensor de chuva como Entrada
+  pinMode(rele, OUTPUT);
+  pinMode(sensorChuva, INPUT);
+  pinMode(sensorUmidade, INPUT);
 
   // Conectar ao Wi-Fi
   Serial.print("Conectando-se ao Wi-Fi");
   WiFi.begin(ssid, password);
-
-  // Aguardando Conexão
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.print(".");
@@ -34,63 +35,73 @@ void setup() {
   Serial.println("\nWi-Fi conectado");
   Serial.print("Endereço IP: ");
   Serial.println(WiFi.localIP());
+
+  // Configurar o NTP
+  configTime(0, 0, "pool.ntp.org", "time.nist.gov"); // Ajusta UTC, servidores NTP
+  Serial.println("Sincronizando tempo...");
+  delay(2000); // Esperar tempo sincronizar
+
 }
 
 void loop() {
-  // Ler o estado do sensor de chuva e umidade
-  EstadoSensorChuva = digitalRead(sensorChuva);
-  EstadoSensorUmidade = analogRead(sensorUmidade);
+  // Ler os sensores
+  estadoSensorChuva = analogRead(sensorChuva);
+  estadoSensorUmidade = analogRead(sensorUmidade);
 
-  // Variável para armazenar os dados que serão enviados
-  String jsonPayload;
+  int porcentoSU = map(estadoSensorUmidade, 4095, 1400, 0, 100);
+  int porcentoSC = map(estadoSensorChuva, 4095, 1400, 0, 100);
 
-  if (EstadoSensorChuva == LOW) {  // Supondo que o sensor de chuva retorne HIGH quando detecta chuva
-    Serial.println("Está chovendo");
-    digitalWrite(Rele, HIGH);  // Desliga o relé para interromper a irrigação
+  // Decisão de ligar ou desligar a bomba
+  if (porcentoSC >= 80 || porcentoSU >= 70) {
+    Serial.printf("Não precisa regar. Chuva: %d%%, Umidade: %d%%\n", porcentoSC, porcentoSU);
+    digitalWrite(rele, LOW);
     bombaAtivada = false;
-
-    // Preparar os dados para envio
-    jsonPayload = "{\"medida\": EstadoSensorUmidade \"umidade\": EstadoSensorUmidade}";
-
   } else {
-    ValAnalogIn = analogRead(sensorUmidade);
-    int Porcento = map(ValAnalogIn, 4095, 1400, 0, 100);  // Transforma o valor analógico
-    delay(500);
-
-    Serial.print("Umidade: ");
-    Serial.print(Porcento);
-    Serial.println("%");
-
-    if (Porcento <= 50) {  // adicionar sensibilidade de umidade
-      Serial.println("Irrigando Planta");
-      digitalWrite(Rele, LOW);  // Aciona o Relé
-    } else {
-      Serial.println("Planta Irrigada");
-      digitalWrite(Rele, HIGH);  // Desliga o Relé
-    }
-
-    // Preparar os dados para envio
-    jsonPayload = "{\"chuva\": false, \"umidade\": " + String(Porcento) + "}";
-    
+    Serial.printf("Regando. Chuva: %d%%, Umidade: %d%%\n", porcentoSC, porcentoSU);
+    digitalWrite(rele, HIGH);
+    bombaAtivada = true;
   }
 
-  // Enviar os dados via HTTP POST
+  // Criar o JSON dinamicamente
+  String jsonPayloadBO = String("{\"bombaAtivada\":") + (bombaAtivada ? "true" : "false") + ",\"tempo\":\"" + getISO8601Time() + "\"}";
+  String jsonPayloadSU = String("{\"medida\":") + porcentoSU + ",\"tempo\":\"" + getISO8601Time() + "\"}";
+  String jsonPayloadSC = String("{\"medida\":") + porcentoSC + ",\"tempo\":\"" + getISO8601Time() + "\"}";
+
+  // Enviar os dados
   if (WiFi.status() == WL_CONNECTED) {
-    HTTPClient http;
-
-    http.begin(serverUrl);  // Configura a URL do endpoint
-    http.addHeader("Content-Type", "application/json");  // Define o cabeçalho da requisição
-
-    int httpResponseCode = http.POST(jsonPayload);  // Envia os dados
-
-    // Exibe a resposta no monitor serial
-    Serial.print("HTTP Response Code: ");
-    Serial.println(httpResponseCode);
-
-    http.end();  // Finaliza a conexão HTTP
+    enviarHTTPPost(serverUrlB, jsonPayloadBO);
+    enviarHTTPPost(serverUrlS, jsonPayloadSU);
+    enviarHTTPPost(serverUrlS, jsonPayloadSC);
   } else {
     Serial.println("Wi-Fi desconectado. Não foi possível enviar os dados.");
   }
 
-  delay(1000);  // Intervalo para a próxima leitura
+  delay(5000);  // Intervalo para a próxima leitura
+}
+
+String getISO8601Time() {
+  struct tm timeinfo;
+  if (!getLocalTime(&timeinfo)) {
+    return "Erro: Falha ao obter tempo";
+  }
+
+  char buffer[30];
+  strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%S", &timeinfo);
+  
+  // Adicionar milissegundos manualmente e sufixo UTC 'Z'
+  long ms = millis() % 1000; // Milissegundos desde o início do programa
+  String timeWithMs = String(buffer) + "." + String(ms) + "Z";
+  
+  return timeWithMs;
+}
+
+void enviarHTTPPost(const char* url, String payload) {
+  HTTPClient http;
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+  int httpResponseCode = http.POST(payload);
+
+  Serial.printf("POST para %s\nPayload: %s\nCódigo de resposta: %d\n", url, payload.c_str(), httpResponseCode);
+
+  http.end();
 }
