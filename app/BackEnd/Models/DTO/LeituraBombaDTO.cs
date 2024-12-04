@@ -1,6 +1,5 @@
 public class LeituraBombaDTO 
 {
+    public int IdBomba { get; set; }
     public bool BombaAtivada { get; set; }
-    public DateOnly Data { get; set; }
-    public TimeOnly Hora { get; set; }
 }

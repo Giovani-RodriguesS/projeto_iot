@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackEnd.Data;
@@ -44,12 +39,21 @@ namespace BackEnd.Controllers
         // PUT: api/Usuario/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
-        {
-            if (id != usuario.Id)
+        public async Task<IActionResult> PutUsuario(int id, UsuarioDTO usuarioDTO)
+        {   
+            var usuario = await _context.Usuario.FindAsync(id);
+
+            if (usuario == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            // Atualiza os campos do usuário
+            usuario.Nome = usuarioDTO.Nome;
+            usuario.Email = usuarioDTO.Email;
+            usuario.Telefone = usuarioDTO.Telefone;
+            usuario.Senha = usuarioDTO.Senha;
+            usuario.Cargo = usuarioDTO.Cargo;
 
             _context.Entry(usuario).State = EntityState.Modified;
 

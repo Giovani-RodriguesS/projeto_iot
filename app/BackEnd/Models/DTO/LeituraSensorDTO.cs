@@ -1,6 +1,5 @@
 public class LeituraSensorDTO
 {
+    public int IdSensor { get; set;}
     public float Medida { get; set; }
-    public DateOnly Data { get; set; }
-    public TimeOnly Hora { get; set; }
 }

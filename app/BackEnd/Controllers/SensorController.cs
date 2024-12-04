@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackEnd.Data;
@@ -48,23 +43,18 @@ namespace BackEnd.Controllers
         {
             // Buscar o sensor existente no banco de dados
             var sensor = await _context.Sensor.FindAsync(id);
+            
             if (sensor == null)
             {
                 return NotFound(); // Retorna 404 se o sensor não for encontrado
             }
         
-            // Verificar se o ID fornecido corresponde ao esperado
-            if (id != sensor.Id)
-            {
-                return BadRequest(); // Retorna 400 se os IDs não corresponderem
-            }
-        
             // Atualizar os campos do sensor com os valores do DTO
             sensor.Nome = sensorDTO.Nome;
-            sensor.Umidade = sensorDTO.Umidade;
             sensor.NumPino = sensorDTO.NumPino;
             sensor.Tipo = sensorDTO.Tipo;
             sensor.Data_instalacao = sensorDTO.Data_instalacao;
+            sensor.Umidade = sensorDTO.Umidade;
         
             // Marcar a entidade como modificada
             _context.Entry(sensor).State = EntityState.Modified;
@@ -106,10 +96,10 @@ namespace BackEnd.Controllers
             var sensor = new Sensor
             {
                 Nome = sensorDTO.Nome,
-                Umidade = sensorDTO.Umidade,
                 NumPino = sensorDTO.NumPino,
                 Tipo = sensorDTO.Tipo,
-                Data_instalacao = sensorDTO.Data_instalacao
+                Data_instalacao = sensorDTO.Data_instalacao,
+                Umidade = sensorDTO.Umidade
             };
         
             // Adiciona o novo sensor ao contexto

@@ -6,7 +6,7 @@ classDiagram
         + Nome: string
         + NumPino: int
         + Tipo: string
-        + Data_instalacao: datetime
+        + Data_instalacao: dateonly
     }
     class Usuario {
         + Id: int
@@ -29,7 +29,8 @@ classDiagram
     class Leitura {
         <<abstract>>
         + Id: int
-        + Tempo: timestamp
+        + Data: dateonly
+        + Hora: timeonly
     }
     class LeituraBomba {
         + IdBomba: int
