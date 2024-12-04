@@ -6,53 +6,54 @@ import Navbar from "@/components/Navbar";
 
 export default function Reports() {
   return (
-    <div className="flex min-h-screen">
-    <div className="flex-1  bg-white dark:bg-slate-800 text-black dark:text-white">
-      <Header title= "Irrigação Smart" username="Usuário"/>
-      <Navbar />
-      <main>
-        <div className="flex gap-7 justify-center mt-7 ml-5 mr-5">
-          <div className="p-4 bg-red-500 rounded-lg w-60 flex flex-col items-center justify-center">
-            <div>
-              <i className="pi pi-clock text-3xl px-2"></i>
-              <span className="text-3xl"> 13</span>
+    <div className="flex min-h-screen overflow-x-hidden">
+      <div className="flex-1 bg-white dark:bg-slate-800 text-black dark:text-white w-full">
+        <Header title="Irrigação Smart" username="Usuário" />
+        <Navbar />
+        <main>
+          <div className="flex flex-wrap gap-4 justify-center mt-7 px-5">
+            <div className="p-4 bg-red-500 rounded-lg w-60 flex flex-col items-center justify-center">
+              <div>
+                <i className="pi pi-clock text-2xl px-2"></i>
+                <span className="text-2xl">13</span>
+              </div>
+              <div className="text-lg pt-2">Detecção de choveu</div>
             </div>
-            <div className="text-xl pt-2">Detecção de choveu</div>
+            <div className="p-4 bg-orange-500 rounded-lg w-60 flex flex-col items-center justify-center">
+              <div>
+                <i className="pi pi-cog text-2xl px-2"></i>
+                <span className="text-2xl">10min</span>
+              </div>
+              <div className="text-lg pt-2">Tempo Bomba Ligada</div>
+            </div>
+            <div className="p-4 bg-green-500 rounded-lg w-60 flex flex-col items-center justify-center">
+              <div>
+                <i className="pi pi-exclamation-triangle text-2xl px-2"></i>
+                <span className="text-2xl">1000ml</span>
+              </div>
+              <div className="text-lg pt-2">Água Economizada</div>
+            </div>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full px-4">
+            <div className="bg-gray-200 dark:bg-white p-2 rounded-lg" style={{ overflow: 'hidden' }}>
+              <h2 className="text-black text-xl md:text-2xl text-center">Monitoramento Sensores</h2>
+              <div className="mt-6 w-full h-full">
+                <LineChart />
+              </div>
+            </div>
 
-          <div className="p-4 bg-orange-500 rounded-lg w-60 flex flex-col items-center justify-center">
-            <div>
-              <i className="pi pi-cog text-3xl px-2"></i>
-              <span className="text-3xl">10min</span>
-            </div>
-            <div className="text-xl pt-2">Tempo Bomba Ligada</div>
-          </div>
 
-          <div className="p-4 bg-green-500 rounded-lg w-60 flex flex-col items-center justify-center">
-            <div>
-              <i className="pi pi-exclamation-triangle text-3xl px-2"></i>
-              <span className="text-3xl">1000ml</span>
+            <div className="bg-gray-200 dark:bg-white p-2 rounded-lg flex flex-col items-center" style={{ height: '400px', overflow: 'hidden' }}>
+              <h2 className="text-black text-xl md:text-2xl mb-4">Monitoramento Chuva</h2>
+              <div className="flex justify-center items-center w-full mt-6 h-full">
+                <PieChart />
+              </div>
             </div>
-            <div className="text-xl pt-2">Água Economizada</div>
-          </div>
-        </div>
 
-        <div className="grid grid-cols-2 gap-4 flex-1 h-4 mt-8">
-          <div className="bg-gray-200 dark:bg-white p-12 rounded-lg ml-4">
-            <h2 className="text-black text-xl mb-4 text-center">Monitoramento Sensores</h2>
-            <div className="mt-10">
-              <LineChart /> 
-            </div>
           </div>
-          <div className="bg-gray-200 dark:bg-white p-12 rounded-lg ml-4 flex flex-col items-center">
-            <h2 className="text-black text-x1 mb-4">Monitoramento chuva</h2>
-            <div className="flex justify-center items-center w-full mt-8">
-              <PieChart />
-            </div>
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
-  </div>
+
   );
 }

@@ -40,9 +40,10 @@
     @apply text-white mt-1;
 }
 
-.user-name{
-    @apply flex gap-3 items-center mr-2;
+.user-name {
+    @apply text-lg;
 }
+
 
 .photo{
     @apply p-1 rounded-full h-14 w-14;

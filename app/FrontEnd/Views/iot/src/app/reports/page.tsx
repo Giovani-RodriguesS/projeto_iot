@@ -178,16 +178,16 @@ export default function Reports() {
   };
 
   return (
-    <div className="flex h-screen bg-white dark:bg-slate-800 text-black dark:text-white">
+    <div className="flex flex-col h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
       <div className="flex-1">
         <Header title="Relatórios" username="Letícia Anhaia" />
         <Navbar />
-        <main className="w-full max-w-8xl px-8 py-10 flex flex-col">
-          <div className="grid grid-cols-2 gap-10 mt-10">
+        <main className="w-full px-4 sm:px-8 py-6 flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             {/*Configuração*/}
-            <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-8 w-full">
-              <h2 className="text-2xl font-semibold text-black mb-6">
+            <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-6">
+              <h2 className="text-xl sm:text-2xl font-semibold text-black mb-4">
                 Configuração de Relatório
               </h2>
               <div className="mb-6">
@@ -204,12 +204,12 @@ export default function Reports() {
                   hideOnRangeSelection
                   showIcon
                   placeholder="Selecione um período"
-                  className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 dark:border-gray-600 dark:text-black"
+                  className="w-full mb-4 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 dark:border-gray-600 dark:text-black"
                   panelClassName="custom-calendar-panel"
                 />
               </div>
               <div className="mb-6">
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-2">
                   <Checkbox
                     inputId="financeiro"
                     value="Financeiro"
@@ -257,7 +257,7 @@ export default function Reports() {
                   onTextChange={(e) =>
                     setParameters({ ...parameters, notes: e.htmlValue || "" })
                   }
-                  style={{ height: "200px" }}
+                  style={{ height: "150px" }}
                   placeholder="Adicione suas observações..."
                   className="dark:bg-white dark:text-black" // Cor do texto e fundo do editor
                 />
