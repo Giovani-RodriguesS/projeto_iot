@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackEnd.Data;
@@ -49,6 +44,7 @@ namespace BackEnd.Controllers
         {
             // Verificar se o ID na URL corresponde ao ID esperado
             var bomba = await _context.Bomba.FindAsync(id);
+            
             if (bomba == null)
             {
                 return NotFound();

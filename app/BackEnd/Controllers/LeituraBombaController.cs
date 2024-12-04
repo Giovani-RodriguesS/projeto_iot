@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using BackEnd.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Controllers
 {
@@ -30,40 +25,22 @@ namespace BackEnd.Controllers
         // POST: api/LeituraBomba
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LeituraBombaDTO>> PostLeituraBomba(LeituraBombaDTO leituraBombaDTO)
+        public async Task<IActionResult> PostLeituraBomba(LeituraBombaDTO leituraBombaDTO)
         {
-            // Recuperar o último IdBomba registrado
-            var ultimoIdBomba = await _context.LeituraBomba
-                .OrderByDescending(lb => lb.IdBomba)
-                .Select(lb => lb.IdBomba)
-                .FirstOrDefaultAsync();
 
-            // Incrementar o IdBomba
-            var novoIdBomba = ultimoIdBomba + 1;
-
-            // Criar o objeto LeituraBomba com o novo IdBomba
             var leituraBomba = new LeituraBomba
             {
-                Data = leituraBombaDTO.Data,
-                Hora = leituraBombaDTO.Hora,
+                Data = DateOnly.FromDateTime(DateTime.Now),
+                Hora = TimeOnly.FromDateTime(DateTime.Now),
+                IdBomba = leituraBombaDTO.IdBomba,
                 BombaAtivada = leituraBombaDTO.BombaAtivada,
-                IdBomba = novoIdBomba // Definir o novo valor de IdBomba
             };
-
-            // Adicionar ao banco e salvar as alterações
+            // Converte o DTO para a entidade LeituraBomba
             _context.LeituraBomba.Add(leituraBomba);
             await _context.SaveChangesAsync();
 
-            // Retornar o DTO criado
-            return CreatedAtAction("GetLeituraBomba", new { id = leituraBomba.Id }, LeituraBombaToDTO(leituraBomba));
-        }
+            return NoContent();
+            }
 
-        // Método para converter LeituraBomba em LeituraBombaDTO
-        private static LeituraBombaDTO LeituraBombaToDTO(LeituraBomba leituraBomba) => new LeituraBombaDTO
-        {
-            Data = leituraBomba.Data,
-            Hora = leituraBomba.Hora,
-            BombaAtivada = leituraBomba.BombaAtivada
-        };
     }
 }
