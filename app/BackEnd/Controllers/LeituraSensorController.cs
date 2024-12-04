@@ -27,16 +27,41 @@ namespace BackEnd.Controllers
             return await _context.LeituraSensor.ToListAsync();
         }
 
-        // POST: api/LeituraSensorx
+        // POST: api/LeituraSensor
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LeituraSensor>> PostLeituraSensor(LeituraSensor leituraSensor)
+        public async Task<ActionResult<LeituraSensorDTO>> PostLeituraSensor(LeituraSensorDTO leituraSensorDTO)
         {
+            // Recuperar o último IdSensor registrado
+            var ultimoIdSensor = await _context.LeituraSensor
+                .OrderByDescending(ls => ls.IdSensor)
+                .Select(ls => ls.IdSensor)
+                .FirstOrDefaultAsync();
+        
+            // Incrementar o IdSensor
+            var novoIdSensor = ultimoIdSensor + 1;
+        
+            // Criar o objeto LeituraSensor com o novo IdSensor
+            var leituraSensor = new LeituraSensor
+            {
+                Tempo = leituraSensorDTO.Tempo,
+                Medida = leituraSensorDTO.Medida,
+                IdSensor = novoIdSensor // Definir o novo valor de IdSensor
+            };
+        
+            // Adicionar ao banco e salvar as alterações
             _context.LeituraSensor.Add(leituraSensor);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLeituraSensor", new { id = leituraSensor.Id }, leituraSensor);
+        
+            // Retornar o DTO criado
+            return CreatedAtAction("GetLeituraSensor", new { id = leituraSensor.Id }, LeituraSensorToDTO(leituraSensor));
         }
-
+        
+        // Método para converter LeituraSensor em LeituraSensorDTO
+        private static LeituraSensorDTO LeituraSensorToDTO(LeituraSensor leituraSensor) => new LeituraSensorDTO
+        {
+            Tempo = leituraSensor.Tempo,
+            Medida = leituraSensor.Medida,
+        };
     }
 }

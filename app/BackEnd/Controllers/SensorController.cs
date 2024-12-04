@@ -44,17 +44,34 @@ namespace BackEnd.Controllers
         // PUT: api/Sensor/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSensor(int id, Sensor sensor)
+        public async Task<IActionResult> PutSensor(int id, SensorDTO sensorDTO)
         {
+            // Buscar o sensor existente no banco de dados
+            var sensor = await _context.Sensor.FindAsync(id);
+            if (sensor == null)
+            {
+                return NotFound(); // Retorna 404 se o sensor não for encontrado
+            }
+        
+            // Verificar se o ID fornecido corresponde ao esperado
             if (id != sensor.Id)
             {
-                return BadRequest();
+                return BadRequest(); // Retorna 400 se os IDs não corresponderem
             }
-
+        
+            // Atualizar os campos do sensor com os valores do DTO
+            sensor.Nome = sensorDTO.Nome;
+            sensor.Umidade = sensorDTO.Umidade;
+            sensor.NumPino = sensorDTO.NumPino;
+            sensor.Tipo = sensorDTO.Tipo;
+            sensor.Data_instalacao = sensorDTO.Data_instalacao;
+        
+            // Marcar a entidade como modificada
             _context.Entry(sensor).State = EntityState.Modified;
-
+        
             try
             {
+                // Persistir as alterações no banco de dados
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -68,20 +85,43 @@ namespace BackEnd.Controllers
                     throw;
                 }
             }
-
+        
+            // Retornar status 204 No Content para indicar sucesso
             return NoContent();
         }
+
+
 
         // POST: api/Sensor
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Sensor>> PostSensor(Sensor sensor)
+        public async Task<ActionResult<Sensor>> PostSensor(SensorDTO sensorDTO)
         {
+            if (sensorDTO == null)
+            {
+                return BadRequest("Dados inválidos.");
+            }
+        
+            // Cria um novo objeto Sensor com as propriedades do DTO
+            var sensor = new Sensor
+            {
+                Nome = sensorDTO.Nome,
+                Umidade = sensorDTO.Umidade,
+                NumPino = sensorDTO.NumPino,
+                Tipo = sensorDTO.Tipo,
+                Data_instalacao = sensorDTO.Data_instalacao
+            };
+        
+            // Adiciona o novo sensor ao contexto
             _context.Sensor.Add(sensor);
+        
+            // Salva as alterações no banco de dados (isso vai gerar o Id automaticamente)
             await _context.SaveChangesAsync();
-
+        
+            // Retorna uma resposta de sucesso com o novo sensor e o caminho para consulta
             return CreatedAtAction("GetSensor", new { id = sensor.Id }, sensor);
         }
+
 
         
 
