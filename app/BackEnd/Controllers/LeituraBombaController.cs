@@ -44,7 +44,8 @@ namespace BackEnd.Controllers
             // Criar o objeto LeituraBomba com o novo IdBomba
             var leituraBomba = new LeituraBomba
             {
-                Tempo = leituraBombaDTO.Tempo,
+                Data = leituraBombaDTO.Data,
+                Hora = leituraBombaDTO.Hora,
                 BombaAtivada = leituraBombaDTO.BombaAtivada,
                 IdBomba = novoIdBomba // Definir o novo valor de IdBomba
             };
@@ -60,7 +61,8 @@ namespace BackEnd.Controllers
         // Método para converter LeituraBomba em LeituraBombaDTO
         private static LeituraBombaDTO LeituraBombaToDTO(LeituraBomba leituraBomba) => new LeituraBombaDTO
         {
-            Tempo = leituraBomba.Tempo,
+            Data = leituraBomba.Data,
+            Hora = leituraBomba.Hora,
             BombaAtivada = leituraBomba.BombaAtivada
         };
     }
