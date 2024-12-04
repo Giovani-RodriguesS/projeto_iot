@@ -4,4 +4,5 @@ public class SensorDTO
     public float Umidade { get; set; }
     public int NumPino { get; set; }
     public string Tipo { get; set; }
+    public DateTime Data_instalacao { get; set; }
 }
