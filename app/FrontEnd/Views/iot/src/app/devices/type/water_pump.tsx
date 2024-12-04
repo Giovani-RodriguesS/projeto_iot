@@ -15,17 +15,17 @@ interface WaterPumpProps {
 
 export default function Water_pump({ formData, onFormChange }: WaterPumpProps) {
   const fields = [
-    { key: "nome", placeholder: "NOME", icon: "address-book" },
-    { key: "tipo", placeholder: "TIPO", icon: "cog" },
-    { key: "vazao", placeholder: "VAZÃO", icon: "bolt" },
-    { key: "localizacao", placeholder: "LOCALIZAÇÃO", icon: "map" },
-    { key: "data_instalacao", placeholder: "DATA INSTALAÇÃO", icon: "calendar" },
+    { key: "nome", placeholder: "Nome", icon: "address-book" },
+    { key: "tipo", placeholder: "Tipo", icon: "cog" },
+    { key: "vazao", placeholder: "Vazão", icon: "bolt" },
+    { key: "localizacao", placeholder: "Localização", icon: "map" },
+    { key: "data_instalacao", placeholder: "Data Instalação (01/02/2024)", icon: "calendar" },
   ];
 
   return (
-    <div className="card flex flex-col gap-4 p-6 bg-gray-100 rounded-lg">
+    <div className="card flex flex-col gap-1 pt-0 bg-gray-100 rounded-lg">
       {fields.map(({ key, placeholder, icon }) => (
-        <div key={key} className="flex items-center border border-gray-300 rounded-lg bg-white p-4">
+        <div key={key} className="flex items-center border border-gray-300 rounded-lg bg-white p-3">
           <div className="text-blue-500 text-2xl mr-4">
             <i className={`pi pi-${icon}`}></i>
           </div>
