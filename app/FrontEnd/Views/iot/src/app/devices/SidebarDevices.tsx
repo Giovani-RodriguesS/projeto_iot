@@ -38,30 +38,30 @@ export default function SidebarDevices() {
   };
 
   return (
-    <div className="card flex flex-col bg-transparent rounded-lg">
+    <div className="card flex flex-col bg-gray-100 rounded-lg">
       {/* SelectButton */}
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center mt-0 w-full">
         <SelectButton
           value={formData.dispositivo}
           onChange={(e: SelectButtonChangeEvent) => handleChange("dispositivo", e.value)}
           options={options}
           optionLabel="label"
           optionValue="value"
-          className="w-full p-button-outlined"
+          className="p-button-outlined w-auto"
           itemTemplate={(option) => (
             <div
-              className={`p-4 rounded-lg cursor-pointer mt-5 ${
-                formData.dispositivo === option.value ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
-              }`}
-            >
-              {option.label}
-            </div>
-          )}
-        />
-      </div>
+        className={`p-4 rounded-lg cursor-pointer mt-2 text-center ${
+          formData.dispositivo === option.value ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
+                }`}
+              >
+                {option.label}
+              </div>
+            )}
+          />
+        </div>
 
       {/* Renderização Condicional */}
-      <div className="mt-4">
+      <div className="mt-2">
         {formData.dispositivo === "Bomba" ? (
           <Water_pump formData={formData} onFormChange={handleChange} />
         ) : (
@@ -73,6 +73,7 @@ export default function SidebarDevices() {
       <Button
         label="Cadastrar"
         onClick={handleSubmit}
+        badgeClassName="mt-4 w-1/2"
         style={{
           color: "white",
           backgroundColor: "#3b82f6",
