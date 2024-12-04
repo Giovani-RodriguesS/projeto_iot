@@ -15,6 +15,7 @@ interface SensorProps {
 export default function Sensor({ formData, onFormChange }: SensorProps) {
   const fields = [
     { key: "nome", placeholder: "NOME", icon: "user" },
+    { key: "tipo", placeholder: "TIPO", icon: "cog" },
     { key: "umidade", placeholder: "UMIDADE", icon: "slack" },
     { key: "data_instalacao", placeholder: "DATA INSTALAÇÃO", icon: "calendar" },
   ];
