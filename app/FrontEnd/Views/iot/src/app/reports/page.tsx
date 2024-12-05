@@ -178,19 +178,18 @@ export default function Reports() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
+    <div className="flex flex-col h-screen w-full bg-white dark:bg-gray-800 text-black dark:text-white sm:overflow-hidden">
       <div className="flex-1">
         <Header title="Relatórios" username="Letícia Anhaia" />
         <Navbar />
-        <main className="w-full px-4 sm:px-8 py-4 flex-1">
+        <main className="w-full px-2 sm:px-8 py-4 flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             {/*Configuração*/}
-            <section className="bg-gray-200 dark:bg-white p-2 rounded-lg">
+            <section className="bg-gray-200 dark:bg-white p-8 rounded-lg">
               <h2 className="text-xl text-center sm:text-2xl font-semibold text-black mb-4">
                 Configuração de Relatório
               </h2>
-              <div className="mb-6">
                 <label className="block text-lg text-black mb-2">
                   Período
                 </label>
@@ -207,16 +206,15 @@ export default function Reports() {
                   className="w-full mb-4 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 dark:border-gray-600 dark:text-black"
                   panelClassName="custom-calendar-panel"
                 />
-              </div>
-              <div className="mb-6">
-                <div className="flex flex-wrap gap-2">
+              <div className="mb-3">
+                <div className="flex flex-wrap gap-1">
                   <Checkbox
                     inputId="financeiro"
                     value="Financeiro"
                     onChange={handleCheckboxChange}
                     checked={parameters.reportTypes.includes("Financeiro")}
                   />
-                  <label htmlFor="financeiro" className="ml-2 text-gray-600 dark:text-gray-400">
+                  <label htmlFor="financeiro" className=" text-gray-600 dark:text-gray-400">
                     Financeiro
                   </label>
                   <Checkbox
@@ -248,7 +246,7 @@ export default function Reports() {
                   </label>
                 </div>
               </div>
-              <div className="mb-6">
+              <div className="mb-2">
                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Observações
                 </label>
@@ -263,7 +261,7 @@ export default function Reports() {
                 />
               </div>
               <button
-                className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-lg mt-4"
+                className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-lg mt-6"
                 onClick={handleGenerateReport}
               >
                 Gerar Relatório
@@ -271,24 +269,24 @@ export default function Reports() {
             </section>
 
             {/* Gráfico */}
-            <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-8 w-full">
+            <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-4 w-full">
               {chartData ? (
                 <>
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                  <h2 className="text-xl text-center sm:text-2xl font-semibold text-black mb-4">
                     Gráfico do Relatório
                   </h2>
-                  <div className="relative h-96">
+                  <div className="h-96">
                     <Bar
                       data={chartData}
                       options={{
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { position: "top" } },
+                        plugins: { legend: { position: "center" } },
                       }}
                     />
                   </div>
                   <button
-                    className="mt-6 bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300 shadow-lg"
+                    className="mt-6 bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300 shadow-lg"
                     onClick={downloadPDFHandler}
                   >
                     Baixar PDF
