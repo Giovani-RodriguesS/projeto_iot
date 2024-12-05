@@ -135,7 +135,28 @@ Embora o sistema seja projetado para coletar dados em tempo real relacionados à
 
 # *Dependências*
 
+## Frontend
+- **Next.js:** Framework para construção da interface web do sistema com suporte a SSR e SPA, garantindo desempenho e SEO.
+- **TypeScript:** Superset do JavaScript que permite tipagem estática, aumentando a segurança e a manutenibilidade do código.
+- **TailwindCSS:** Framework de CSS utilitário que acelera o desenvolvimento de interfaces consistentes e responsivas.
+- **React:** Biblioteca JavaScript para construção de interfaces de usuário interativas e escaláveis.
+
+## Backend
+- **C#:** Linguagem de programação usada para a lógica de negócios e integração backend.
+- **.Net Core e ASP.NET:** Frameworks robustos para o desenvolvimento de APIs e serviços backend escaláveis.
+
+## Banco de Dados
+- **SQLite:** Banco de dados leve e portátil usado para armazenar dados locais em dispositivos menores.
+
+## Ferramentas para Desenvolvimento
+
+- **Visual Studio Code/Visual Studio:** IDEs para o desenvolvimento.
+- **Postman/Swagger:** Teste e documentação de APIs.
+
+
+<br>
 <aside>
+
 ⚠️ Quais necessidades que precisam ser supridas para que este produto/feature seja desenvolvido?
 
 </aside>
