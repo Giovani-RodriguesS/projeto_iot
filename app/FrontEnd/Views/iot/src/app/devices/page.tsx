@@ -20,9 +20,9 @@ export default function Users() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen sm:overflow-hidden">
       <div className="flex-1 h-full bg-white dark:bg-slate-800 text-black dark:text-white">
-        <Header title="Usuários" username="Letícia Anhaia" />
+        <Header title="Irrigação Smart" username="Usuário" />
         <Navbar />
         <main>
           <AddDevice/>

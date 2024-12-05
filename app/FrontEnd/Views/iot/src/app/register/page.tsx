@@ -38,25 +38,25 @@ export default function StyledMaskDemo() {
     };
 
     return (
-        <main className="flex justify-center items-center h-screen bg-slate-800">
-            <div className="relative flex w-full max-w-5xl h-3/4 bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+        <main className="flex justify-center items-center min-h-screen bg-slate-800 p-4">
+            <div className="relative flex flex-col md:flex-row w-full max-w-4xl h-auto md:h-3/4 bg-slate-800 rounded-lg shadow-lg overflow-hidden">
 
                 {/* Seção do Formulário (lado esquerdo) */}
-                <div className="w-1/2 p-8 bg-slate-900 bg-opacity-75 flex flex-col justify-center rounded-lg">
-                    <h2 className="text-3xl font-extrabold mb-6 text-white text-center">Criar sua Conta</h2>
-                    <h1 className="text-center">Preencha seus dados</h1>
+                <div className="w-full md:w-1/2 p-6 sm:p-8 bg-slate-900 bg-opacity-75 flex flex-col justify-center">
+                    <h2 className="text-2xl font-extrabold mb-4 md:mb-2 text-white text-center">Criar sua Conta</h2>
+                    <h1 className="text-center text-sm md:text-base text-gray-300">Preencha seus dados</h1>
                     <form className="space-y-4" onSubmit={handleSubmit}>
 
                         {/* Campo Nome */}
                         <div>
-                            <label htmlFor="nome" className="text-gray-400 block mb-2">Nome</label>
+                            <label htmlFor="nome" className="text-gray-400 block mb-1">Nome</label>
                             <input
                                 type="text"
                                 id="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
                                 required
-                                className="w-full p-3 bg-slate-800 text-white rounded-md"
+                                className="w-full p-2 bg-slate-800 text-white rounded-md"
                                 placeholder="Digite seu nome"
                             />
                         </div>
@@ -70,7 +70,7 @@ export default function StyledMaskDemo() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full p-3 bg-slate-800 text-white rounded-md"
+                                className="w-full p-2 bg-slate-800 text-white rounded-md"
                                 placeholder="Digite seu email"
                             />
                         </div>
@@ -84,22 +84,22 @@ export default function StyledMaskDemo() {
                                 value={cargo}
                                 onChange={(e) => setCargo(e.target.value)}
                                 required
-                                className="w-full p-3 bg-slate-800 text-white rounded-md"
+                                className="w-full p-2 bg-slate-800 text-white rounded-md"
                                 placeholder="Digite seu cargo"
                             />
                         </div>
 
                         {/* Campo Telefone */}
                         <div>
-                        <label htmlFor="cargo" className="text-gray-400 block mb-2">Telefone</label>
-                        <InputMask
-                            id="phone"
-                            value={telefone}
-                            onChange={(e) => setTelefone(e.value as string)}
-                            mask="(99) 99999-9999"
-                            placeholder="(99) 99999-9999"
-                            className="w-full p-3 bg-slate-800 text-white rounded-md"
-                        />
+                            <label htmlFor="cargo" className="text-gray-400 block mb-2">Telefone</label>
+                            <InputMask
+                                id="phone"
+                                value={telefone}
+                                onChange={(e) => setTelefone(e.value as string)}
+                                mask="(99) 99999-9999"
+                                placeholder="(99) 99999-9999"
+                                className="w-full p-2 bg-slate-800 text-white rounded-md"
+                            />
                         </div>
 
                         {/* Campo Senha */}
@@ -111,7 +111,7 @@ export default function StyledMaskDemo() {
                                     id="password"
                                     value={senha}
                                     onChange={(e) => setSenha(e.target.value)}
-                                    className="w-full p-3 bg-slate-800 text-white rounded-md pr-10"
+                                    className="w-full p-2 bg-slate-800 text-white rounded-md pr-10"
                                     placeholder="Digite sua senha"
                                 />
                                 <span
@@ -130,11 +130,16 @@ export default function StyledMaskDemo() {
                             </button>
                         </div>
 
+                        {/* Link "Já tenho uma conta" */}
+                        <div className="text-right mt-6">
+                            <a href="http://localhost:3000/login" className="text-white hover:underline">Já tenho uma conta</a>
+                        </div>
+
                     </form>
                 </div>
 
-                {/* Imagem de Fundo (lado direito) */}
-                <div className="w-1/2 relative">
+               {/* Imagem de Fundo (lado direito) */}
+               <div className="hidden md:block w-1/2 h-auto relative">
                     <img
                         src="images/register/irrigation.jpg"
                         alt="Imagem de fundo"
@@ -142,7 +147,9 @@ export default function StyledMaskDemo() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent"></div>
                 </div>
+
             </div>
         </main>
+
     );
 }

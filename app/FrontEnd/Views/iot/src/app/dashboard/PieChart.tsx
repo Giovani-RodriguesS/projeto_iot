@@ -9,7 +9,7 @@ export default function DoughnutChartDemo() {
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
         const data = {
-            labels: ['Presença de Chuva', 'Sem presença de chuva'],
+            labels: ['Choveu', 'Não choveu'],
             datasets: [
                 {
                     data: [13, 11],
