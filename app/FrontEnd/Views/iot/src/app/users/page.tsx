@@ -34,7 +34,7 @@ export default function Users() {
   return (
     <div className="flex h-screen sm:overflow-hidden">
       <div className="flex-1 h-full bg-white dark:bg-slate-800 text-black dark:text-white">
-        <Header title="Usuários" username="Letícia Anhaia" />
+        <Header title="Irrigação Smart" username="Usuário" />
         <Navbar />
         <main className="w-full max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-5 mt-4">

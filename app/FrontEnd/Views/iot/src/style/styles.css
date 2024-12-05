@@ -30,7 +30,7 @@
 }
 
 .header{
-    @apply w-full bg-slate-900 p-4 flex justify-between;
+    @apply  bg-slate-900 p-4 flex ;
 }
 .header-left{
     @apply text-2xl text-white;

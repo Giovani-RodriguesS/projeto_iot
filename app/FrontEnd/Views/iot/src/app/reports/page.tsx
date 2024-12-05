@@ -180,7 +180,7 @@ export default function Reports() {
   return (
     <div className="flex flex-col h-screen w-full bg-white dark:bg-gray-800 text-black dark:text-white sm:overflow-hidden">
       <div className="flex-1">
-        <Header title="Relatórios" username="Letícia Anhaia" />
+        <Header title="Irrigação Smart" username="Usuário" />
         <Navbar />
         <main className="w-full px-2 sm:px-8 py-4 flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
