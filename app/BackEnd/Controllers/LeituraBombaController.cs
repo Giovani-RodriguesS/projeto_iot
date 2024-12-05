@@ -26,12 +26,15 @@ namespace BackEnd.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<IActionResult> PostLeituraBomba(LeituraBombaDTO leituraBombaDTO)
-        {
+        {   
+            // Convertendo data e hora para string
+            string data = DateOnly.FromDateTime(DateTime.Now).ToString("dd/MM/yyyy");
+            string hora = TimeOnly.FromDateTime(DateTime.Now).ToString("HH:mm");
 
             var leituraBomba = new LeituraBomba
             {
-                Data = DateOnly.FromDateTime(DateTime.Now),
-                Hora = TimeOnly.FromDateTime(DateTime.Now),
+                Data = data,
+                Hora = hora,
                 IdBomba = leituraBombaDTO.IdBomba,
                 BombaAtivada = leituraBombaDTO.BombaAtivada,
             };

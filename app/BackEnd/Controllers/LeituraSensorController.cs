@@ -27,11 +27,14 @@ namespace BackEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> PostLeituraSensor(LeituraSensorDTO leituraSensorDTO)
         {
-            // 
+            // Convertendo data e hora para string
+            string data = DateOnly.FromDateTime(DateTime.Now).ToString("dd/MM/yyyy");
+            string hora = TimeOnly.FromDateTime(DateTime.Now).ToString("HH:mm");
+
             var leituraSensor = new LeituraSensor
             {
-                Data = DateOnly.FromDateTime(DateTime.Now),
-                Hora = TimeOnly.FromDateTime(DateTime.Now),
+                Data = data,
+                Hora = hora,
                 IdSensor = leituraSensorDTO.IdSensor,
                 Medida = leituraSensorDTO.Medida,
             };
