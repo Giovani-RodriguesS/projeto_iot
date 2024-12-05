@@ -182,16 +182,16 @@ export default function Reports() {
       <div className="flex-1">
         <Header title="Relatórios" username="Letícia Anhaia" />
         <Navbar />
-        <main className="w-full px-4 sm:px-8 py-6 flex-1">
+        <main className="w-full px-4 sm:px-8 py-4 flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             {/*Configuração*/}
-            <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-6">
-              <h2 className="text-xl sm:text-2xl font-semibold text-black mb-4">
+            <section className="bg-gray-200 dark:bg-white p-2 rounded-lg">
+              <h2 className="text-xl text-center sm:text-2xl font-semibold text-black mb-4">
                 Configuração de Relatório
               </h2>
               <div className="mb-6">
-                <label className="block text-lg font-medium text-black mb-2">
+                <label className="block text-lg text-black mb-2">
                   Período
                 </label>
                 <Calendar
@@ -269,8 +269,6 @@ export default function Reports() {
                 Gerar Relatório
               </button>
             </section>
-
-
 
             {/* Gráfico */}
             <section className="bg-gray-200 dark:bg-white shadow-lg rounded-lg p-8 w-full">

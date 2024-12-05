@@ -7,7 +7,7 @@ import '../globals.css';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100">
+    <div className="flex min-h-screen bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100 overflow-hidden">
       <div className="flex-1">
         <Header title="Irrigação Smart" username="Usuário" />
         <Navbar />

@@ -20,14 +20,14 @@ export default function Users() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen sm:overflow-hidden">
       <div className="flex-1 h-full bg-white dark:bg-slate-800 text-black dark:text-white">
         <Header title="Usuários" username="Letícia Anhaia" />
         <Navbar />
-        <main>
-          <AddDevice/>
-          <div className="flex flex-wrap justify-center gap-5 mt-2">
+        <main className="w-full max-w-7xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-5 mt-4">
 
+          <AddDevice />
             {/* div do meu funcionário Luciano */}
             <div className="p-4 bg-gray-200 dark:bg-white rounded-xl w-30 flex flex-col items-center">
               <Image src="/images/devices/sensor_umidade.jpg" width={70} height={70} className="mb-3 rounded-full" alt="Luciano" />
