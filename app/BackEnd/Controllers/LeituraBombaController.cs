@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using BackEnd.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Controllers
 {
@@ -27,31 +22,25 @@ namespace BackEnd.Controllers
             return await _context.LeituraBomba.ToListAsync();
         }
 
-
         // POST: api/LeituraBomba
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LeituraBombaDTO>> PostLeituraBomba(LeituraBombaDTO leituraBombaDTO)
+        public async Task<IActionResult> PostLeituraBomba(LeituraBombaDTO leituraBombaDTO)
         {
+
             var leituraBomba = new LeituraBomba
             {
-                Tempo = leituraBombaDTO.Tempo,
+                Data = DateOnly.FromDateTime(DateTime.Now),
+                Hora = TimeOnly.FromDateTime(DateTime.Now),
+                IdBomba = leituraBombaDTO.IdBomba,
                 BombaAtivada = leituraBombaDTO.BombaAtivada,
-
             };
-            
+            // Converte o DTO para a entidade LeituraBomba
             _context.LeituraBomba.Add(leituraBomba);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLeituraBomba", new { id = leituraBomba.Id }, leituraBombaToDTO( leituraBomba));
-        }
+            return NoContent();
+            }
 
-
-        private static LeituraBombaDTO leituraBombaToDTO (LeituraBomba leituraBomba) => 
-        new LeituraBombaDTO
-        {
-            Tempo = leituraBomba.Tempo,
-            BombaAtivada = leituraBomba.BombaAtivada
-        };
     }
 }

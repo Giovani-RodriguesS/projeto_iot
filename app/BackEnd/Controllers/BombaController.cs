@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackEnd.Data;
@@ -45,17 +40,30 @@ namespace BackEnd.Controllers
         // PUT: api/Bomba/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBomba(int id, Bomba bomba)
+        public async Task<IActionResult> PutBomba(int id, BombaDTO bombaDTO)
         {
-            if (id != bomba.Id)
+            // Verificar se o ID na URL corresponde ao ID esperado
+            var bomba = await _context.Bomba.FindAsync(id);
+            
+            if (bomba == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-
+        
+            // Atualizar os campos da entidade encontrada
+            bomba.Nome = bombaDTO.Nome;
+            bomba.Tipo = bombaDTO.Tipo;
+            bomba.Vazao = bombaDTO.Vazao;
+            bomba.NumPino = bombaDTO.NumPino;
+            bomba.Localizacao = bombaDTO.Localizacao;
+            bomba.Data_instalacao = bombaDTO.Data_instalacao;
+        
+            // Marcar como modificado
             _context.Entry(bomba).State = EntityState.Modified;
-
+        
             try
             {
+                // Salvar alterações no banco de dados
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -69,20 +77,36 @@ namespace BackEnd.Controllers
                     throw;
                 }
             }
-
+        
+            // Retornar status 204 No Content para indicar sucesso
             return NoContent();
         }
+
 
         // POST: api/Bomba
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Bomba>> PostBomba(Bomba bomba)
+        public async Task<ActionResult<Bomba>> PostBomba(BombaDTO bombaDto)
         {
+            // Converte o DTO para a entidade Bomba
+            var bomba = new Bomba
+            {
+                Nome = bombaDto.Nome,
+                Tipo = bombaDto.Tipo,
+                Vazao = bombaDto.Vazao,
+                NumPino = bombaDto.NumPino,
+                Localizacao = bombaDto.Localizacao,
+                Data_instalacao = bombaDto.Data_instalacao
+            };
+
+            // Adiciona a bomba ao contexto do banco de dados
             _context.Bomba.Add(bomba);
             await _context.SaveChangesAsync();
 
+            // Retorna a ação com o recurso criado
             return CreatedAtAction("GetBomba", new { id = bomba.Id }, bomba);
         }
+
 
         // DELETE: api/Bomba/5
         [HttpDelete("{id}")]

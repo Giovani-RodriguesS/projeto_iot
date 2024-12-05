@@ -109,3 +109,37 @@ body {
 .p-unselected .pi {
   color: #ffffff; 
 }
+
+.custom-select-button .p-selectbutton-button {
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.custom-select-button .p-selectbutton-button:hover {
+  background-color: #e0e0e0;
+}
+
+.custom-select-button .p-highlight {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.sidebar-large-text {
+  font-size: 1.5rem;
+}
+
+.sidebar-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.custom-calendar-panel {
+  background-color: #ffffff !important; /* Fundo branco */
+  color: #000000 !important; /* Texto preto */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra leve */
+}
+
+.custom-calendar-day {
+  color: #1f2937; /* Cor do texto dos números */
+}

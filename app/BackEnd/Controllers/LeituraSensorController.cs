@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackEnd.Data;
@@ -27,16 +22,24 @@ namespace BackEnd.Controllers
             return await _context.LeituraSensor.ToListAsync();
         }
 
-        // POST: api/LeituraSensorx
+        // POST: api/LeituraSensor
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LeituraSensor>> PostLeituraSensor(LeituraSensor leituraSensor)
+        public async Task<IActionResult> PostLeituraSensor(LeituraSensorDTO leituraSensorDTO)
         {
+            // 
+            var leituraSensor = new LeituraSensor
+            {
+                Data = DateOnly.FromDateTime(DateTime.Now),
+                Hora = TimeOnly.FromDateTime(DateTime.Now),
+                IdSensor = leituraSensorDTO.IdSensor,
+                Medida = leituraSensorDTO.Medida,
+            };
+
             _context.LeituraSensor.Add(leituraSensor);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLeituraSensor", new { id = leituraSensor.Id }, leituraSensor);
+            return NoContent();        
         }
-
     }
 }

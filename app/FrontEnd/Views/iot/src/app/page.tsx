@@ -1,11 +1,11 @@
 import React from "react";
-import Home from "./home/page";
+import StyledMaskDemo from "./register/page";
 
 
 export default function Begin() {
   return (
         <main>
-          <Home/>
+          <StyledMaskDemo/>
         </main>
   );
 }

@@ -23,15 +23,17 @@ namespace BackEnd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Data_instalacao")
+                    b.Property<DateOnly>("Data_instalacao")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Localizacao")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("NumPino")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Tipo")
                         .IsRequired()
@@ -54,8 +56,14 @@ namespace BackEnd.Migrations
                     b.Property<bool>("BombaAtivada")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Tempo")
+                    b.Property<DateOnly>("Data")
                         .HasColumnType("TEXT");
+
+                    b.Property<TimeOnly>("Hora")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdBomba")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -68,11 +76,17 @@ namespace BackEnd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateOnly>("Data")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeOnly>("Hora")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdSensor")
+                        .HasColumnType("INTEGER");
+
                     b.Property<float>("Medida")
                         .HasColumnType("REAL");
-
-                    b.Property<DateTime>("Tempo")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -85,10 +99,17 @@ namespace BackEnd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Data_instalacao")
+                    b.Property<DateOnly>("Data_instalacao")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumPino")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<float>("Umidade")
