@@ -16,7 +16,7 @@ export default function NavBar() {
     { label: 'Usuários', icon: 'pi pi-user', command: () => router.push('/users') },
     { label: 'Dispositivos', icon: 'pi pi-microchip', command: () => router.push('/devices') },
     { label: 'Relatório', icon: 'pi pi-clipboard', command: () => router.push('/reports') },
-    { label: 'Logout', icon: 'pi pi-sign-out', command: () => router.push('/register') },
+    { label: 'Logout', icon: 'pi pi-sign-out', command: () => router.push('/login') },
   ];
 
   // Detectar mudanças de tamanho da tela
@@ -48,7 +48,7 @@ export default function NavBar() {
                   <li
                     key={index}
                     className="flex items-center p-2 rounded-md hover:bg-gray-700 cursor-pointer"
-                    onClick={item.command}
+                    onClick={(e) => item.command?.({ originalEvent: e, item })}
                   >
                     <i className={`${item.icon} mr-3`}></i>
                     {item.label}
@@ -66,5 +66,6 @@ export default function NavBar() {
         )}
       </div>
     </div>
-  );
+
+  )
 }

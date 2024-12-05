@@ -45,7 +45,7 @@ export default function Reports() {
 
             <div className="bg-gray-200 dark:bg-white p-2 rounded-lg flex flex-col items-center" style={{ height: '400px', overflow: 'hidden' }}>
               <h2 className="text-black text-xl md:text-2xl mb-4">Monitoramento Chuva</h2>
-              <div className="flex justify-center items-center w-full mt-6 h-full">
+              <div className="flex justify-center items-center">
                 <PieChart />
               </div>
             </div>
