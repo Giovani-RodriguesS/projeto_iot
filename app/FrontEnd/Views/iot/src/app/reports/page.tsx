@@ -45,6 +45,7 @@ export default function Reports() {
     }
     return dateArray; // Retorna o array de datas.
   };
+  
 
   const generateData = () => { // Função para gerar os dados do gráfico.
     if (!parameters.dates || parameters.dates.length !== 2) return null; // Verifica se as datas foram selecionadas corretamente.
@@ -119,28 +120,48 @@ export default function Reports() {
       pdf.addImage(chartImage, "PNG", 10, nextYPosition, 190, chartHeight);
       nextYPosition += chartHeight + 10;
     }
-  
+    if (!startDate || !endDate) {
+        console.error("Intervalo de datas não foi selecionado.");
+        return;
+    }
+    const dateRange = generateDateRange(startDate, endDate); // Gera o intervalo de datas
+
     // Tabela de Dados
-    const tableData = [
-      ["Item", "Quantidade", "Custo"],
-      ["Água", "500L", "R$ 200"],
-      ["Eletricidade", "100kWh", "R$ 150"],
-      ["Manutenção", "Mensal", "R$ 300"],
-    ];
-  
+    const tableData = dateRange.map((date) => ({
+      date: date, // Data no formato YYYY-MM-DD
+      quantity: `${Math.floor(Math.random() * 100 + 1)} L`, // Quantidade aleatória
+      cost: `R$ ${Math.floor(Math.random() * 500 + 50)}`, // Custo aleatório
+    }));
+
+    // Configurações de largura das colunas
+    const columnWidths = [60, 60, 70]; // Ajuste conforme necessário
+
     pdf.setFont("helvetica", "bold");
     pdf.text("Tabela de Custos:", 10, nextYPosition);
     nextYPosition += 10;
-  
-    tableData.forEach((row, index) => {
-      const isHeader = index === 0;
-      pdf.setFont(isHeader ? "helvetica" : "helvetica", isHeader ? "bold" : "normal");
-      pdf.setFillColor(230, 240, 240);
-      pdf.rect(10, nextYPosition, 190, 8, "F");
-      pdf.text(row.join("            "), 12, nextYPosition + 6);
-      nextYPosition += 8;
+
+    // Adiciona o cabeçalho da tabela
+    pdf.setFillColor(200, 220, 220); // Cor do fundo do cabeçalho
+    pdf.rect(10, nextYPosition, 190, 8, "F");
+    pdf.setFont("helvetica", "bold");
+    let xPosition = 10;
+    ["Data", "Quantidade", "Custo"].forEach((header, index) => {
+      pdf.text(header, xPosition + 2, nextYPosition + 6);
+      xPosition += columnWidths[index];
     });
-  
+    nextYPosition += 8;
+
+    // Adiciona os dados da tabela
+    tableData.forEach((row) => {
+      pdf.setFont("helvetica", "normal");
+      let xPosition = 10; // Posição inicial no eixo X
+      [row.date, row.quantity, row.cost].forEach((cell, colIndex) => {
+        pdf.text(cell, xPosition + 2, nextYPosition + 6);
+        xPosition += columnWidths[colIndex];
+      });
+      nextYPosition += 8; // Move para a próxima linha
+    });
+
     // Observações
     nextYPosition += 20;
     pdf.setFont("helvetica", "bold");
