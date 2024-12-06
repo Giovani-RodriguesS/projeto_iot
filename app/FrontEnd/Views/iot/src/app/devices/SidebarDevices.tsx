@@ -31,8 +31,8 @@ export default function SidebarDevices() {
     try {
       const endpoint =
         formData.dispositivo === "Bomba"
-          ? 'http://10.109.28.86/api/bomba'
-          : 'http://10.109.28.86/api/sensor';
+          ? 'http://localhost/api/bomba'
+          : 'http://localhost/api/sensor';
 
       const payload =
         formData.dispositivo === "Bomba"
