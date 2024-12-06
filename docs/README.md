@@ -45,9 +45,17 @@ node -v && npm -v
 dotnet --version
 ```
 
-Rode o script `start-app.sh`
+Rode os seguintes comandos
 ```bash
- ./start-app.sh
+# No diretório ../app/BackEnd
+dotnet restore # Para restaurar dependências do projeto
+dotnet run # Rodar programa
+
+# Em outro terminal
+
+# No diretório ../app/FrontEnd/Views/iot/
+npm install # Restaurar dependências
+npm run dev # Para rodar a aplicação
 ```
 
 ## Uso
