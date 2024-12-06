@@ -13,9 +13,8 @@ export default function SidebarDevices() {
     localizacao: "",
     nome: "",
     data_instalacao: "",
+    umidade: "",
   });
-
-  const [responseData, setResponseData] = useState(null);
 
   const options = [
     { label: "Bomba", value: "Bomba" },
@@ -28,12 +27,33 @@ export default function SidebarDevices() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post("http://localhost:5257/api/bomba", formData);
-      console.log("Dispositivo criado: ", response.data);
-      setResponseData(response.data);
+      const endpoint =
+        formData.dispositivo === "Bomba"
+          ? 'http://localhost/api/bomba'
+          : 'http://localhost/api/sensor';
+
+      const payload =
+        formData.dispositivo === "Bomba"
+          ? {
+              nome: formData.nome,
+              tipo: formData.tipo,
+              vazao: formData.vazao,
+              localizacao: formData.localizacao,
+              data_instalacao: formData.data_instalacao,
+            }
+          : {
+              nome: formData.nome,
+              tipo: formData.tipo,
+              umidade: formData.umidade,
+              data_instalacao: formData.data_instalacao,
+            };
+
+      const response = await axios.post(endpoint, payload);
+      console.log("Dispositivo cadastrado com sucesso: ", response.data);
     } catch (error) {
-      console.error("Erro: ", error);
+      console.error("Erro ao cadastrar dispositivo: ", error);
     }
   };
 
@@ -43,22 +63,26 @@ export default function SidebarDevices() {
       <div className="flex justify-center items-center mt-0 w-full">
         <SelectButton
           value={formData.dispositivo}
-          onChange={(e: SelectButtonChangeEvent) => handleChange("dispositivo", e.value)}
+          onChange={(e: SelectButtonChangeEvent) =>
+            handleChange("dispositivo", e.value)
+          }
           options={options}
           optionLabel="label"
           optionValue="value"
           className="p-button-outlined w-auto"
           itemTemplate={(option) => (
             <div
-        className={`p-4 rounded-lg cursor-pointer mt-2 text-center ${
-          formData.dispositivo === option.value ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
-                }`}
-              >
-                {option.label}
-              </div>
-            )}
-          />
-        </div>
+              className={`p-4 rounded-lg cursor-pointer mt-2 text-center ${
+                formData.dispositivo === option.value
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+            >
+              {option.label}
+            </div>
+          )}
+        />
+      </div>
 
       {/* Renderização Condicional */}
       <div className="mt-2">
@@ -73,7 +97,6 @@ export default function SidebarDevices() {
       <Button
         label="Cadastrar"
         onClick={handleSubmit}
-        badgeClassName="mt-4 w-1/2"
         style={{
           color: "white",
           backgroundColor: "#3b82f6",

@@ -12,12 +12,16 @@ export default function Users() {
   // Busca os dispositivos na API
   const fetchDevices = async () => {
     try {
-      const response = await axios.get('http://localhost:5257/api/device');
+      const response = await axios.get('http://localhost/api/bomba');
       setDevices(response.data);
     } catch (error) {
       console.error('Erro ao buscar dispositivos:', error);
     }
   };
+
+  useEffect(() => {
+    fetchDevices();
+  }, []);
 
   return (
     <div className="flex h-screen sm:overflow-hidden">
@@ -25,58 +29,21 @@ export default function Users() {
         <Header title="Irrigação Smart" username="Usuário" />
         <Navbar />
         <main>
-          <AddDevice/>
+          <AddDevice />
 
-          {/* div do meu funcionário Luciano */}
+          {/* Renderiza os dispositivos */}
           <div className="flex flex-wrap justify-center gap-5 mt-2">
-            <Card
-              imageSrc="/images/devices/sensor_umidade.jpg"
-              altText="Luciano"
-              title="Sensor"
-              id="001233"
-              type="Umidade"
-              description="Planta cadastrada" 
-            />
-            <Card
-              imageSrc="/images/devices/sensor_chuva.png"
-              altText="Luciano"
-              title="Sensor"
-              id="001233"
-              type="Chuva"
-              description="Planta cadastrada" 
-            />
-            <Card 
-              imageSrc="/images/devices/sensor_umidade.jpg"
-              altText="Luciano"
-              title="Sensor"
-              id="001233"
-              type="Umidade"
-              description="Planta cadastrada"
-            />
-            <Card 
-              imageSrc="/images/devices/sensor_umidade.jpg"
-              altText="Luciano"
-              title="Sensor"
-              id="001233"
-              type="Umidade"
-              description="Planta cadastrada"
-            />
-            <Card 
-              imageSrc="/images/devices/sensor_umidade.jpg"
-              altText="Luciano"
-              title="Sensor"
-              id="001233"
-              type="Umidade"
-              description="Planta cadastrada"
-            />
-            <Card 
-              imageSrc="/images/devices/sensor_umidade.jpg"
-              altText="Luciano"
-              title="Sensor"
-              id="001233"
-              type="Umidade"
-              description="Planta cadastrada"
-            />
+            {devices.map((device: any) => (
+              <Card
+                key={device.id} // Adicione um identificador único para cada card
+                imageSrc={`/images/devices/${device.image || 'default.jpg'}`}
+                altText={device.nome || "Dispositivo"}
+                title={device.nome || "Dispositivo"}
+                id={device.id || "N/A"}
+                type={device.tipo || "Desconhecido"}
+                description={device.descricao || "Sem descrição disponível"}
+              />
+            ))}
           </div>
         </main>
       </div>
