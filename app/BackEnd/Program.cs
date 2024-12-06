@@ -14,7 +14,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         builder => builder.WithOrigins("http://localhost:3000")
                           .AllowAnyHeader()
-                          .AllowAnyMethod());
+                          .AllowAnyMethod()
+                          .AllowCredentials());
 });
 builder.WebHost.UseKestrel();
 
@@ -35,7 +36,6 @@ if (app.Environment.IsDevelopment())
 // Habilita a política de CORS
 app.UseCors("AllowReactApp");
 
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 

@@ -28,7 +28,7 @@ export default function StyledMaskDemo() {
             senha
         };
         try {
-            const response = await axios.post('http://localhost:5257/api/usuario', usuarioDto);
+            const response = await axios.post('http://localhost/api/usuario', usuarioDto);
             console.log('Usuário criado:', response.data);
             setResponseData(response.data);
             router.push('http://localhost:3000/login')
