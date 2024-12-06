@@ -124,9 +124,9 @@ Todas as ações disponíveis na interface do usuário são definidas no Front-E
     </td>
     <td align="center">
       <a href="https://github.com/GabrielPerosa">
-        <img src="https://avatars.githubusercontent.com/u/159202121?v=4" width="70px;" alt="Letícia Anhaia"/><br>
+        <img src="https://avatars.githubusercontent.com/u/159202121?v=4" width="70px;" alt="Gabriel Perosa"/><br>
         <sub>
-          <b>Letícia Anhaia</b>
+          <b>Gabriel Perosa</b>
         </sub>
       </a>
     </td>
