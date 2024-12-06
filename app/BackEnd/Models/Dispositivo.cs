@@ -4,5 +4,5 @@ public abstract class Dispositivo
     public string? Nome { get; set; }
     public string Tipo { get; set; }
     public int NumPino { get; set; }
-    public DateOnly Data_instalacao { get; set; }
+    public string Data_instalacao { get; set; }
 }

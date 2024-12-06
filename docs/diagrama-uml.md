@@ -30,7 +30,7 @@ classDiagram
         <<abstract>>
         + Id: int
         + Data: dateonly
-        + Hora: timeonly
+        + Hora: string
     }
     class LeituraBomba {
         + IdBomba: int
