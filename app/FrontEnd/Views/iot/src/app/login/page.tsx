@@ -19,7 +19,7 @@ export default function Profile() {
         };
 
         try {
-            const response = await axios.post('http://localhost:5257/api/usuario/login', usuarioDto);
+            const response = await axios.post('http://localhost/api/Usuario/login', usuarioDto);
 
             console.log('Usuário logado:', response.data);
             router.push('http://localhost:3000/home');
