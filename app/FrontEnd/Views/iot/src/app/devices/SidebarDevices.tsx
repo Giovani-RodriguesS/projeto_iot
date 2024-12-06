@@ -21,8 +21,38 @@ export default function SidebarDevices() {
     { label: "Sensor", value: "Sensor" },
   ];
 
+  const resetFormData = (dispositivo: string) => {
+    if (dispositivo === "Bomba"){
+      setFormData({
+        dispositivo: "Bomba",
+        tipo: "",
+        vazao: "",
+        localizacao: "",
+        nome: "",
+        data_instalacao: "",
+        umidade: "",
+      });
+  } else if (dispositivo === "Sensor"){
+    setFormData({
+      dispositivo: "Sensor",
+      tipo: "",
+      vazao: "",
+      localizacao: "",
+      nome: "",
+      data_instalacao: "",
+      umidade: "",
+      });
+    }
+  }
+
   const handleChange = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleDeviceSubmit = async (e: SelectButtonChangeEvent) => {
+    const newDevice = e.value;
+    resetFormData(newDevice)
+    handleChange("dispositivo", newDevice);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,9 +93,7 @@ export default function SidebarDevices() {
       <div className="flex justify-center items-center mt-0 w-full">
         <SelectButton
           value={formData.dispositivo}
-          onChange={(e: SelectButtonChangeEvent) =>
-            handleChange("dispositivo", e.value)
-          }
+          onChange={handleDeviceSubmit}
           options={options}
           optionLabel="label"
           optionValue="value"
