@@ -12,7 +12,7 @@ export default function Users() {
   // Busca os dispositivos na API
   const fetchDevices = async () => {
     try {
-      const response = await axios.get('http://10.109.28.86/api/bomba');
+      const response = await axios.get('http://localhost/api/bomba');
       setDevices(response.data);
     } catch (error) {
       console.error('Erro ao buscar dispositivos:', error);
