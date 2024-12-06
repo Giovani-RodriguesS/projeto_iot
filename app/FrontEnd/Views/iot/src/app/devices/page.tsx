@@ -9,7 +9,6 @@ import { Card } from "@/components/Card";
 export default function Users() {
   const [devices, setDevices] = useState([]);
 
-  // Busca os dispositivos na API
   const fetchDevices = async () => {
     try {
       const response = await axios.get('http://localhost/api/bomba');
@@ -35,7 +34,7 @@ export default function Users() {
           <div className="flex flex-wrap justify-center gap-5 mt-2">
             {devices.map((device: any) => (
               <Card
-                key={device.id} // Adicione um identificador único para cada card
+                key={device.id}
                 imageSrc={`/images/devices/${device.image || 'default.jpg'}`}
                 altText={device.nome || "Dispositivo"}
                 title={device.nome || "Dispositivo"}
