@@ -129,7 +129,14 @@ Embora o sistema seja projetado para coletar dados em tempo real relacionados à
 # *User Experience*
 
 <aside>
-🖍️ Crie links para seu arquivos de UX aqui: UX Flows, UI, etc.
+
+- *Tema Claro/Escuro* 🌞🌙
+- *Responsividade* 📱💻
+- *Gráficos* 📊
+- *Dashboard* 📈
+- *Estruturas de navegação claras e intuitivas* 🧭
+- *Facilidade de uso e aprendizado* 📚
+- *Interfaces otimizadas para diferentes tamanhos de tela* 📐
 
 </aside>
 
@@ -174,3 +181,4 @@ Inicialmente, apresentaremos nosso sistema em fase Beta a comunidade do Senai. L
 
 ## *Links*
 - [Miro](https://miro.com/app/board/uXjVKlCNuX4=/)
+- [GitHub](https://github.com/Giovani-RodriguesS/projeto_iot/tree/main)
