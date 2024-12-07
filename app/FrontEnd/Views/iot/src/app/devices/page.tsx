@@ -7,17 +7,18 @@ import AddDevice from "./addDevice";
 import { Card } from "@/components/Card";
 
 export default function Users() {
-  const [devices, setDevices] = useState([]);
+  const [devices, setDevices] = useState<any[]>([]);
 
   const fetchDevices = async () => {
     try {
-      const response = await axios.get('http://localhost/api/bomba');
-      setDevices(response.data);
+      const responseBomba = await axios.get('http://localhost/api/bomba');
+      const responseSensor = await axios.get('http://localhost/api/sensor');
+
+      setDevices([...responseBomba.data, ...responseSensor.data]);
     } catch (error) {
       console.error('Erro ao buscar dispositivos:', error);
     }
   };
-
   useEffect(() => {
     fetchDevices();
   }, []);
@@ -40,7 +41,7 @@ export default function Users() {
                 title={device.nome || "Dispositivo"}
                 id={device.id || "N/A"}
                 type={device.tipo || "Desconhecido"}
-                description={device.descricao || "Sem descrição disponível"}
+                description={device.vazao || device.data_instalacao}
               />
             ))}
           </div>

@@ -15,7 +15,6 @@ export default function AddDevice() {
                 showCloseIcon={false}
                 className='flex justify-center items-center'
                 style={{ top: '20%', borderRadius: '10px'}}>
-                    <h2 className="sidebar-title bg-slate-600 text-center" style={{fontSize:'1.5rem'}}>Cadastro Dispositivo</h2>
                 <SidebarDevices />
             </Sidebar>
             <Button 
