@@ -11,7 +11,7 @@ interface EditModalProps {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20">
         <div className="bg-white p-6 rounded-lg w-80">
-          <h2 className="text-lg font-bold mb-4">Editar Informações</h2>
+          <h2 className="text-lg font-bold mb-4 text-black">Editar Informações</h2>
           <input type="text" placeholder="Nome" className="mb-2 p-2 border w-full rounded" />
           <input type="text" placeholder="Cargo" className="mb-2 p-2 border w-full rounded" />
           <input type="email" placeholder="Email" className="mb-4 p-2 border w-full rounded" />
