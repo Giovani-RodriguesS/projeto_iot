@@ -5,9 +5,17 @@ import Navbar from "@/components/Navbar";
 import axios from "axios";
 import AddDevice from "./addDevice";
 import { Card } from "@/components/Card";
+import 'primeicons/primeicons.css';
 
 export default function Users() {
   const [devices, setDevices] = useState<any[]>([]);
+
+  const imageMap: Record<string, string> = {
+    bomba: '/images/devices/bomba.webp',
+    sensor_chuva: '/images/devices/sensor_chuva.png',
+    sensor_umidade: '/images/devices/sensor_umidade.jpg',
+    // ... outros casos
+  };
 
   const fetchDevices = async () => {
     try {
@@ -36,7 +44,7 @@ export default function Users() {
             {devices.map((device: any) => (
               <Card
                 key={device.id}
-                imageSrc={`/images/devices/${device.image || 'default.jpg'}`}
+                imageSrc={imageMap[device.nome] || '/images/devices/default.jpg'}
                 altText={device.nome || "Dispositivo"}
                 title={device.nome || "Dispositivo"}
                 id={device.id || "N/A"}
