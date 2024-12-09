@@ -66,7 +66,9 @@ export default function Users() {
       </div>
 
       {currentEditUser && (
-        <EditModal user={currentEditUser} closeModals={closeModals} />
+        <EditModal user={currentEditUser} closeModals={closeModals} refreshUsers={function (): void {
+          throw new Error("Function not implemented.");
+        } } />
       )}
       {currentDeleteUser && (
         <DeleteModal
