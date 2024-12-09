@@ -36,7 +36,6 @@ if (app.Environment.IsDevelopment())
 // Habilita a política de CORS
 app.UseCors("AllowReactApp");
 
-app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
