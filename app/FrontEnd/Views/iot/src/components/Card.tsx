@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-
+import 'primeicons/primeicons.css';
 
 interface CardProps {
   imageSrc: string;
@@ -12,8 +12,18 @@ interface CardProps {
 }
 
 export const Card: React.FC<CardProps> = ({ imageSrc, altText, title, id, type, description }) => {
+
+  
+
+  
   return (
     <div className="p-4 bg-gray-200 dark:bg-white rounded-xl w-30 flex flex-col items-center">
+      <div className="w-full mb-3 flex justify-end items-center">
+        <i className="pi pi-circle-fill" style={{
+          fontSize: '20px',
+          color: 'green'
+        }}></i>
+      </div>
       <Image src={imageSrc} width={70} height={70} className="mb-3 rounded-full" alt={altText} />
       <div className="text-lg font-bold text-black">{title}</div>
       <div className="text-sm text-black">ID: {id}</div>
