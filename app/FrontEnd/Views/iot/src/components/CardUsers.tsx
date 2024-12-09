@@ -13,14 +13,14 @@ type UserCardProps = {
 };
 
 export const UserCard = ({ user, onEdit, onDelete }: UserCardProps) => (
-  <div className="p-4 bg-gray-200 dark:bg-gray-800 rounded-xl w-60 flex flex-col items-center shadow-md">
+  <div className="p-4 bg-gray-200 dark:bg-white rounded-xl w-60 flex flex-col items-center shadow-md">
     <div className="mb-3 rounded-full bg-blue-500 text-white w-14 h-14 flex items-center justify-center text-xl font-bold">
       {user.nome[0]?.toUpperCase()}
     </div>
-    <div className="text-lg font-bold text-black dark:text-white">{user.nome}</div>
-    <div className="text-sm text-gray-700 dark:text-gray-300">Cargo: {user.cargo}</div>
-    <div className="text-sm text-gray-700 dark:text-gray-300">ID: {user.id}</div>
-    <div className="text-sm text-gray-700 dark:text-gray-300">{user.email}</div>
+    <div className="text-lg font-bold text-black dark:text-black">{user.nome}</div>
+    <div className="text-sm text-gray-700 dark:text-black">Cargo: {user.cargo}</div>
+    <div className="text-sm text-gray-700 dark:text-black">ID: {user.id}</div>
+    <div className="text-sm text-gray-700 dark:text-black">{user.email}</div>
     <div className="mt-4 flex gap-2">
       <button
         onClick={onEdit}

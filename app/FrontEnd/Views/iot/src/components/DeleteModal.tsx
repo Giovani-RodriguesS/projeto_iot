@@ -1,4 +1,13 @@
+type User = {
+  id: number;
+  nome: string;
+  email: string;
+  cargo: string;
+  telefone: string;
+};
+
 interface DeleteModalProps {
+    user: User;
     closeModals: () => void;
   }
   
