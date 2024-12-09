@@ -59,7 +59,7 @@ body {
 /* Define o contêiner principal do componente TabView */
 .custom-tabview .p-tabview {
   width: 100%; /* Largura total do componente */
-  height: 500px; /* Altura fixa */
+  height: auto; /* Altura fixa */
   margin-right: 0; /* Remove espaçamento à direita */
 }
 
@@ -81,18 +81,17 @@ body {
 
 /* Barra de navegação principal (abas) */
 .custom-tabview .p-tabview-nav {
-  padding: 0 1rem; /* Espaçamento interno horizontal */
   display: flex; /* Flexbox para organizar as abas */
-  gap: 1.5rem; /* Espaçamento entre as abas */
-  justify-content: last baseline; /* Centraliza as abas */
   border-bottom: 2px solid #4b5563; /* Linha de separação entre abas e conteúdo */
 }
+
 
 /* Abas individuais */
 .custom-tabview .p-tabview-nav li {
   padding: 0.5rem 2rem; /* Espaçamento interno */
   flex: 0 1 auto; /* Controle de largura flexível das abas */
-  text-align: right; /* Alinha o texto dentro das abas à direita */
+  text-align: center; /* Alinha o texto dentro das abas à direita */
+  margin-left: 10rem;
 }
 
 /* ========== ESTILO DO TÍTULO DA ABA ========== */
