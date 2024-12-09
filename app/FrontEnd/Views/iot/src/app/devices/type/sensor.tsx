@@ -25,6 +25,15 @@ export default function Sensor({ formData, onFormChange }: SensorProps) {
     },
   ];
 
+  const tipos = ["Umidade", "Chuva"]; // Opções de tipos de sensor
+
+  // Função para alternar ciclicamente entre os tipos
+  const toggleTipo = () => {
+    const currentIndex = tipos.indexOf(formData.tipo);
+    const nextIndex = (currentIndex + 1) % tipos.length; // Alterna ciclicamente
+    onFormChange("tipo", tipos[nextIndex]);
+  };
+
   return (
     <div className="card flex flex-col gap-1 pt-0 bg-gray-100 rounded-lg">
       {fields.map(({ key, placeholder, icon }) => (
@@ -35,13 +44,26 @@ export default function Sensor({ formData, onFormChange }: SensorProps) {
           <div className="text-blue-500 text-2xl mr-4">
             <i className={`pi pi-${icon}`}></i>
           </div>
-          <InputText
-            placeholder={placeholder}
-            value={formData[key as keyof typeof formData]}
-            onChange={(e) => onFormChange(key, e.target.value)}
-            className="w-full p-2 focus:outline-none"
-            style={{ color: "black" }}
-          />
+          {key === "tipo" ? (
+            // Renderizando o botão de alternância de tipo
+            <div className="flex items-center justify-between w-full">
+              <span className="px-2 text-black">{formData.tipo}</span>
+              <button
+                className="text-s text-blue-500 px-2 hover:text-blue-700 transition-all"
+                onClick={toggleTipo}
+              >
+                Alterar Tipo <i className="pi pi-chevron-right"></i>
+              </button>
+            </div>
+          ) : (
+            <InputText
+              placeholder={placeholder}
+              value={formData[key as keyof typeof formData]}
+              onChange={(e) => onFormChange(key, e.target.value)}
+              className="w-full p-2 focus:outline-none"
+              style={{ color: "black" }}
+            />
+          )}
         </div>
       ))}
     </div>
