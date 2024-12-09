@@ -23,6 +23,8 @@ export default function Users() {
     fetchDevices();
   }, []);
 
+  
+
   return (
     <div className="flex h-screen sm:overflow-hidden">
       <div className="flex-1 h-full bg-white dark:bg-slate-800 text-black dark:text-white">
