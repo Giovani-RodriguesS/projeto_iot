@@ -1,5 +1,5 @@
 import React from "react";
-import StyledMaskDemo from "./register/page";
+import StyledMaskDemo from "./login/page";
 
 
 export default function Begin() {
