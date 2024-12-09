@@ -45,14 +45,13 @@ export default function Users() {
           <div className="flex flex-wrap justify-center gap-5 mt-2">
             {devices.map((device: any) => (
               <Card
-                key={device.id}
-                imageSrc={imageMap[device.nome] || '/images/devices/default.jpg'}
-                altText={device.nome || "Dispositivo"}
-                title={device.nome || "Dispositivo"}
-                id={device.id || "N/A"}
-                type={device.tipo || "Desconhecido"}
-                description={device.vazao || device.data_instalacao}
-              />
+              key={device.id}
+              imageSrc={device.imagem || '/images/devices/default.png'}
+              altText={device.nome || "Dispositivo"}
+              title={device.nome || "Dispositivo"}
+              id={device.id || "N/A"}
+              type={device.tipo || "Desconhecido"}
+            />
             ))}
           </div>
         </main>
