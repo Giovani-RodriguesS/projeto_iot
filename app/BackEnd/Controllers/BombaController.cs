@@ -57,6 +57,8 @@ namespace BackEnd.Controllers
             bomba.NumPino = bombaDTO.NumPino;
             bomba.Localizacao = bombaDTO.Localizacao;
             bomba.Data_instalacao = bombaDTO.Data_instalacao;
+
+            bomba.Imagem = "/images/devices/bomba.webp";
         
             // Marcar como modificado
             _context.Entry(bomba).State = EntityState.Modified;
@@ -98,6 +100,8 @@ namespace BackEnd.Controllers
                 Localizacao = bombaDto.Localizacao,
                 Data_instalacao = bombaDto.Data_instalacao
             };
+
+            bomba.Imagem = "/images/devices/bomba.webp";
 
             // Adiciona a bomba ao contexto do banco de dados
             _context.Bomba.Add(bomba);
