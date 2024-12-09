@@ -60,12 +60,11 @@ body {
 .custom-tabview .p-tabview {
   width: 100%; /* Largura total do componente */
   height: auto; /* Altura fixa */
-  margin-right: 0; /* Remove espaçamento à direita */
+   /* Remove espaçamento à direita */
 }
 
 /* Painel interno com rolagem e conteúdo */
 .custom-tabview .p-tabview-panel {
-  overflow-y: auto; /* Adiciona rolagem vertical */
   height: calc(100% - 50px); /* Altura restante do componente, subtraindo a altura da barra de navegação */
   padding: 1rem; /* Espaçamento interno */
   color: #d1d5db; /* Cor do texto do painel */
@@ -88,7 +87,7 @@ body {
 
 /* Abas individuais */
 .custom-tabview .p-tabview-nav li {
-  padding: 0.5rem 2rem; /* Espaçamento interno */
+  padding: 3px; /* Espaçamento interno */
   flex: 0 1 auto; /* Controle de largura flexível das abas */
   text-align: center; /* Alinha o texto dentro das abas à direita */
   margin-left: 10rem;
