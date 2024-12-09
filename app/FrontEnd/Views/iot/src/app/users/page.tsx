@@ -13,6 +13,7 @@ type User = {
   email: string;
   cargo: string;
   telefone: string;
+  senha: string;
 };
 
 export default function Users() {
@@ -22,10 +23,13 @@ export default function Users() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost/api/usuario");
+      const response = await axios.get<User[]>("http://localhost/api/usuario");
       setUsers(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar usuários:", error);
+    } catch (error: any) {
+      console.error(
+        "Erro ao buscar usuários:",
+        error.response?.data?.message || error.message
+      );
     }
   };
 
@@ -33,8 +37,9 @@ export default function Users() {
     fetchUsers();
   }, []);
 
-  const handleEdit = (user: User) => setCurrentEditUser(user);
-  const handleDelete = (user: User) => setCurrentDeleteUser(user);
+  const handleEdit = (user: User) => {
+    setCurrentEditUser(user);
+  };
 
   const closeModals = () => {
     setCurrentEditUser(null);
@@ -53,7 +58,7 @@ export default function Users() {
                 key={user.id}
                 user={user}
                 onEdit={() => handleEdit(user)}
-                onDelete={() => handleDelete(user)}
+                onDelete={() => setCurrentDeleteUser(user)}
               />
             ))}
           </div>
@@ -64,7 +69,11 @@ export default function Users() {
         <EditModal user={currentEditUser} closeModals={closeModals} />
       )}
       {currentDeleteUser && (
-        <DeleteModal user={currentDeleteUser} closeModals={closeModals} />
+        <DeleteModal
+          user={currentDeleteUser}
+          closeModals={closeModals}
+          refreshUsers={fetchUsers}
+        />
       )}
     </div>
   );
