@@ -54,57 +54,86 @@ body {
   margin-right: 1rem;
 }
 
-.custom-tabview .p-tabview-nav{
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  border-bottom: 2px solid #4b5563;
-}
+/* ========== ESTILO PRINCIPAL DO TABVIEW ========== */
 
-.custom-tabview .p-tabview-nav li {
-  flex: 1;
-  text-align: center;
-}
-
-.custom-tabview .p-tabview-nav li .p-tabview-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1rem;
-  color: #ffffff;
-}
-
-.custom-tabview .custom-tabview-custom i, .custom-tabview-demo .custom-tabview-custom span {
-  vertical-align: middle;
-  align-items: center;
-  justify-content: center;
-}
-
-.custom-tabview .tabview-custom span {
-  margin: 0 .5rem;
-}
-
-.custom-tabview .p-button {
-  margin-right: .25rem;
-}
-
-.custom-tabview .p-tabview p {
-  line-height: 1.5;
-  margin: 0;
-}
-
+/* Define o contêiner principal do componente TabView */
 .custom-tabview .p-tabview {
-  width: 50%;
-  height: 500px;
-  margin-right: 0;
+  width: 100%; /* Largura total do componente */
+  height: auto; /* Altura fixa */
+  margin-right: 0; /* Remove espaçamento à direita */
 }
 
+/* Painel interno com rolagem e conteúdo */
 .custom-tabview .p-tabview-panel {
-  overflow-y: auto;
-  height: calc(100% - 50px);
-  padding: 1rem;
-  color: #d1d5db;
+  overflow-y: auto; /* Adiciona rolagem vertical */
+  height: calc(100% - 50px); /* Altura restante do componente, subtraindo a altura da barra de navegação */
+  padding: 1rem; /* Espaçamento interno */
+  color: #d1d5db; /* Cor do texto do painel */
 }
+
+/* Estilo para parágrafos dentro do conteúdo do TabView */
+.custom-tabview .p-tabview p {
+  line-height: 1.5; /* Espaçamento entre linhas */
+  margin: 0; /* Remove margens externas */
+}
+
+/* ========== ESTILO DA BARRA DE NAVEGAÇÃO ========== */
+
+/* Barra de navegação principal (abas) */
+.custom-tabview .p-tabview-nav {
+  display: flex; /* Flexbox para organizar as abas */
+  border-bottom: 2px solid #4b5563; /* Linha de separação entre abas e conteúdo */
+}
+
+
+/* Abas individuais */
+.custom-tabview .p-tabview-nav li {
+  padding: 0.5rem 2rem; /* Espaçamento interno */
+  flex: 0 1 auto; /* Controle de largura flexível das abas */
+  text-align: center; /* Alinha o texto dentro das abas à direita */
+  margin-left: 10rem;
+}
+
+/* ========== ESTILO DO TÍTULO DA ABA ========== */
+
+/* Contêiner principal do título das abas */
+.custom-tabview .p-tabview-nav li .p-tabview-title {
+  display: flex; /* Exibe ícones e texto em linha */
+  align-items: center; /* Alinha verticalmente os elementos */
+  justify-content: space-between; /* Distribui ícones e texto com espaço entre eles */
+  gap: 2.5rem; /* Espaço entre texto e ícone */
+}
+
+/* Texto do título da aba */
+.custom-tabview .p-tabview-nav li .p-tabview-title span {
+  margin-left: 100px; /* Desloca o texto horizontalmente */
+  font-size: 1rem; /* Define o tamanho do texto */
+}
+
+/* ========== ESTILO DOS ÍCONES NAS ABAS ========== */
+
+/* Estiliza os ícones dentro do TabView */
+.custom-tabview .custom-tabview-custom i,
+.custom-tabview-demo .custom-tabview-custom span {
+  vertical-align: middle; /* Centraliza o ícone em relação ao texto */
+  display: flex; /* Define o layout como flexbox */
+  align-items: center; /* Alinha verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+}
+
+/* Espaçamento ao redor de spans adicionais */
+.custom-tabview .tabview-custom span {
+  margin: 0 0.5rem; /* Adiciona espaçamento horizontal */
+}
+
+/* ========== BOTÕES INTERNOS DO TABVIEW ========== */
+
+/* Ajuste para botões dentro do componente */
+.custom-tabview .p-button {
+  margin-right: 0.25rem; /* Adiciona espaçamento à direita de botões */
+}
+
+
 
 .p-unselected .pi {
   color: #ffffff; 
