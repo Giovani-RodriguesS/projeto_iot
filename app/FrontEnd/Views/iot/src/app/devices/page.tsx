@@ -51,6 +51,7 @@ export default function Users() {
               title={device.nome || "Dispositivo"}
               id={device.id || "N/A"}
               type={device.tipo || "Desconhecido"}
+              description=""
             />
             ))}
           </div>
