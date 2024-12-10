@@ -29,7 +29,7 @@ namespace BackEnd.Controllers
         {
             // Convertendo data e hora para string
             string data = DateOnly.FromDateTime(DateTime.Now).ToString("dd/MM/yyyy");
-            string hora = TimeOnly.FromDateTime(DateTime.Now).ToString("HH:mm");
+            string hora = TimeOnly.FromDateTime(DateTime.Now).ToString("HH:mm:ss");
 
             var leituraSensor = new LeituraSensor
             {
