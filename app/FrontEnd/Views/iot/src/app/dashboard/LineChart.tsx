@@ -10,7 +10,7 @@ interface DataSensors {
   medida: number;
 }
 
-interface DataBomba { 
+interface DataBomba {
   data: string;
   hora: string;
   idBomba: number;
@@ -21,126 +21,141 @@ export default function LineChart() {
   const [chartData, setChartData] = useState<any>(null);
   const [chartOptions, setChartOptions] = useState<any>(null);
 
+  const SLIDING_WINDOW_SIZE = 30;
+
+  const fetchChartData = async () => {
+    try {
+      const sensorResponse = await axios.get('http://localhost:80/api/LeituraSensor');
+      const pumpResponse = await axios.get('http://localhost:80/api/LeituraBomba');
+
+      const sensorData: DataSensors[] = sensorResponse.data;
+      const pumpData: DataBomba[] = pumpResponse.data;
+
+      // Filtrar dados por sensor
+      const sensor1Data = sensorData.filter((item) => item.idSensor === 1);
+      const sensor2Data = sensorData.filter((item) => item.idSensor === 2);
+
+      // Preparar os dados para a janela deslizante
+      const labels = sensor1Data.slice(-SLIDING_WINDOW_SIZE).map((item) => item.hora);
+      const humidityMeasurements = sensor1Data
+        .slice(-SLIDING_WINDOW_SIZE)
+        .map((item) => item.medida);
+      const rainMeasurements = sensor2Data
+        .slice(-SLIDING_WINDOW_SIZE)
+        .map((item) => item.medida);
+
+      // Estado da bomba dentro da janela deslizante
+      const pumpStates = labels.map((hora) => {
+        const pumpReading = pumpData.find((item) => item.hora === hora);
+        return pumpReading ? pumpReading.bombaAtivada : 0;
+      });
+
+      const data = {
+        labels,
+        datasets: [
+          {
+            label: '% Umidade',
+            data: humidityMeasurements,
+            fill: false,
+            borderColor: 'aqua',
+            tension: 0.4,
+            yAxisID: 'left-y-axis',
+          },
+          {
+            label: '% Chuva',
+            data: rainMeasurements,
+            fill: false,
+            borderColor: 'blue',
+            tension: 0.4,
+            yAxisID: 'left-y-axis',
+          },
+          {
+            label: 'Bomba',
+            data: pumpStates,
+            fill: false,
+            borderColor: 'pink',
+            borderDash: [5, 5],
+            tension: 0.1,
+            yAxisID: 'right-y-axis',
+          },
+        ],
+      };
+
+      setChartData(data);
+    } catch (error) {
+      console.error('Error fetching chart data:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchChartData = async () => {
-      try {
-        const response = await axios.get('http://localhost:80/api/LeituraSensor');
-        const responseBomba = await axios.get('http://localhost:80/api/LeituraBomba');
-
-        const dataFromApi: DataSensors[] = response.data;
-        const dataBomba: DataBomba[] = responseBomba.data;
-
-        // Filtrar dados por idSensor
-        const sensor1Data = dataFromApi.filter((item) => item.idSensor === 1);
-        const sensor2Data = dataFromApi.filter((item) => item.idSensor === 2);
-
-        // Preparar os dados para o gráfico
-        const labels = sensor1Data.map((item) => item.hora); // Usando horários do sensor 1 como base
-        const umidade = sensor1Data.map((item) => item.medida); // Medidas do sensor 1
-        const chuva = sensor2Data.map((item) => item.medida); // Medidas do sensor 2
-
-        // Obter estado da bomba para os horários correspondentes
-        const bombaEstado = labels.map((hora) => {
-          const bomba = dataBomba.find((item) => item.hora === hora);
-          return bomba ? bomba.bombaAtivada : 0; // Assume desligado (0) se não houver dado
-        });
-
-        // Garantir que os valores sejam numéricos
-        const parsedUmidade = umidade.map((value) => Number(value));
-        const parsedChuva = chuva.map((value) => Number(value));
-
-        // Configurar os dados do gráfico
-        const data = {
-          labels,
-          datasets: [
-            {
-              label: '% Umidade',
-              data: parsedUmidade,
-              fill: false,
-              borderColor: 'aqua', // Cor verde-água
-              tension: 0.4,
-              yAxisID: 'left-y-axis',
-            },
-            {
-              label: '% Chuva',
-              data: parsedChuva,
-              fill: false,
-              borderColor: 'blue', // Cor azul
-              tension: 0.4,
-              yAxisID: 'right-y-axis',
-            },
-            {
-              label: 'Bomba Ativada',
-              data: bombaEstado,
-              fill: false,
-              borderColor: 'red', // Cor vermelha para destacar
-              borderDash: [5, 5], // Linha tracejada para indicar status
-              tension: 0.1,
-              yAxisID: 'right-y-axis',
-            },
-          ],
-        };
-
-        setChartData(data);
-      } catch (error) {
-        console.error('Erro ao buscar os dados do endpoint:', error);
-      }
-    };
-
     const setupChartOptions = () => {
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--text-color');
-      const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-      const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
       const options = {
         maintainAspectRatio: false,
         responsive: true,
         plugins: {
           legend: {
             labels: {
-              color: textColor,
+              color: '#000',
+              font: {
+                size: 14,
+              },
             },
           },
         },
         scales: {
           x: {
             ticks: {
-              color: textColorSecondary,
+              color: '#333',
               font: {
-                size: 14, // Aumenta a legibilidade do eixo X
+                size: 12,
               },
             },
             grid: {
-              color: surfaceBorder,
+              display: false, 
             },
           },
           'left-y-axis': {
             type: 'linear',
             position: 'left',
             ticks: {
-              color: textColorSecondary,
+              color: '#333',
               font: {
-                size: 14, // Aumenta a legibilidade do eixo Y esquerdo
+                size: 12,
               },
-              stepSize: 5, // Define intervalos consistentes entre os valores
+              stepSize: 10,
+            },
+            title: {
+              display: true,
+              text: '% Sensores',
+              color: '#000',
+              font: {
+                size: 16,
+              },
             },
             grid: {
-              color: surfaceBorder,
+              display: false, // Remove o grid no eixo Y esquerdo
             },
           },
           'right-y-axis': {
             type: 'linear',
             position: 'right',
             ticks: {
-              color: textColorSecondary,
+              color: '#333',
               font: {
-                size: 14, // Aumenta a legibilidade do eixo Y direito
+                size: 12,
               },
-              stepSize: 1, // Escala para os valores binários da bomba
+              stepSize: 1,
+            },
+            title: {
+              display: true,
+              text: 'Estado Bomba',
+              color: '#000',
+              font: {
+                size: 16,
+              },
             },
             grid: {
-              drawOnChartArea: false,
+              display: false, // Remove o grid no eixo Y direito
             },
           },
         },
@@ -151,6 +166,12 @@ export default function LineChart() {
 
     setupChartOptions();
     fetchChartData();
+
+    // Configurar auto-atualização a cada 30 segundos
+    const intervalId = setInterval(fetchChartData, 30000); // 30000ms = 30 segundos
+
+    // Limpar o intervalo quando o componente for desmontado
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
