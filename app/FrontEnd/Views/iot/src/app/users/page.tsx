@@ -4,8 +4,8 @@ import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import axios from "axios";
 import { UserCard } from "@/components/CardUsers";
-import EditModal from "@/components/EditModal";
-import DeleteModal from "@/components/DeleteModal";
+import EditModal from "@/app/users/EditModal";
+import DeleteModal from "@/app/users/DeleteModal";
 
 type User = {
   id: number;
