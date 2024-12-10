@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import "@/style/styles.css";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
+import { Dialog } from 'primereact/dialog';
 
 export default function Profile() {
     const [email, setUserEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [senhaVisible, setPasswordVisible] = useState(false);
+    const [showPopup, setShowPopup] = useState(false); // Controla a exibição do popup
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,12 +26,8 @@ export default function Profile() {
             console.log('Usuário logado:', response.data);
             router.push('http://localhost:3000/home');
         } catch (error) {
-            if (axios.isAxiosError(error) && error.response?.status === 401) {
-                alert('Email ou senha inválidos');
-            } else {
-                console.error('Erro no login:', error);
-                alert('Erro ao tentar logar. Tente novamente mais tarde.');
-            }
+            setShowPopup(true); 
+            setTimeout(() => setShowPopup(false), 2000); 
         }
     };
 
@@ -103,9 +101,30 @@ export default function Profile() {
                         </div>
                     </form>
                 </div>
-
             </div>
-        </main>
 
+            
+        <Dialog 
+            header="" 
+            visible={showPopup} 
+            style={{
+                width: '15vw',
+                textAlign: 'center',
+                position: 'absolute',
+                top: '2%',
+                left: '50%',
+                transform: 'translateX(-50%)', // Centraliza horizontalmente
+                backgroundColor: '#F8D7DA', // Vermelho claro
+                border: '2px solid #721C24', // Borda vermelho escuro
+            }} 
+            draggable={false} // Desabilita movimentação
+            onHide={() => setShowPopup(false)}
+        >
+            <div className="p-5 rounded-md">
+                <p className="text-lg text-red-900 font-bold">Email ou senha incorretos</p>
+            </div>
+        </Dialog>
+
+        </main>
     );
 }
