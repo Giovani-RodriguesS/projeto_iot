@@ -1,88 +1,186 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+import axios from 'axios';
+
+interface DataSensors {
+  data: string;
+  hora: string;
+  idSensor: number;
+  medida: number;
+}
+
+interface DataBomba {
+  data: string;
+  hora: string;
+  idBomba: number;
+  bombaAtivada: number;
+}
 
 export default function LineChart() {
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
+  const [chartData, setChartData] = useState<any>(null);
+  const [chartOptions, setChartOptions] = useState<any>(null);
+
+  const SLIDING_WINDOW_SIZE = 30;
+
+  const fetchChartData = async () => {
+    try {
+      const sensorResponse = await axios.get('http://localhost:80/api/LeituraSensor');
+      const pumpResponse = await axios.get('http://localhost:80/api/LeituraBomba');
+
+      const sensorData: DataSensors[] = sensorResponse.data;
+      const pumpData: DataBomba[] = pumpResponse.data;
+
+      // Filtrar dados por sensor
+      const sensor1Data = sensorData.filter((item) => item.idSensor === 1);
+      const sensor2Data = sensorData.filter((item) => item.idSensor === 2);
+
+      // Preparar os dados para a janela deslizante
+      const labels = sensor1Data.slice(-SLIDING_WINDOW_SIZE).map((item) => item.hora);
+      const humidityMeasurements = sensor1Data
+        .slice(-SLIDING_WINDOW_SIZE)
+        .map((item) => item.medida);
+      const rainMeasurements = sensor2Data
+        .slice(-SLIDING_WINDOW_SIZE)
+        .map((item) => item.medida);
+
+      // Estado da bomba dentro da janela deslizante
+      const pumpStates = labels.map((hora) => {
+        const pumpReading = pumpData.find((item) => item.hora === hora);
+        return pumpReading ? pumpReading.bombaAtivada : 0;
+      });
+
+      const data = {
+        labels,
+        datasets: [
+          {
+            label: '% Umidade',
+            data: humidityMeasurements,
+            fill: false,
+            borderColor: 'aqua',
+            tension: 0.4,
+            yAxisID: 'left-y-axis',
+          },
+          {
+            label: '% Chuva',
+            data: rainMeasurements,
+            fill: false,
+            borderColor: 'blue',
+            tension: 0.4,
+            yAxisID: 'left-y-axis',
+          },
+          {
+            label: 'Bomba',
+            data: pumpStates,
+            fill: false,
+            borderColor: 'pink',
+            borderDash: [5, 5],
+            tension: 0.1,
+            yAxisID: 'right-y-axis',
+          },
+        ],
+      };
+
+      setChartData(data);
+    } catch (error) {
+      console.error('Error fetching chart data:', error);
+    }
+  };
 
   useEffect(() => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    const data = {
-      labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-      datasets: [
-        {
-          label: '% umidade',
-          data: [65, 59, 80, 81, 56, 55, 40, 90, 85, 72, 60, 75, 69, 55, 68, 74, 60, 55, 80, 70, 65, 55, 40, 30],
-          fill: true,
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
-          tension: 0.4,
-          yAxisID: 'left-y-axis'
+    const setupChartOptions = () => {
+      const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#000',
+              font: {
+                size: 14,
+              },
+            },
+          },
         },
-        {
-          label: 'Sensor Chuva',
-          data: [0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--pink-500'),
-          tension: 0.1,
-          yAxisID: 'right-y-axis'
-        }
-      ]
+        scales: {
+          x: {
+            ticks: {
+              color: '#333',
+              font: {
+                size: 12,
+              },
+            },
+            grid: {
+              display: false, 
+            },
+          },
+          'left-y-axis': {
+            type: 'linear',
+            position: 'left',
+            ticks: {
+              color: '#333',
+              font: {
+                size: 12,
+              },
+              stepSize: 10,
+            },
+            title: {
+              display: true,
+              text: '% Sensores',
+              color: '#000',
+              font: {
+                size: 16,
+              },
+            },
+            grid: {
+              display: false, // Remove o grid no eixo Y esquerdo
+            },
+          },
+          'right-y-axis': {
+            type: 'linear',
+            position: 'right',
+            ticks: {
+              color: '#333',
+              font: {
+                size: 12,
+              },
+              stepSize: 1,
+            },
+            title: {
+              display: true,
+              text: 'Estado Bomba',
+              color: '#000',
+              font: {
+                size: 16,
+              },
+            },
+            grid: {
+              display: false, // Remove o grid no eixo Y direito
+            },
+          },
+        },
+      };
+
+      setChartOptions(options);
     };
 
-    const options = {
-      maintainAspectRatio: false,  // Permite que o gráfico se ajuste ao contêiner
-      responsive: true,  // Garante que o gráfico seja responsivo
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder
-          }
-        },
-        'left-y-axis': {
-          type: 'linear',
-          position: 'left',
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder
-          }
-        },
-        'right-y-axis': {
-          type: 'linear',
-          position: 'right',
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            drawOnChartArea: false
-          }
-        }
-      }
-    };
+    setupChartOptions();
+    fetchChartData();
 
-    setChartData(data);
-    setChartOptions(options);
+    // Configurar auto-atualização a cada 30 segundos
+    const intervalId = setInterval(fetchChartData, 30000); // 30000ms = 30 segundos
+
+    // Limpar o intervalo quando o componente for desmontado
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div className="card w-full h-full">
-      <Chart type="line" data={chartData} options={chartOptions} style={{height:'300px'}} />
+      {chartData && chartOptions ? (
+        <Chart type="line" data={chartData} options={chartOptions} style={{ height: '300px' }} />
+      ) : (
+        <p>Carregando dados do gráfico...</p>
+      )}
     </div>
   );
 }
