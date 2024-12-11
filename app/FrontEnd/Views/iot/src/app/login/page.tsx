@@ -102,29 +102,27 @@ export default function Profile() {
                     </form>
                 </div>
             </div>
-
-            
-        <Dialog 
+            <Dialog 
             header="" 
             visible={showPopup} 
             style={{
-                width: '15vw',
+                width: '25vw',
                 textAlign: 'center',
                 position: 'absolute',
                 top: '2%',
-                left: '50%',
-                transform: 'translateX(-50%)', // Centraliza horizontalmente
-                backgroundColor: '#F8D7DA', // Vermelho claro
-                border: '2px solid #721C24', // Borda vermelho escuro
+                left: '89%',
+                transform: 'translateX(-50%)', 
+                backgroundColor: 'rgba(255, 99, 71, 0.8)', 
+                borderRadius: '8px', 
             }} 
-            draggable={false} // Desabilita movimentação
+            draggable={false} 
+            closable={false} 
             onHide={() => setShowPopup(false)}
-        >
-            <div className="p-5 rounded-md">
-                <p className="text-lg text-red-900 font-bold">Email ou senha incorretos</p>
+            >
+            <div className="p-4 rounded-md flex items-center justify-center">
+                <p className="text-sm text-red font-bold">Email ou senha incorretos</p>
             </div>
-        </Dialog>
-
+            </Dialog>
         </main>
     );
 }
