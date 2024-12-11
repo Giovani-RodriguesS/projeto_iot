@@ -95,7 +95,7 @@ export default function Profile() {
                         </div>
 
                         <div className="text-right mt-4">
-                            <a href="#" className="text-white hover:underline">Esqueci minha senha</a>
+                            <a href="http://localhost:3000/forgotpassword" className="text-white hover:underline">Esqueci minha senha</a>
                         </div>
 
                         <div className="text-center mt-8">
