@@ -4,6 +4,7 @@ import Water_pump from "./type/water_pump";
 import Sensor from "./type/sensor";
 import { Button } from "primereact/button";
 import axios from "axios";
+import { image } from "html2canvas/dist/types/css/types/image";
 
 export default function SidebarDevices() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function SidebarDevices() {
     nome: "",
     data_instalacao: "",
     umidade: "",
+    imagem:""
   });
 
   const options = [
@@ -31,6 +33,7 @@ export default function SidebarDevices() {
         nome: "",
         data_instalacao: "",
         umidade: "",
+        imagem:""
       });
   } else if (dispositivo === "Sensor"){
     setFormData({
@@ -41,6 +44,7 @@ export default function SidebarDevices() {
       nome: "",
       data_instalacao: "",
       umidade: "",
+      imagem:""
       });
     }
   }
@@ -72,12 +76,14 @@ export default function SidebarDevices() {
               vazao: formData.vazao,
               localizacao: formData.localizacao,
               data_instalacao: formData.data_instalacao,
+              imagem: formData.imagem,
             }
           : {
               nome: formData.nome,
               tipo: formData.tipo,
               umidade: formData.umidade,
               data_instalacao: formData.data_instalacao,
+              imagem: formData.imagem,
             };
 
       const response = await axios.post(endpoint, payload);

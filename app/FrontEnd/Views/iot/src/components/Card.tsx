@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 type Device = {
   id: number;
@@ -7,12 +8,14 @@ type Device = {
   categoria: "Sensor" | "Bomba";
   localizacao?: string;
   data_instalacao: string;
+  imagem: string;
 };
 
 interface CardProps {
   device: Device;
   onEdit: () => void;
   onDelete: () => void;
+  imagem: () => void;
 }
 
 export const Card: React.FC<CardProps> = ({ device, onEdit, onDelete }) => {
@@ -26,6 +29,15 @@ export const Card: React.FC<CardProps> = ({ device, onEdit, onDelete }) => {
             color:"green", // Cor dinâmica baseada no tipo
           }}
         ></i>
+      </div>
+      <div className="items-center">
+      <Image
+              src= {device.imagem}
+              width={100}
+              height={100}
+              alt="user profile"
+              className="photo rounded-full w-20 h-20"
+          />
       </div>
       <div className="text-lg font-bold text-black">{device.nome}</div>
       <div className="text-sm text-black">ID: {device.id}</div>
