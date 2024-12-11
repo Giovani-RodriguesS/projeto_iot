@@ -167,11 +167,6 @@ export default function Reports() {
         const imgWidth = 190; // Define a largura da imagem no PDF.
         const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calcula a altura proporcional.
 
-        if (nextYPosition + contentHeight > pdf.internal.pageSize.height - 20) {
-          pdf.addPage(); // Adiciona nova página
-          nextYPosition = 20; // Reinicia a posição
-        }
-
         pdf.addImage(imgData, "PNG", 10, nextYPosition, imgWidth, imgHeight); // Adiciona a imagem ao PDF.
       } else { // Caso não exista conteúdo em formato de imagem:
         pdf.setFont("helvetica", "normal"); // Define a fonte como normal.
