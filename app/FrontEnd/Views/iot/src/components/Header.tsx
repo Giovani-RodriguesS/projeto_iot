@@ -20,6 +20,7 @@ export default function Header({ username }: HeaderProps) {
   const [settingsMenuVisible, setSettingsMenuVisible] = useState(false);
   const [settingsPosition, setSettingsPosition] = useState<'left' | 'right'>('right');
   const [isClient, setIsClient] = useState(false);  // Track client-side rendering
+  const [nomeUsuario, setNomeUsuario] = useState<string | null>(null);
 
   const items: MenuItem[] = [
     { label: "Início", icon: "pi pi-home", command: () => router.push("/home") },
@@ -52,9 +53,26 @@ export default function Header({ username }: HeaderProps) {
     {
       label: 'Logout',
       icon: 'pi pi-sign-out',
-      command: () => router.push('/login'),
+      command: () => {
+        localStorage.removeItem('nomeUsuario'), // Remove o nome do usuário
+        router.push('/login')
+      }
     },
   ];
+
+  useEffect(() => {
+    const storedNomeUsuario = localStorage.getItem('nomeUsuario');
+    setNomeUsuario(storedNomeUsuario); // Atualiza o estado com o nome do usuário
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setIsClient(true);  // Set client flag to true after component mounts
@@ -88,7 +106,7 @@ export default function Header({ username }: HeaderProps) {
               className="photo rounded-full w-8 h-8"
             />
             <span className="user-name text-gray-700 dark:text-gray-300 text-sm">
-              Bem-Vindo, {username}
+              Bem-Vindo, {nomeUsuario || "Usuário"}
             </span>
           </div>
         )}

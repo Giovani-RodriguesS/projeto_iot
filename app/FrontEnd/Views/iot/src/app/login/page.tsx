@@ -23,6 +23,14 @@ export default function Profile() {
         try {
             const response = await axios.post('http://localhost/api/Usuario/login', usuarioDto);
 
+            const { nomeUsuario } = response.data; // Extraindo o nome do usuário
+
+            console.log(nomeUsuario);
+
+             // Armazene o nome em localStorage ou em um estado global/contexto
+            localStorage.setItem('nomeUsuario', nomeUsuario);
+
+
             console.log('Usuário logado:', response.data);
             router.push('http://localhost:3000/home');
         } catch (error) {
