@@ -104,54 +104,6 @@ export default function Reports() {
         cost: `R$ ${Math.floor(Math.random() * 500 + 50)}`,
       })
     );
-    
-    const columnWidths = [60, 60, 70]; // Define as larguras das colunas da tabela.
-    const rowHeight = 8; // Define a altura de cada linha da tabela.
-
-    pdf.setFont("helvetica", "bold"); // Define a fonte como negrito.
-    pdf.text("Tabela de Custos:", 10, nextYPosition); // Adiciona o título da tabela.
-    nextYPosition += 10; // Move para a posição da tabela.
-
-    // Cabeçalho da Tabela
-    pdf.setFillColor(200, 220, 220); // Define a cor de fundo do cabeçalho da tabela.
-    pdf.rect(10, nextYPosition, 190, rowHeight, "F"); // Adiciona o retângulo do cabeçalho.
-    pdf.setFont("helvetica", "bold"); // Define a fonte como negrito novamente.
-    let xPosition = 10; // Define a posição inicial no eixo X para o cabeçalho.
-    ["Data", "Quantidade", "Custo"].forEach((header, index) => { // Itera sobre os cabeçalhos da tabela.
-      pdf.text(header, xPosition + 2, nextYPosition + 6); // Adiciona o texto do cabeçalho.
-      xPosition += columnWidths[index]; // Move a posição X para o próximo cabeçalho.
-    });
-    nextYPosition += rowHeight; // Move para a próxima linha abaixo do cabeçalho.
-
-    // Adiciona os dados da tabela com controle de páginas
-    tableData.forEach((row) => {
-      if (nextYPosition + rowHeight > 270) {
-          pdf.addPage();
-          nextYPosition = 20;
-          pdf.setFont("helvetica", "bold");
-          pdf.text("Continuação:", 10, nextYPosition);
-          nextYPosition += 10;
-  
-          // Cabeçalho da Tabela
-          pdf.setFillColor(200, 220, 220);
-          pdf.rect(10, nextYPosition, 190, rowHeight, "F");
-          let xPosition = 10;
-          ["Mês", "Quantidade", "Custo"].forEach((header, index) => {
-              pdf.text(header, xPosition + 2, nextYPosition + 6);
-              xPosition += columnWidths[index];
-          });
-          nextYPosition += rowHeight;
-      }
-  
-      pdf.setFont("helvetica", "normal");
-      let xPosition = 10;
-      [row.month, row.quantity, row.cost].forEach((cell, colIndex) => {
-          pdf.text(cell, xPosition + 2, nextYPosition + 6);
-          pdf.rect(xPosition, nextYPosition, columnWidths[colIndex], rowHeight);
-          xPosition += columnWidths[colIndex];
-      });
-      nextYPosition += rowHeight;
-    });
 
     // Observações (aparece apenas se houver conteúdo)
     if (parameters.notes && parameters.notes.trim()) { // Verifica se há observações.
@@ -166,11 +118,6 @@ export default function Reports() {
         const imgData = canvas.toDataURL("image/png"); // Converte a imagem para base64.
         const imgWidth = 190; // Define a largura da imagem no PDF.
         const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calcula a altura proporcional.
-
-        if (nextYPosition + contentHeight > pdf.internal.pageSize.height - 20) {
-          pdf.addPage(); // Adiciona nova página
-          nextYPosition = 20; // Reinicia a posição
-        }
 
         pdf.addImage(imgData, "PNG", 10, nextYPosition, imgWidth, imgHeight); // Adiciona a imagem ao PDF.
       } else { // Caso não exista conteúdo em formato de imagem:
