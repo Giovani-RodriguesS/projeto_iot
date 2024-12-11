@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SelectButton, SelectButtonChangeEvent } from "primereact/selectbutton";
 import Water_pump from "./type/water_pump";
 import Sensor from "./type/sensor";
@@ -61,8 +61,8 @@ export default function SidebarDevices() {
     try {
       const endpoint =
         formData.dispositivo === "Bomba"
-          ? 'http://localhost/api/bomba'
-          : 'http://localhost/api/sensor';
+          ? "http://localhost/api/bomba"
+          : "http://localhost/api/sensor";
 
       const payload =
         formData.dispositivo === "Bomba"
@@ -80,8 +80,11 @@ export default function SidebarDevices() {
               data_instalacao: formData.data_instalacao,
             };
 
-      const response = await axios.post(endpoint, payload);
-      console.log("Dispositivo cadastrado com sucesso: ", response.data);
+      const responsePOST = await axios.post(endpoint, payload);
+      console.log("Dispositivo cadastrado com sucesso: ", responsePOST.data);
+      
+      resetFormData(formData.dispositivo);
+
     } catch (error) {
       console.error("Erro ao cadastrar dispositivo: ", error);
     }
