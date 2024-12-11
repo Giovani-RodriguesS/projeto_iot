@@ -175,7 +175,7 @@ export default function StyledMaskDemo() {
                 onHide={() => setShowPopup(false)}
             >
                 <div className="p-4 rounded-md flex items-center justify-center">
-                    <p className="text-sm text-white font-bold">Usuário Cadastrado com Sucesso</p>
+                    <p className="text-sm text-white font-bold">Usuário cadastrado com sucesso!</p>
                 </div>
             </Dialog>
         </main>
