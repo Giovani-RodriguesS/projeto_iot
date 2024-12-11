@@ -92,9 +92,14 @@ export default function SidebarDevices() {
       
       resetFormData(formData.dispositivo);
 
+      setShowPopup(true); // Exibe o pop-up
+      setTimeout(() => setShowPopup(false), 2000); // Oculta após 2 segundos
     } catch (error) {
       console.error("Erro ao cadastrar dispositivo: ", error);
     }
+    setTimeout(() => {
+      window.location.reload(); // Recarrega a página
+    }, 2000); // Aguarda 2 segundos
   };
 
   return (
