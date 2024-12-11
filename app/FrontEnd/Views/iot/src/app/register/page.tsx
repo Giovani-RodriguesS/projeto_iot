@@ -4,6 +4,7 @@ import { InputMask } from "primereact/inputmask";
 import 'primeicons/primeicons.css';
 import { useRouter } from 'next/navigation';
 import axios from "axios";
+import { Dialog } from 'primereact/dialog';
 
 export default function StyledMaskDemo() {
     const [nome, setNome] = useState('');
@@ -13,6 +14,7 @@ export default function StyledMaskDemo() {
     const [senha, setSenha] = useState('');
     const [senhaVisible, setPasswordVisible] = useState(false);
     const [responseData, setResponseData] = useState(null);
+    const [showPopup, setShowPopup] = useState(false); // Controla a exibição do popup
     const router = useRouter();
 
     const formattedTelefone = telefone.replace(/\D/g, '');
@@ -30,8 +32,14 @@ export default function StyledMaskDemo() {
         try {
             const response = await axios.post('http://localhost/api/usuario', usuarioDto);
             console.log('Usuário criado:', response.data);
+            setShowPopup(true);
+        
+            // Aguardar os 3 segundos antes de redirecionar
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            
+            setShowPopup(false); //esconde o popup após a espera
             setResponseData(response.data);
-            router.push('http://localhost:3000/login')
+            router.push('http://localhost:3000/login');
         } catch (error) {
             console.error('Erro:', error);
         }
@@ -138,8 +146,8 @@ export default function StyledMaskDemo() {
                     </form>
                 </div>
 
-               {/* Imagem de Fundo (lado direito) */}
-               <div className="hidden md:block w-1/2 h-auto relative">
+                {/* Imagem de Fundo (lado direito) */}
+                <div className="hidden md:block w-1/2 h-auto relative">
                     <img
                         src="images/register/irrigation.jpg"
                         alt="Imagem de fundo"
@@ -149,6 +157,27 @@ export default function StyledMaskDemo() {
                 </div>
 
             </div>
+            <Dialog
+                header=""
+                visible={showPopup}
+                style={{
+                    width: '25vw',
+                    textAlign: 'center',
+                    position: 'absolute',
+                    top: '2%',
+                    left: '89%',
+                    transform: 'translateX(-50%)',
+                    backgroundColor: 'rgba(144, 238, 144, 0.8)',
+                    borderRadius: '8px',
+                }}
+                draggable={false}
+                closable={false}
+                onHide={() => setShowPopup(false)}
+            >
+                <div className="p-4 rounded-md flex items-center justify-center">
+                    <p className="text-sm text-white font-bold">Usuário Cadastrado com Sucesso</p>
+                </div>
+            </Dialog>
         </main>
 
     );

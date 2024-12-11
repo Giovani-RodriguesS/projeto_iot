@@ -17,17 +17,17 @@ export default function AddDevice() {
                 onHide={() => setVisible(false)}
                 showCloseIcon={false}
                 className='flex justify-center items-center'
-                style={{ top: '20%', borderRadius: '10px'}}>
+                style={{ top: '20%'}}>
                 <SidebarDevices />
             </Sidebar>
         </div>
-            <div className='flex justify-start pl-10 w-full mt-5 mb-10'>
+            <div className='flex justify-start w-full mt-5 mb-10'>
               <Button
                 label="Criar novo dispositivo"
                 severity="info"
                 onClick={() => setVisible(true)}
                 raised
-                className="my-custom-button-class"
+                className="my-custom-button-class hover:bg-blue-600"
                   />
             </div>
         </>

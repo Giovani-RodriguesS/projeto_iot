@@ -69,7 +69,7 @@
   background-color: rgb(59, 130, 246); /* Cor principal */
   color: #fff; /* Cor do texto */
   border: none; /* Remove borda padrão */
-  border-radius: 8px; /* Bordas arredondadas */
+  border-radius: 0px 8px 8px 0px; /* Bordas arredondadas */
   padding: 10px 20px; /* Espaçamento interno */
   font-size: 16px; /* Tamanho da fonte */
   font-weight: bold; /* Texto em negrito */
@@ -79,8 +79,7 @@
 }
 
 .my-custom-button-class:hover {
-  background-color: rgb(50, 102, 142); /* Cor ao passar o mouse */
-  transform: scale(1.05); /* Leve aumento no tamanho */
+  transform: scale(1.03); /* Leve aumento no tamanho */
 }
 
 .my-custom-button-class:active {

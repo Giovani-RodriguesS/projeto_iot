@@ -16,6 +16,7 @@ type Device = {
   categoria: "Sensor" | "Bomba";
   localizacao?: string;
   data_instalacao: string;
+  imagem: string; 
 };
 
 
@@ -80,6 +81,7 @@ export default function Devices() {
                 device={device}
                 onEdit={() => handleEdit(device)}
                 onDelete={() => handleDelete(device)}
+                imagem={() => device.imagem }
               />
             ))}
           </div>
