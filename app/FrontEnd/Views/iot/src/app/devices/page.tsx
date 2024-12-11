@@ -1,51 +1,50 @@
 'use client';
-import Header from "@/components/Header";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AddDevice from "./addDevice";
 import { Card } from "@/components/Card";
-import 'primeicons/primeicons.css';
-import EditModal from "@/app/devices/EditModal";
-import DeleteModal from "@/app/devices/DeleteModal";
+import EditSensor from "@/app/devices/editSensor";
+import EditWaterPump from "@/app/devices/editWater_pump";
+import DelSensor from "@/app/devices/delSensor";
+import DelWater_pump from "@/app/devices/delWater_pump";
 
-type Bomba = {
+type Device = {
   id: number;
   nome: string;
   tipo: string;
-  vazao: string;
-  localizacao: string;
+  categoria: "Sensor" | "Bomba";
+  localizacao?: string;
   data_instalacao: string;
 };
 
-type Sensor = {
-  id: number;
-  nome: string;
-  tipo: string;
-  umidade: string;
-  data_instalacao: string;
-};
 
-export default function Device() {
-  const [devices, setDevices] = useState<any[]>([]);
-  const [currentEditBomba, setCurrentEditBomba] = useState<Bomba | null>(null);
-  const [currentEditSensor, setCurrentEditSensor] = useState<Sensor | null>(null);
-  const [currentDeleteBomba, setCurrentDeleteBomba] = useState<Bomba | null>(null);
-  const [currentDeleteSensor, setCurrentDeleteSensor] = useState<Sensor | null>(null);
-
-  const imageMap: Record<string, string> = {
-    bomba: '/images/devices/bomba.webp',
-    sensor_chuva: '/images/devices/sensor_chuva.png',
-    sensor_umidade: '/images/devices/sensor_umidade.jpg',
-  };
+export default function Devices() {
+  const [devices, setDevices] = useState<Device[]>([]);
+  const [currentEditDevice, setCurrentEditDevice] = useState<Device | null>(null);
+  const [currentDeleteDevice, setCurrentDeleteDevice] = useState<Device | null>(null);
 
   const fetchDevices = async () => {
     try {
-      const responseBomba = await axios.get('http://localhost/api/bomba');
-      const responseSensor = await axios.get('http://localhost/api/sensor');
-
-      setDevices([...responseBomba.data, ...responseSensor.data]);
-    } catch (error) {
-      console.error('Erro ao buscar dispositivos:', error);
+      const [responseBomba, responseSensor] = await Promise.all([
+        axios.get<Device[]>("http://localhost/api/bomba"),
+        axios.get<Device[]>("http://localhost/api/sensor"),
+      ]);
+  
+      const bombas = responseBomba.data.map((device) => ({
+        ...device,
+        categoria: "Bomba", // Adicione a categoria para diferenciar
+      }));
+      const sensores = responseSensor.data.map((device) => ({
+        ...device,
+        categoria: "Sensor", // Adicione a categoria para diferenciar
+      }));
+  
+      setDevices([...bombas, ...sensores]);
+    } catch (error: any) {
+      console.error(
+        "Erro ao buscar dispositivos:",
+        error.response?.data?.message || error.message
+      );
     }
   };
 
@@ -53,22 +52,17 @@ export default function Device() {
     fetchDevices();
   }, []);
 
-  const handleEditBomba = (bomba: Bomba) => {
-    setCurrentEditBomba(bomba);
+  const handleEdit = (device: Device) => {
+    setCurrentEditDevice(device);
   };
 
-  const handleEditSensor = (sensor: Sensor) => {
-    setCurrentEditSensor(sensor);
+  const handleDelete = (device: Device) => {
+    setCurrentDeleteDevice(device);
   };
 
-  const closeModalBomba = () => {
-    setCurrentEditBomba(null);
-    setCurrentDeleteBomba(null);
-  };
-
-  const closeModalSensor = () => {
-    setCurrentEditSensor(null);
-    setCurrentDeleteSensor(null);
+  const closeModals = () => {
+    setCurrentEditDevice(null);
+    setCurrentDeleteDevice(null);
   };
 
   return (
@@ -79,48 +73,51 @@ export default function Device() {
         <main>
           <AddDevice />
           <div className="flex flex-wrap justify-center gap-5 mt-2">
-            {devices.map((device: any) => (
+            {devices.map((device) => (
               <Card
-              key={device.id}
-              imageSrc={device.imagem || '/images/devices/default.png'}
-              altText={device.nome || "Dispositivo"}
-              title={device.nome || "Dispositivo"}
-              id={device.id || "N/A"}
-              type={device.tipo || "Desconhecido"}
-              description=""
-            />
+                key={device.id}
+                device={device}
+                onEdit={() => handleEdit(device)}
+                onDelete={() => handleDelete(device)}
+              />
             ))}
           </div>
         </main>
       </div>
-      {currentEditBomba && (
-        <EditModal
-          bomba={currentEditBomba}
-          closeModals={closeModalBomba}
-          refreshUsers={fetchDevices}
-        />
+
+      {/* Modal de edição */}
+      {currentEditDevice && (
+        currentEditDevice.categoria === "Sensor" ? (
+          <EditSensor
+            sensor={currentEditDevice}
+            closeModals={closeModals}
+            refreshSensor={fetchDevices}
+          />
+        ) : (
+          <EditWaterPump
+            water_pump={currentEditDevice}
+            closeModals={closeModals}
+            refreshWater_pump={fetchDevices}
+          />
+        )
       )}
-      {currentEditSensor && (
-        <EditModal
-          sensor={currentEditSensor}
-          closeModals={closeModalSensor}
-          refreshUsers={fetchDevices}
+
+      {/* Modal de exclusão */}
+      {currentDeleteDevice && (
+      currentDeleteDevice.categoria === "Sensor" ? (
+        <DelSensor
+          sensor={currentDeleteDevice}
+          closeModals={closeModals}
+          refreshSensor={fetchDevices}
         />
-      )}
-      {currentDeleteBomba && (
-        <DeleteModal
-          bomba={currentDeleteBomba}
-          closeModals={closeModalBomba}
-          refreshUsers={fetchDevices}
+      ) : (
+        <DelWater_pump
+          bomba={currentDeleteDevice}
+          closeModals={closeModals}
+          refreshWater_pump={fetchDevices}
         />
-      )}
-      {currentDeleteSensor && (
-        <DeleteModal
-          sensor={currentDeleteSensor}
-          closeModals={closeModalSensor}
-          refreshUsers={fetchDevices}
-        />
-      )}
+      )
+    )}
     </div>
   );
 }

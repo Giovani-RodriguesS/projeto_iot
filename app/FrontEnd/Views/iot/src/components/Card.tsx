@@ -1,42 +1,55 @@
 import React from "react";
-import Image from "next/image";
-import 'primeicons/primeicons.css';
+
+type Device = {
+  id: number;
+  nome: string;
+  tipo: string;
+  categoria: "Sensor" | "Bomba";
+  localizacao?: string;
+  data_instalacao: string;
+};
 
 interface CardProps {
-  imageSrc: string;
-  altText: string
-  title: string;
-  id: string;
-  type: string;
-  description: string;
+  device: Device;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-export const Card: React.FC<CardProps> = ({ imageSrc, altText, title, id, type, description }) => {
-
-  
-
-  
+export const Card: React.FC<CardProps> = ({ device, onEdit, onDelete }) => {
   return (
-    <div className="p-4 bg-gray-200 dark:bg-white rounded-xl w-30 flex flex-col items-center">
+    <div className="p-4 bg-gray-200 dark:bg-white rounded-xl w-64 flex flex-col items-center shadow-md">
       <div className="w-full mb-3 flex justify-end items-center">
-        <i className="pi pi-circle-fill" style={{
-          fontSize: '20px',
-          color: 'green'
-        }}></i>
+        <i
+          className="pi pi-circle-fill"
+          style={{
+            fontSize: "20px",
+            color:"green", // Cor dinâmica baseada no tipo
+          }}
+        ></i>
       </div>
-      <Image src={imageSrc} width={70} height={70} className="mb-3 rounded-full" alt={altText} />
-      <div className="text-lg font-bold text-black">{title}</div>
-      <div className="text-sm text-black">ID: {id}</div>
-      <div className="text-sm text-black font-bold">Tipo: {type}</div>
-      <div className="text-sm text-black">{description}</div>
+      <div className="text-lg font-bold text-black">{device.nome}</div>
+      <div className="text-sm text-black">ID: {device.id}</div>
+      <div className="text-sm text-black font-bold">Tipo: {device.tipo}</div>
+      {device.localizacao && (
+        <div className="text-sm text-black">Localização: {device.localizacao}</div>
+      )}
+      <div className="text-sm text-black">
+        Data de Instalação: {device.data_instalacao}
+      </div>
       <div className="mt-4 flex gap-2">
-        <button className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300">
+        <button
+          className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300"
+          onClick={onEdit}
+        >
           Editar
         </button>
-        <button className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300">
+        <button
+          className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-700 transition duration-300"
+          onClick={onDelete}
+        >
           Remover
         </button>
       </div>
     </div>
   );
-}
+};

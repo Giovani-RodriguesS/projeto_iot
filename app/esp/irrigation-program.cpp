@@ -14,8 +14,11 @@ int rele = 4;
 
 // Variáveis
 int estadoSensorUmidade = 0;
+int estadoAnteriorUmidade = -1;
 int estadoSensorChuva = 0;
+int estadoAnteriorChuva = -1;
 bool bombaAtivada = false;
+bool estadoAnteriorBomba = !bombaAtivada;
 
 void setup() {
   Serial.begin(9600);
@@ -51,13 +54,13 @@ void loop() {
   int porcentoSC = map(estadoSensorChuva, 4095, 1000, 0, 100);
 
   // Decisão da bomba
-  if (porcentoSC >= 80 || porcentoSU >= 20) {
+  if (porcentoSC >= 50 || porcentoSU >= 20) {
     Serial.printf("Não precisa regar. Chuva: %d%%, Umidade: %d%%\n", porcentoSC, porcentoSU);
-    digitalWrite(rele, LOW);
+    digitalWrite(rele, HIGH);
     bombaAtivada = false;
   } else {
     Serial.printf("Regando. Chuva: %d%%, Umidade: %d%%\n", porcentoSC, porcentoSU);
-    digitalWrite(rele, HIGH);
+    digitalWrite(rele, LOW);
     bombaAtivada = true;
   }
 
@@ -73,11 +76,32 @@ void loop() {
   String jsonPayloadSC = String("{\"idSensor\":2,\"medida\":") + porcentoSC + "}";
 
   // Enviar os JSONs
-  enviarJSON(serverUrlB, jsonPayloadBO); // Envio para leitura da bomba
-  enviarJSON(serverUrlS, jsonPayloadSU); // Envio para leitura do sensor de umidade
-  enviarJSON(serverUrlS, jsonPayloadSC); // Envio para leitura do sensor de chuva
 
-  delay(3000);
+  mudouEstadoBomba(bombaAtivada, estadoAnteriorBomba) ? enviarJSON(serverUrlB, jsonPayloadBO) : void(); // Envio para leitura da bomba
+  mudouEstadoSensor(estadoSensorUmidade, estadoAnteriorUmidade) ? enviarJSON(serverUrlS, jsonPayloadSU) : void(); // Envio para leitura do sensor de umidade
+  mudouEstadoSensor(estadoSensorChuva, estadoAnteriorChuva) ? enviarJSON(serverUrlS, jsonPayloadSC) : void(); // Envio para leitura do sensor de chuva
+
+  delay(5000);
+}
+
+// Função MudouEstado Sensor
+bool mudouEstadoSensor(int& atual, int& anterior){
+  bool estadoMudou = atual != anterior;
+  if (estadoMudou){
+    Serial.println("Enviar Sensor" + String(anterior));
+    anterior = atual;
+  }
+  return estadoMudou;
+}
+// mudouEstado Bomba
+bool mudouEstadoBomba(bool& atual, bool& anterior){
+  bool estadoMudou = atual != anterior;
+  if (estadoMudou){
+    Serial.println("Enviar Bomba");
+    anterior = atual;
+  }
+  return estadoMudou;
+
 }
 
 // Função para enviar um JSON para um endpoint
