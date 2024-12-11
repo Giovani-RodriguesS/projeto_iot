@@ -1,7 +1,6 @@
 'use client';
 import Header from "@/components/Header";
 import React, { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
 import axios from "axios";
 import AddDevice from "./addDevice";
 import { Card } from "@/components/Card";
@@ -76,7 +75,7 @@ export default function Device() {
     <div className="flex h-screen sm:overflow-hidden">
       <div className="flex-1 h-full bg-white dark:bg-slate-800 text-black dark:text-white">
         <Header title="Irrigação Smart" username="Usuário" />
-        <Navbar />
+  
         <main>
           <AddDevice />
           <div className="flex flex-wrap justify-center gap-5 mt-2">
