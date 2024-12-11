@@ -5,19 +5,33 @@ import AddDevice from "./addDevice";
 import { Card } from "@/components/Card";
 import EditSensor from "@/app/devices/editSensor";
 import EditWaterPump from "@/app/devices/editWater_pump";
-import DelSensor from "@/app/devices/delSensor";
-import DelWater_pump from "@/app/devices/delWater_pump";
 import Header from "@/components/Header";
+import DeleteModal from "@/app/devices/deleteModals";
 
-type Device = {
+// Definição dos tipos
+type Sensor = {
   id: number;
   nome: string;
   tipo: string;
-  categoria: "Sensor" | "Bomba";
+  categoria: "Sensor";
   localizacao?: string;
   data_instalacao: string;
+  umidade: number;
 };
 
+type Bomba = {
+  id: number;
+  nome: string;
+  tipo: string;
+  categoria: "Bomba";
+  localizacao?: string;
+  data_instalacao: string;
+  vazao: number;
+};
+
+type Water_pump = Bomba;
+
+type Device = Sensor | Bomba;
 
 export default function Devices() {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -27,20 +41,21 @@ export default function Devices() {
   const fetchDevices = async () => {
     try {
       const [responseBomba, responseSensor] = await Promise.all([
-        axios.get<Device[]>("http://localhost/api/bomba"),
-        axios.get<Device[]>("http://localhost/api/sensor"),
+        axios.get<Bomba[]>("http://localhost/api/bomba"),
+        axios.get<Sensor[]>("http://localhost/api/sensor"),
       ]);
-  
-      const bombas = responseBomba.data.map((device) => ({
+
+      const bombas: Bomba[] = responseBomba.data.map((device) => ({
         ...device,
-        categoria: "Bomba", // Adicione a categoria para diferenciar
+        categoria: "Bomba",
       }));
-      const sensores = responseSensor.data.map((device) => ({
+      
+      const sensores: Sensor[] = responseSensor.data.map((device) => ({
         ...device,
-        categoria: "Sensor", // Adicione a categoria para diferenciar
+        categoria: "Sensor",
       }));
-  
-      setDevices([...bombas, ...sensores]);
+
+      setDevices([...bombas, ...sensores] as Device[]);
     } catch (error: any) {
       console.error(
         "Erro ao buscar dispositivos:",
@@ -57,8 +72,24 @@ export default function Devices() {
     setCurrentEditDevice(device);
   };
 
-  const handleDelete = (device: Device) => {
-    setCurrentDeleteDevice(device);
+  const handleDelete = async (id: number, categoria: "Sensor" | "Bomba") => {
+    try {
+      const endpoint = categoria === "Sensor"
+        ? `http://localhost/api/sensor/${id}`
+        : `http://localhost/api/bomba/${id}`;
+
+      const response = await axios.delete(endpoint);
+
+      if (response.status === 204) {
+        await fetchDevices();
+        console.log("Dispositivo deletado com sucesso.");
+      }
+    } catch (error: any) {
+      console.error(
+        "Erro ao deletar dispositivo:",
+        error.response?.data?.message || error.message
+      );
+    }
   };
 
   const closeModals = () => {
@@ -66,11 +97,15 @@ export default function Devices() {
     setCurrentDeleteDevice(null);
   };
 
+  const isWaterPump = (device: Device): device is Water_pump => {
+    return device.categoria === "Bomba" && "vazao" in device;
+  };
+
   return (
     <div className="flex h-screen sm:overflow-hidden">
       <div className="flex-1 h-full bg-white dark:bg-slate-800 text-black dark:text-white">
         <Header title="Irrigação Smart" username="Usuário" />
-  
+
         <main>
           <AddDevice />
           <div className="flex flex-wrap justify-center gap-5 mt-2">
@@ -79,46 +114,39 @@ export default function Devices() {
                 key={device.id}
                 device={device}
                 onEdit={() => handleEdit(device)}
-                onDelete={() => handleDelete(device)}
+                onDelete={() => setCurrentDeleteDevice(device)}
               />
             ))}
           </div>
         </main>
       </div>
 
-      {/* Modal de edição */}
       {currentEditDevice && (
         currentEditDevice.categoria === "Sensor" ? (
           <EditSensor
-            sensor={currentEditDevice}
+            sensor={currentEditDevice as Sensor}
             closeModals={closeModals}
             refreshSensor={fetchDevices}
           />
         ) : (
-          <EditWaterPump
-            water_pump={currentEditDevice}
-            closeModals={closeModals}
-            refreshWater_pump={fetchDevices}
-          />
+          isWaterPump(currentEditDevice) && (
+            <EditWaterPump
+              water_pump={currentEditDevice as Water_pump}
+              closeModals={closeModals}
+              refreshWater_pump={fetchDevices}
+            />
+          )
         )
       )}
 
       {/* Modal de exclusão */}
       {currentDeleteDevice && (
-      currentDeleteDevice.categoria === "Sensor" ? (
-        <DelSensor
-          sensor={currentDeleteDevice}
+        <DeleteModal
+          device={currentDeleteDevice}
           closeModals={closeModals}
-          refreshSensor={fetchDevices}
+          onDeviceDelete={handleDelete}
         />
-      ) : (
-        <DelWater_pump
-          bomba={currentDeleteDevice}
-          closeModals={closeModals}
-          refreshWater_pump={fetchDevices}
-        />
-      )
-    )}
+      )}
     </div>
   );
 }
