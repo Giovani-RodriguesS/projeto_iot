@@ -2,14 +2,13 @@ import React from "react";
 import LineChart from "@/app/dashboard/LineChart";
 import PieChart from "@/app/dashboard/PieChart";
 import Header from "@/components/Header";
-import Navbar from "@/components/Navbar";
+
 
 export default function Reports() {
   return (
     <div className="flex min-h-screen overflow-x-hidden">
       <div className="flex-1 bg-white dark:bg-slate-800 text-black dark:text-white w-full">
         <Header title="Irrigação Smart" username="Usuário" />
-        <Navbar />
         <main>
           <div className="flex flex-wrap gap-4 justify-center mt-7 px-5">
             <div className="p-4 bg-red-500 rounded-lg w-60 flex flex-col items-center justify-center">

@@ -2,7 +2,6 @@
 import React from 'react';
 import { TabView, TabPanel } from 'primereact/tabview';
 import Header from '@/components/Header';
-import Navbar from '@/components/Navbar';
 import '../globals.css';
 
 export default function Home() {
@@ -10,8 +9,7 @@ export default function Home() {
     <div className="flex h-screen overflow-x-hidden">
       <div className="flex-1 bg-white dark:bg-slate-800 text-black dark:text-white w-full">
         <Header title="Irrigação Smart" username="Usuário" />
-        <Navbar />
-        <main className="custom-tabview flex justify-center h-auto mt-4">
+        <main className="custom-tabview flex justify-center h-auto mt-16">
           <div className="card bg-gray-200 dark:bg-slate-700 p-2 rounded-lg shadow mt-0 text-xl w-full max-w-screen-xl">
             {/* TabView com as abas dividindo o espaço da tela */}
             <TabView className="dark:text-gray-100 w-full">

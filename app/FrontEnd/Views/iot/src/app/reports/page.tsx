@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Header from "@/components/Header";
-import Navbar from "@/components/Navbar";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { jsPDF } from "jspdf";
@@ -238,8 +237,7 @@ export default function Reports() {
     <div className="flex flex-col h-screen bg-white dark:bg-slate-800 text-black dark:text-white sm:overflow-hidden">
       <div className="flex-1">
         <Header title="Irrigação Smart" username="Usuário" />
-        <Navbar />
-        <main className="w-full px-2 sm:px-8 py-4 flex-1">
+        <main className="w-full px-2 sm:px-8 py-4 mt-16 flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             {/*Configuração*/}

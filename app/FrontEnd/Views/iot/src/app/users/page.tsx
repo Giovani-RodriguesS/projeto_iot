@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import Navbar from "@/components/Navbar";
 import axios from "axios";
 import { UserCard } from "@/components/CardUsers";
 import EditModal from "@/app/users/EditModal";
@@ -50,9 +49,8 @@ export default function Users() {
     <div className="flex h-screen sm:overflow-hidden">
       <div className="flex-1 h-full bg-white dark:bg-slate-800 text-black dark:text-white">
         <Header title="Irrigação Smart" username="Usuário" />
-        <Navbar />
         <main className="w-full max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-5 mt-4">
+          <div className="flex flex-wrap justify-center gap-5 mt-16">
             {users.map((user) => (
               <UserCard
                 key={user.id}
