@@ -7,6 +7,7 @@ import EditSensor from "@/app/devices/editSensor";
 import EditWaterPump from "@/app/devices/editWater_pump";
 import DelSensor from "@/app/devices/delSensor";
 import DelWater_pump from "@/app/devices/delWater_pump";
+import Header from "@/components/Header";
 
 type Device = {
   id: number;
