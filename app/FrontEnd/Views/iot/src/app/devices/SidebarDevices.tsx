@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SelectButton, SelectButtonChangeEvent } from "primereact/selectbutton";
 import Water_pump from "./type/water_pump";
 import Sensor from "./type/sensor";
@@ -87,8 +87,10 @@ export default function SidebarDevices() {
               imagem: formData.imagem
             };
 
-      const response = await axios.post(endpoint, payload);
-      console.log("Dispositivo cadastrado com sucesso: ", response.data);
+      const responsePOST = await axios.post(endpoint, payload);
+      console.log("Dispositivo cadastrado com sucesso: ", responsePOST.data);
+      
+      resetFormData(formData.dispositivo);
 
       setShowPopup(true); // Exibe o pop-up
       setTimeout(() => setShowPopup(false), 2000); // Oculta após 2 segundos

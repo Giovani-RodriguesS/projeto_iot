@@ -6,7 +6,7 @@ type Water_pump = {
   nome: string;
   tipo: string;
   vazao: number;
-  localizacao: string;
+  localizacao?: string;
   data_instalacao: string;
 };
 
@@ -15,6 +15,7 @@ interface EditModalProps {
   closeModals: () => void;
   refreshWater_pump: () => void;
 }
+
 
 const EditWater_pump: React.FC<EditModalProps> = ({ water_pump, closeModals, refreshWater_pump }) => {
   const [editedWater_pump, setEditedWater_pump] = useState<Water_pump>(water_pump);

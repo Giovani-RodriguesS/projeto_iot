@@ -9,6 +9,7 @@ type Device = {
   localizacao?: string;
   data_instalacao: string;
   imagem: string;
+  umidade?:number;
 };
 
 interface CardProps {
@@ -41,7 +42,10 @@ export const Card: React.FC<CardProps> = ({ device, onEdit, onDelete }) => {
       </div>
       <div className="text-lg font-bold text-black">{device.nome}</div>
       <div className="text-sm text-black">ID: {device.id}</div>
-      <div className="text-sm text-black font-bold">Tipo: {device.tipo}</div>
+      <div className="text-sm text-black">Tipo: {device.tipo}</div>
+      {device.umidade && (
+        <div className="text-sm text-black">Umidade: {device.umidade}</div>
+      )}
       {device.localizacao && (
         <div className="text-sm text-black">Localização: {device.localizacao}</div>
       )}
