@@ -101,7 +101,7 @@ namespace BackEnd.Controllers
                 Data_instalacao = bombaDto.Data_instalacao
             };
 
-            bomba.Imagem = "/images/devices/bomba.webp";
+            bomba.Imagem = "/images/devices/bomba.png";
 
             // Adiciona a bomba ao contexto do banco de dados
             _context.Bomba.Add(bomba);

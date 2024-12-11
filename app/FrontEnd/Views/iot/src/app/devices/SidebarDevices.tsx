@@ -94,8 +94,8 @@ export default function SidebarDevices() {
   };
 
   return (
-    <div className="card flex flex-col bg-gray-100 rounded-lg">
-      <h2 className="sidebar-title bg-slate-600 text-center" style={{fontSize:'1.5rem', borderRadius: '5px 5px 0px 0px'}}>Cadastro Dispositivo</h2>
+    <div className="card flex flex-col bg-gray-100 mt-4" style={{borderRadius: '0px 8px 8px 0px'}}>
+      <h2 className="sidebar-title bg-blue-500 text-center" style={{fontSize:'1.5rem', borderRadius: '0px 8px 0px 0px'}}>Cadastro Dispositivo</h2>
       {/* SelectButton */}
       <div className="flex justify-center items-center mt-0 w-full">
         <SelectButton

@@ -50,7 +50,7 @@ export const Card: React.FC<CardProps> = ({ device, onEdit, onDelete }) => {
       </div>
       <div className="mt-4 flex gap-2">
         <button
-          className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-700 transition duration-300"
+          className="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-600 transition duration-300"
           onClick={onEdit}
         >
           Editar
