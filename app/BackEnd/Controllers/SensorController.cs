@@ -56,7 +56,7 @@ namespace BackEnd.Controllers
             sensor.Data_instalacao = sensorDTO.Data_instalacao;
             sensor.Umidade = sensorDTO.Umidade;
 
-            sensor.Imagem = "/images/devices/sensor_umidade.jpg";
+            sensor.Imagem = "/images/devices/sensor_umidade.png";
         
             // Marcar a entidade como modificada
             _context.Entry(sensor).State = EntityState.Modified;
@@ -104,7 +104,7 @@ namespace BackEnd.Controllers
                 Umidade = sensorDTO.Umidade
             };
 
-            sensor.Imagem = "/images/devices/sensor_umidade.jpg";
+            sensor.Imagem = "/images/devices/sensor_umidade.png";
         
             // Adiciona o novo sensor ao contexto
             _context.Sensor.Add(sensor);

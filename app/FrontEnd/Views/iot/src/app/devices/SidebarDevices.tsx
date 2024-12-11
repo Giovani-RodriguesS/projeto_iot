@@ -4,6 +4,7 @@ import Water_pump from "./type/water_pump";
 import Sensor from "./type/sensor";
 import { Button } from "primereact/button";
 import axios from "axios";
+import { image } from "html2canvas/dist/types/css/types/image";
 
 export default function SidebarDevices() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function SidebarDevices() {
     nome: "",
     data_instalacao: "",
     umidade: "",
+    imagem:""
   });
 
   const options = [
@@ -31,6 +33,7 @@ export default function SidebarDevices() {
         nome: "",
         data_instalacao: "",
         umidade: "",
+        imagem:""
       });
   } else if (dispositivo === "Sensor"){
     setFormData({
@@ -41,6 +44,7 @@ export default function SidebarDevices() {
       nome: "",
       data_instalacao: "",
       umidade: "",
+      imagem:""
       });
     }
   }
@@ -72,12 +76,14 @@ export default function SidebarDevices() {
               vazao: formData.vazao,
               localizacao: formData.localizacao,
               data_instalacao: formData.data_instalacao,
+              imagem: formData.imagem,
             }
           : {
               nome: formData.nome,
               tipo: formData.tipo,
               umidade: formData.umidade,
               data_instalacao: formData.data_instalacao,
+              imagem: formData.imagem,
             };
 
       const responsePOST = await axios.post(endpoint, payload);
@@ -91,8 +97,8 @@ export default function SidebarDevices() {
   };
 
   return (
-    <div className="card flex flex-col bg-gray-100 rounded-lg">
-      <h2 className="sidebar-title bg-slate-600 text-center" style={{fontSize:'1.5rem', borderRadius: '5px 5px 0px 0px'}}>Cadastro Dispositivo</h2>
+    <div className="card flex flex-col bg-gray-100 mt-4" style={{borderRadius: '0px 8px 8px 0px'}}>
+      <h2 className="sidebar-title bg-blue-500 text-center" style={{fontSize:'1.5rem', borderRadius: '0px 8px 0px 0px'}}>Cadastro Dispositivo</h2>
       {/* SelectButton */}
       <div className="flex justify-center items-center mt-0 w-full">
         <SelectButton

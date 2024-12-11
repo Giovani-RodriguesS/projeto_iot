@@ -14,9 +14,9 @@ type Sensor = {
   nome: string;
   tipo: string;
   categoria: "Sensor";
-  localizacao?: string;
   data_instalacao: string;
   umidade: number;
+  imagem: string;
 };
 
 type Bomba = {
@@ -27,6 +27,7 @@ type Bomba = {
   localizacao?: string;
   data_instalacao: string;
   vazao: number;
+  imagem: string;
 };
 
 type Water_pump = Bomba;
@@ -115,6 +116,7 @@ export default function Devices() {
                 device={device}
                 onEdit={() => handleEdit(device)}
                 onDelete={() => setCurrentDeleteDevice(device)}
+                imagem={() => device.imagem }
               />
             ))}
           </div>

@@ -96,7 +96,7 @@ namespace BackEnd.Controllers
             }
 
             // Se email e senha estiverem corretos, retorna sucesso
-            return Ok("Login realizado com sucesso");
+            return Ok(new { Message = "Login realizado com sucesso", NomeUsuario = usuario.Nome });
         }
 
 
