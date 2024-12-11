@@ -64,3 +64,33 @@
     hover:bg-gray-800 focus:outline-none focus:ring-2
     focus:ring-blue-500 focus:ring-opacity-50;
   }
+
+.my-custom-button-class {
+  background-color: rgb(59, 130, 246); /* Cor principal */
+  color: #fff; /* Cor do texto */
+  border: none; /* Remove borda padrão */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 10px 20px; /* Espaçamento interno */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: bold; /* Texto em negrito */
+  cursor: pointer; /* Cursor em forma de mão */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Suaviza animações */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.my-custom-button-class:hover {
+  background-color: rgb(50, 102, 142); /* Cor ao passar o mouse */
+  transform: scale(1.05); /* Leve aumento no tamanho */
+}
+
+.my-custom-button-class:active {
+  background-color: rgb(40, 92, 132); /* Cor ao clicar */
+  transform: scale(0.98); /* Redução leve para dar efeito de "pressionado" */
+}
+
+.my-custom-button-class:disabled {
+  background-color: rgb(200, 200, 200); /* Cor para estado desativado */
+  color: rgb(120, 120, 120); /* Texto mais claro */
+  cursor: not-allowed; /* Cursor de desativado */
+  box-shadow: none; /* Remove sombra */
+}
