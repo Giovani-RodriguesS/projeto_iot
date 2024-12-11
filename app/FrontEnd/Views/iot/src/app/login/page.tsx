@@ -120,7 +120,7 @@ export default function Profile() {
             onHide={() => setShowPopup(false)}
             >
             <div className="p-4 rounded-md flex items-center justify-center">
-                <p className="text-sm text-red font-bold">Email ou senha incorretos</p>
+                <p className="text-sm text-white font-bold">E-mail ou Senha incorretos</p>
             </div>
             </Dialog>
         </main>
