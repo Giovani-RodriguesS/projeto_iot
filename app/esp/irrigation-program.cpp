@@ -78,8 +78,8 @@ void loop() {
   // Enviar os JSONs
 
   mudouEstadoBomba(bombaAtivada, estadoAnteriorBomba) ? enviarJSON(serverUrlB, jsonPayloadBO) : void(); // Envio para leitura da bomba
-  mudouEstadoSensor(estadoSensorUmidade, estadoAnteriorUmidade) ? enviarJSON(serverUrlS, jsonPayloadSU) : void(); // Envio para leitura do sensor de umidade
-  mudouEstadoSensor(estadoSensorChuva, estadoAnteriorChuva) ? enviarJSON(serverUrlS, jsonPayloadSC) : void(); // Envio para leitura do sensor de chuva
+  mudouEstadoSensor(porcentoSU, estadoAnteriorUmidade) ? enviarJSON(serverUrlS, jsonPayloadSU) : void(); // Envio para leitura do sensor de umidade
+  mudouEstadoSensor(porcentoSC, estadoAnteriorChuva) ? enviarJSON(serverUrlS, jsonPayloadSC) : void(); // Envio para leitura do sensor de chuva
 
   delay(5000);
 }
