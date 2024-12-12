@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 const sgMail = require('@sendgrid/mail')
 
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 export async function POST(request: Request) {
     try {
@@ -14,9 +14,9 @@ export async function POST(request: Request) {
 
         const msg = {
             to: email,
-            from: 'gabrielbrizola13@gmail.com', // Verifique se este endereço está autorizado no SendGrid
-            subject: 'Sua nova senha',
-            text: `Sua nova senha é: ${novasenha}`,
+            from: 'smartirrigacao001@gmail.com', // Verifique se este endereço está autorizado no SendGrid
+            subject: 'Recuperação de Senha',
+            text: '',
             html:`
         <div style="font-family: Arial, sans-serif; line-height: 1.5; color: #333;">
             <table style="max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
