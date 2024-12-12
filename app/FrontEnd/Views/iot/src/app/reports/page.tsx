@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, } from "chart.js";
@@ -10,17 +9,20 @@ import 'quill/dist/quill.snow.css';
 import html2canvas from "html2canvas";
 import LineChart from "../dashboard/LineChart";
 import PieChart from "../dashboard/PieChart";
-
+import { Calendar } from "primereact/calendar";
+import { format } from 'date-fns';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function Reports() {
   const [parameters, setParameters] = useState<{
-    reportTypes: string[]; // Armazena os tipos de relatórios selecionados.
-    notes: string; // Armazena as observações do usuário.
+    reportTypes: string[];
+    notes: string;
+    dates: [Date, Date] | null;
   }>({
-    reportTypes: [], // Inicializa os tipos de relatório como um array vazio.
-    notes: "", // Inicializa as observações como uma string vazia.
+    reportTypes: [],
+    notes: "",
+    dates: null,
   });
 
   const [chartData, setChartData] = useState<{
@@ -67,7 +69,6 @@ export default function Reports() {
   // Função principal para gerar o PDF
   const downloadPDFHandler = async () => {
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' }); // Cria uma nova instância do jsPDF para gerar o relatório PDF.
-    const chartCanvas = document.querySelector("canvas") as HTMLCanvasElement; // Seleciona o elemento <canvas> do gráfico (se existir).
 
     // Cabeçalho do Relatório
     pdf.setFillColor(230, 230, 230); // Define a cor de fundo do cabeçalho.
@@ -81,19 +82,34 @@ export default function Reports() {
     pdf.setFont("helvetica", "normal"); // Define a fonte como normal (não negrito).
     pdf.setTextColor(0, 0, 0); // Define a cor do texto como preto.
     pdf.setFontSize(12); // Define o tamanho da fonte para os detalhes.
+
+    const { dates } = parameters;
+    const formattedStartDate = dates?.[0] ? format(dates[0], 'dd/MM/yyyy') : '';
+    const formattedEndDate = dates?.[1] ? format(dates[1], 'dd/MM/yyyy') : '';
+    const dateRange = formattedStartDate && formattedEndDate
+      ? `${formattedStartDate} - ${formattedEndDate}`
+      : "Período não selecionado";
+
+    pdf.text(`Período Selecionado: ${dateRange}`, 10, 40);
+
+    const now: Date = new Date();
+    const formattedDate: string = format(now, "dd/MM/yyyy - HH:mm:ss");
+    pdf.text(`Data de Impressão: ${formattedDate}`, 10, 50);
+  
     pdf.text(
       `Tipo de Relatório: ${parameters.reportTypes.join(", ") || "N/A"}`,
-      10, 50 // Adiciona o(s) tipo(s) de relatório selecionados.
+      10, 60
     );
 
-    let nextYPosition = 60; // Define a posição Y inicial para o conteúdo abaixo do cabeçalho.
+    let nextYPosition = 70; // Define a posição Y inicial para o conteúdo abaixo do cabeçalho.
 
     // Gráfico
-    if (chartCanvas) { // Verifica se o gráfico está presente.
-      const chartImage = chartCanvas.toDataURL("image/png"); // Converte o gráfico para uma imagem base64.
-      const chartHeight = 90; // Define a altura do gráfico no PDF.
-      pdf.addImage(chartImage, "PNG", 10, nextYPosition, 190, chartHeight); // Adiciona o gráfico ao PDF.
-      nextYPosition += chartHeight + 10; // Atualiza a posição Y para continuar após o gráfico.
+    const chartCanvas = document.querySelector("canvas") as HTMLCanvasElement;
+    if (chartCanvas) {
+      const chartImage = chartCanvas.toDataURL("image/png");
+      const chartHeight = 90;
+      pdf.addImage(chartImage, "PNG", 10, nextYPosition, 190, chartHeight);
+      nextYPosition += chartHeight + 10;
     }
 
     // Tabela de Dados
@@ -161,7 +177,19 @@ export default function Reports() {
               <h2 className="text-xl sm:text-2xl font-semibold text-black mb-4 text-center">
                 Configuração de Relatório
               </h2>
-
+              <Calendar
+                value={parameters.dates}
+                onChange={(e) =>
+                  setParameters({ ...parameters, dates: e.value as [Date, Date] | null })
+                }
+                selectionMode="range"
+                readOnlyInput
+                hideOnRangeSelection
+                showIcon
+                placeholder="Selecione um período"
+                className="w-full mb-4 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 dark:border-gray-600 dark:text-black"
+                panelClassName="custom-calendar-panel"
+              />
               <div className="mb-3">
                 <div className="flex flex-wrap gap-2 justify-center">
                   <Checkbox
