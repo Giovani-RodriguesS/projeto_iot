@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.custom-tabmenu .p-tabmenu-nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem {
+  transition: color 0.3s ease;
+  margin-right: 4rem;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem:last-child {
+  margin-right: 0;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight {
+  border-radius: 2rem;
+  transition: color 0.3s ease, border 0.3s ease;
+}
+
+.custom-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight {
+  border-radius: 2rem;
+}
+
+.custom-tabmenu .p-menuitem-link .pi {
+  margin-right: 1rem;
+}
+
+/* ========== ESTILO PRINCIPAL DO TABVIEW ========== */
+
+/* Define o contêiner principal do componente TabView */
+.custom-tabview .p-tabview {
+  width: 100%; /* Largura total do componente */
+  height: auto; /* Altura fixa */
+   /* Remove espaçamento à direita */
+}
+
+/* Painel interno com rolagem e conteúdo */
+.custom-tabview .p-tabview-panel {
+  height: calc(100% - 50px); /* Altura restante do componente, subtraindo a altura da barra de navegação */
+  padding: 1rem; /* Espaçamento interno */
+  color: #d1d5db; /* Cor do texto do painel */
+}
+
+/* Estilo para parágrafos dentro do conteúdo do TabView */
+.custom-tabview .p-tabview p {
+  line-height: 1.5; /* Espaçamento entre linhas */
+  margin: 0; /* Remove margens externas */
+}
+
+/* ========== ESTILO DA BARRA DE NAVEGAÇÃO ========== */
+
+/* Barra de navegação principal (abas) */
+.custom-tabview .p-tabview-nav {
+  display: flex; /* Flexbox para organizar as abas */
+  border-bottom: 2px solid #4b5563; /* Linha de separação entre abas e conteúdo */
+}
+
+
+/* Abas individuais */
+.custom-tabview .p-tabview-nav li {
+  padding: 3px; /* Espaçamento interno */
+  flex: 0 1 auto; /* Controle de largura flexível das abas */
+  text-align: center; /* Alinha o texto dentro das abas à direita */
+  margin-left: 10rem;
+}
+
+/* ========== ESTILO DO TÍTULO DA ABA ========== */
+
+/* Contêiner principal do título das abas */
+.custom-tabview .p-tabview-nav li .p-tabview-title {
+  display: flex; /* Exibe ícones e texto em linha */
+  align-items: center; /* Alinha verticalmente os elementos */
+  justify-content: space-between; /* Distribui ícones e texto com espaço entre eles */
+  gap: 2.5rem; /* Espaço entre texto e ícone */
+}
+
+/* Texto do título da aba */
+.custom-tabview .p-tabview-nav li .p-tabview-title span {
+  margin-left: 100px; /* Desloca o texto horizontalmente */
+  font-size: 1rem; /* Define o tamanho do texto */
+}
+
+/* ========== ESTILO DOS ÍCONES NAS ABAS ========== */
+
+/* Estiliza os ícones dentro do TabView */
+.custom-tabview .custom-tabview-custom i,
+.custom-tabview-demo .custom-tabview-custom span {
+  vertical-align: middle; /* Centraliza o ícone em relação ao texto */
+  display: flex; /* Define o layout como flexbox */
+  align-items: center; /* Alinha verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+}
+
+/* Espaçamento ao redor de spans adicionais */
+.custom-tabview .tabview-custom span {
+  margin: 0 0.5rem; /* Adiciona espaçamento horizontal */
+}
+
+/* ========== BOTÕES INTERNOS DO TABVIEW ========== */
+
+/* Ajuste para botões dentro do componente */
+.custom-tabview .p-button {
+  margin-right: 0.25rem; /* Adiciona espaçamento à direita de botões */
+}
+
+
+
+.p-unselected .pi {
+  color: #ffffff; 
+}
+
+.custom-select-button .p-selectbutton-button {
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.custom-select-button .p-selectbutton-button:hover {
+  background-color: #e0e0e0;
+}
+
+.custom-select-button .p-highlight {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.sidebar-large-text {
+  font-size: 1.5rem;
+}
+
+.sidebar-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.custom-calendar-panel {
+  background-color: #ffffff !important; /* Fundo branco */
+  color: #000000 !important; /* Texto preto */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra leve */
+}
+
+.custom-calendar-day {
+  color: #1f2937; /* Cor do texto dos números */
+}
