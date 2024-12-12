@@ -76,6 +76,41 @@ namespace BackEnd.Controllers
             return NoContent();
         }
 
+                // PUT: api/Usuario/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}/password")]
+        public async Task<IActionResult> UpdatePassword(int id, string newPassword)
+        {   
+            var usuario = await _context.Usuario.FindAsync(id);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            usuario.Senha = newPassword;
+
+            _context.Entry(usuario).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UsuarioExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/Usuario/login
         [HttpPost("login")]
         public async Task<ActionResult<string>> LoginUsuario(LoginDTO loginDto)
