@@ -11,24 +11,21 @@ export default function DoughnutChartDemo() {
         try {
             const leiturasResponse = await axios.get('http://localhost/api/LeituraSensor');
 
-            const leituras = leiturasResponse.data; // Dados do endpoint api/LeituraSensor
+            const leituras = leiturasResponse.data;
 
-            // Filtrar as leituras do sensor de chuva (id 2)
-            const leiturasDeChuva = leituras.filter((item: { idSensor: number; }) => item.idSensor === 2);
+            const leiturasDeChuva = leituras.filter((item: { idSensor: number }) => item.idSensor === 2);
 
-            // Contar as ocorrências de "choveu" e "não choveu"
             let choveu = 0;
             let naoChoveu = 0;
 
             leiturasDeChuva.forEach((leitura: { medida: number }) => {
-                if (leitura.medida > 5) { // Ajuste o limite conforme necessário
+                if (leitura.medida > 5) {
                     choveu++;
                 } else {
                     naoChoveu++;
                 }
             });
-            
-            // Configurar os dados do gráfico
+
             const documentStyle = getComputedStyle(document.documentElement);
             const data = {
                 labels: ['Choveu', 'Não choveu'],
@@ -49,7 +46,7 @@ export default function DoughnutChartDemo() {
 
             setChartData(data);
         } catch (error) {
-            console.log('Erro ao buscar dados:', error);
+            console.error('Erro ao buscar dados:', error);
         }
     };
 
@@ -58,15 +55,41 @@ export default function DoughnutChartDemo() {
 
         const options = {
             cutout: '70%',
-            responsive: true
+            responsive: true,
         };
 
         setChartOptions(options);
+
+        const interval = setInterval(() => {
+            fetchData();
+        }, 10000);
+
+        return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className="card flex justify-content-center">
+        <div className="card flex flex-column align-items-center text-black">
             <Chart type="doughnut" data={chartData} options={chartOptions} />
+            <div className="mt-4 text-center">
+                <h4>Legenda</h4>
+                <div className="legend-container">
+                    {chartData.labels?.map((label, index) => (
+                        <div key={index} className="legend-item flex align-items-center mb-2">
+                            <span
+                                style={{
+                                    display: 'inline-block',
+                                    width: '16px',
+                                    height: '16px',
+                                    backgroundColor: chartData.datasets?.[0]?.backgroundColor[index],
+                                    marginRight: '8px',
+                                    borderRadius: '50%',
+                                }}
+                            ></span>
+                            <span>{label}: {chartData.datasets?.[0]?.data[index]}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

@@ -21,7 +21,7 @@ export default function LineChart() {
   const [chartData, setChartData] = useState<any>(null);
   const [chartOptions, setChartOptions] = useState<any>(null);
 
-  const SLIDING_WINDOW_SIZE = 30;
+  const SLIDING_WINDOW_SIZE = 60;
 
   const fetchChartData = async () => {
     try {
@@ -47,7 +47,7 @@ export default function LineChart() {
       // Estado da bomba dentro da janela deslizante
       const pumpStates = labels.map((hora) => {
         const pumpReading = pumpData.find((item) => item.hora === hora);
-        return pumpReading ? pumpReading.bombaAtivada : 0;
+        return pumpReading ? 1 : 0;
       });
 
       const data = {
@@ -168,7 +168,7 @@ export default function LineChart() {
     fetchChartData();
 
     // Configurar auto-atualização a cada 30 segundos
-    const intervalId = setInterval(fetchChartData, 30000); // 30000ms = 30 segundos
+    const intervalId = setInterval(fetchChartData, 10000); // 30000ms = 30 segundos
 
     // Limpar o intervalo quando o componente for desmontado
     return () => clearInterval(intervalId);
