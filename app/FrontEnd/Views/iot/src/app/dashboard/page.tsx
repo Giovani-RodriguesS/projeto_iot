@@ -66,14 +66,13 @@ export default function Reports() {
               <div className="text-lg pt-2">Umidade Atual</div>
             </div>
 
-            {/* Card Umidade Chuva */}
-            <div className="p-4 bg-blue-400 rounded-lg w-80 flex flex-col items-center justify-center text-black dark:text-black">
-              <div className="flex items-center">
-                <i className="text-4xl mr-2"><FaCloudRain /></i>
-                <span className="text-2xl">{ultimaMedidaChuva ?? "Carregando..."}</span>
-              </div>
-              <div className="text-lg pt-2">Umidade de Chuva Atual</div>
+          {/* Card Umidade Chuva */}
+          <div className="p-4 bg-blue-400 rounded-lg w-80 flex flex-col items-center justify-center text-black dark:text-black">
+            <div className="flex items-center">
+              <i className="text-4xl mr-2"><FaCloudRain /></i>
+              <span className="text-2xl">{ultimaMedidaChuva ?? "Carregando..."}</span>
             </div>
+            <div className="text-lg pt-2">Leitura do Sensor de Chuva</div>
           </div>
 
           {/* Gráficos */}
@@ -91,6 +90,7 @@ export default function Reports() {
                 <PieChart />
               </div>
             </div>
+          </div>
           </div>
         </main>
       </div>
