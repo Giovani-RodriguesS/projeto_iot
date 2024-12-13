@@ -1,0 +1,23 @@
+#STEP 1
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+
+
+#STEP 2
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY . .
+WORKDIR /src
+
+RUN dotnet restore "BackEnd.csproj" && dotnet build "BackEnd.csproj" -c Release -o /app/build
+RUN dotnet publish "BackEnd.csproj" -c Release -o /app/publish
+
+# FINAL BUILD
+
+FROM base AS final
+WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 80
+
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "BackEnd.dll"]
