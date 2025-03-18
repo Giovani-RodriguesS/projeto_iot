@@ -15,7 +15,6 @@
     "chart.js": "^4.4.6",
     "date-fns": "^4.1.0",
     "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.2",
     "next": "^14.2.11",
     "primeicons": "^7.0.0",
     "primereact": "^10.8.5",
